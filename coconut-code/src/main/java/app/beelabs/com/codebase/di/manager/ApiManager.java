@@ -1,10 +1,8 @@
-package app.beelabs.com.coconut.presenter.di.manager;
+package app.beelabs.com.codebase.di.manager;
 
-import app.beelabs.com.coconut.IConfig;
-import app.beelabs.com.coconut.model.api.ApiService;
-import app.beelabs.com.coconut.presenter.di.IApi;
 import app.beelabs.com.codebase.base.BaseManager;
-
+import app.beelabs.com.codebase.di.IApi;
+import app.beelabs.com.codebase.di.IApiService;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -13,20 +11,19 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 
 public class ApiManager extends BaseManager implements IApi {
-    private ApiService api;
-
+    private Object api;
 
     @Override
-    public ApiService getApiService() {
+    public Object getApiService(String apiDomain, Class<IApiService> clazz) {
 
 
         if (api == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(IConfig.API_BASE_URL)
+                    .baseUrl(apiDomain)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .client(getHttpClient())
                     .build();
-            api = retrofit.create(ApiService.class);
+            api = retrofit.create(clazz);
         }
         return api;
     }

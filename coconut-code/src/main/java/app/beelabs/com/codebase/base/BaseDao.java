@@ -1,6 +1,4 @@
 package app.beelabs.com.codebase.base;
-import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BaseFragment;
 import retrofit2.Callback;
 
 /**

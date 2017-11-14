@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
+import app.beelabs.com.codebase.di.IProgress;
+import app.beelabs.com.codebase.di.component.AppComponent;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -51,55 +53,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
         ac.onApiFailureCallback(t.getMessage());
     }
 
+    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao) {
+        showApiProgressDialog(appComponent, dao, null);
+    }
 
-    // --- optimize VM, Memory, GC usage ---
-//    @Override
-//    public void onTrimMemory(int level) {
-//        switch (level) {
-//            case ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN:
-//                /*
-//                   Release any UI objects that currently hold memory.
-//
-//                   The user interface has moved to the background.
-//                */
-//                break;
-//            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE:
-//            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW:
-//            case ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL:
-//                /*
-//                   Release any memory that your app doesn't need to run.
-//
-//                   The device is running low on memory while the app is running.
-//                   The event raised indicates the severity of the memory-related event.
-//                   If the event is TRIM_MEMORY_RUNNING_CRITICAL, then the system will
-//                   begin killing background processes.
-//                */
-//
-//                break;
-//
-//            case ComponentCallbacks2.TRIM_MEMORY_BACKGROUND:
-//            case ComponentCallbacks2.TRIM_MEMORY_MODERATE:
-//            case ComponentCallbacks2.TRIM_MEMORY_COMPLETE:
-//                /*
-//                   Release as much memory as the process can.
-//
-//                   The app is on the LRU list and the system is running low on memory.
-//                   The event raised indicates where the app sits within the LRU list.
-//                   If the event is TRIM_MEMORY_COMPLETE, the process will be one of
-//                   the first to be terminated.
-//                */
-//
-//                break;
-//
-//            default:
-//                /*
-//                  Release any non-critical data structures.
-//
-//                  The app received an unrecognized memory level value
-//                  from the system. Treat this as a generic low-memory message.
-//                */
-//                break;
-//        }
-//    }
+    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message) {
+        IProgress progress = appComponent.getProgressDialog();
+        progress.showProgressDialog(this, message);
+        dao.call();
+    }
 
 }

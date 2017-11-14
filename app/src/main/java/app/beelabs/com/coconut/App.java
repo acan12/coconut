@@ -3,11 +3,10 @@ package app.beelabs.com.coconut;
 import android.app.Application;
 import android.content.Context;
 
-import app.beelabs.com.coconut.presenter.di.component.AppComponent;
-import app.beelabs.com.coconut.presenter.di.component.DaggerAppComponent;
-import app.beelabs.com.coconut.presenter.di.module.ApiServiceModule;
-import app.beelabs.com.coconut.presenter.di.module.AppModule;
-
+import app.beelabs.com.codebase.di.component.AppComponent;
+import app.beelabs.com.codebase.di.component.DaggerAppComponent;
+import app.beelabs.com.codebase.di.module.ApiServiceModule;
+import app.beelabs.com.codebase.di.module.AppModule;
 
 /**
  * Created by arysuryawan on 8/17/17.

@@ -1,11 +1,12 @@
-package app.beelabs.com.coconut.presenter.di.module;
+package app.beelabs.com.codebase.di.module;
 
+
+import android.app.Application;
 
 import javax.inject.Singleton;
 
-import app.beelabs.com.coconut.App;
-import app.beelabs.com.coconut.presenter.di.IProgress;
-import app.beelabs.com.coconut.presenter.di.manager.ProgressManager;
+import app.beelabs.com.codebase.di.IProgress;
+import app.beelabs.com.codebase.di.manager.ProgressManager;
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,9 +17,9 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private App app;
+    private Application app;
 
-    public AppModule(App app) {
+    public AppModule(Application app) {
         this.app = app;
     }
 

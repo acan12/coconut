@@ -1,4 +1,4 @@
-package app.beelabs.com.coconut.presenter.di;
+package app.beelabs.com.codebase.di;
 
 import android.content.Context;
 

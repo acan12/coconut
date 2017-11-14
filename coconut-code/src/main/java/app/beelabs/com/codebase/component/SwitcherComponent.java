@@ -1,8 +1,5 @@
 package app.beelabs.com.codebase.component;//package app.clappingape.com.androidca.ui.component;
 
-import android.content.Context;
-import android.support.v7.widget.SwitchCompat;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;

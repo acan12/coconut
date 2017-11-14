@@ -1,11 +1,11 @@
-package app.beelabs.com.coconut.presenter.di.module;
+package app.beelabs.com.codebase.di.module;
 
 import android.content.Context;
 
 import javax.inject.Singleton;
 
-import app.beelabs.com.coconut.presenter.di.IApi;
-import app.beelabs.com.coconut.presenter.di.manager.ApiManager;
+import app.beelabs.com.codebase.di.IApi;
+import app.beelabs.com.codebase.di.manager.ApiManager;
 import dagger.Module;
 import dagger.Provides;
 
