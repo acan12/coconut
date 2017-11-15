@@ -17,7 +17,7 @@ public class Api extends BaseApi {
 
     synchronized private static ApiService initApiDomain(Context context) {
         setApiDomain(IConfig.API_BASE_URL);
-        return (ApiService) setupApi(App.getComponent(context), ApiService.class);
+        return (ApiService) setupApi(App.getAppComponent(), ApiService.class);
     }
 
     synchronized public static void doApiSources(Context context, Callback callback) {

@@ -4,7 +4,7 @@ package app.beelabs.com.codebase.component;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import app.beelabs.com.codebase.Config;
+import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.base.BaseActivity;
 
 
@@ -17,7 +17,7 @@ public class ProgressDialogComponent {
 
     synchronized public static ProgressDialog showProgressDialog(Context context, String message) {
         if (dialog == null) {
-            message = message != null ? message : Config.DEFAULT_LOADING;
+            message = message != null ? message : IConfig.DEFAULT_LOADING;
 
             dialog = new ProgressDialog(context);
             dialog.setMessage("..." + message);

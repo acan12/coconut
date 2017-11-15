@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
 
-        showApiProgressDialog(App.getComponent(this), new ResourceDao(this) {
+        showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
             @Override
             public void call() {
                 this.getArticleDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
