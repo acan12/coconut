@@ -20,7 +20,7 @@ public class ProgressDialogComponent {
             message = message != null ? message : IConfig.DEFAULT_LOADING;
 
             dialog = new ProgressDialog(context);
-            dialog.setMessage("..." + message);
+            dialog.setMessage(message + "...");
             dialog.show();
         }
 
