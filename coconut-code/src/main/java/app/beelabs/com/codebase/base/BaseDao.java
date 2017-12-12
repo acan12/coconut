@@ -7,38 +7,40 @@ import retrofit2.Callback;
 
 public class BaseDao {
 
-    private int keyID;
 
-    private static BaseActivity ac = null;
-    private static BaseFragment fm = null;
+    private int callbackKey;
+
+    private static Object base = null;
 
 
     public BaseDao(Object obj) {
-        if (obj instanceof BaseActivity) this.ac = ac;
-        if (obj instanceof BaseFragment) this.fm = fm;
+        this.base = obj;
+
     }
 
-    private BaseDao(Object obj, int keyID) {
+    private BaseDao(Object obj, int keyCallback) {
         if (obj instanceof BaseActivity) {
-            this.ac = (BaseActivity) obj;
-            this.keyID = keyID;
+            this.base = obj;
+            this.callbackKey = keyCallback;
         }
         if (obj instanceof BaseFragment) {
-            this.fm = (BaseFragment) obj;
-            this.keyID = keyID;
+            this.base = obj;
+            this.callbackKey = keyCallback;
+            obj = ((BaseFragment) this.base).getActivity();
         }
+
     }
 
 
     public static BaseDao getInstance(Object current) {
-        return getInstance(current, 0);
+        return getInstance(current, -1);
     }
 
-    public static BaseDao getInstance(Object current, int keyID) {
+    public static BaseDao getInstance(Object current, int key) {
         if (current instanceof BaseActivity)
-            return new BaseDao(current, keyID);
+            return new BaseDao(current, key);
         else if (current instanceof BaseFragment)
-            return new BaseDao(current, keyID);
+            return new BaseDao(current, key);
         return null;
     }
 
@@ -46,18 +48,20 @@ public class BaseDao {
 
         @Override
         public void onResponse(retrofit2.Call call, retrofit2.Response response) {
-            if (ac != null)
-                BaseActivity.onResponseCallback(call, response, ac, keyID);
+            if(base == null) return;
+            if (base instanceof BaseActivity)
+                BaseActivity.onResponseCallback(call, response, (BaseActivity) base, callbackKey);
             else
-                BaseFragment.onResponseCallback(call, response, fm, keyID);
+                BaseFragment.onResponseCallback(call, response, (BaseFragment) base, callbackKey);
+
         }
 
         @Override
         public void onFailure(retrofit2.Call call, Throwable t) {
-            if (ac != null)
-                BaseActivity.onFailureCallback(t, ac);
+            if (base != null && base instanceof BaseActivity)
+                BaseActivity.onFailureCallback(t, (BaseActivity) base);
             else
-                BaseFragment.onFailureCallback(t, fm);
+                BaseFragment.onFailureCallback(t, (BaseFragment) base);
         }
     };
 
