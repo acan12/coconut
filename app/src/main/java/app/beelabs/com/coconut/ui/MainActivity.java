@@ -13,6 +13,7 @@ import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import butterknife.ButterKnife;
+import retrofit2.Response;
 
 
 public class MainActivity extends BaseActivity {
@@ -34,7 +35,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onApiResponseCallback(BaseResponse mr, int responseCode) {
+    protected void onApiResponseCallback(Response response, BaseResponse mr, int responseCode) {
 
         switch (responseCode) {
 //            case IConfig.KEY_CALLER_API_SOURCE:

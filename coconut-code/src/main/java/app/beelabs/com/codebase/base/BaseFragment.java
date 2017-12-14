@@ -14,7 +14,7 @@ import retrofit2.Response;
  */
 
 public abstract class BaseFragment extends Fragment {
-    protected void onApiResponseCallback(BaseResponse mr, int responseCode) {
+    protected void onApiResponseCallback(Response response, BaseResponse mr, int responseCode) {
     }
 
     protected void onApiFailureCallback(String message) {
@@ -24,7 +24,7 @@ public abstract class BaseFragment extends Fragment {
 
     public static void onResponseCallback(Call<BaseResponse> call, Response response, BaseFragment fm, int responseCode) {
         ProgressDialogComponent.dismissProgressDialog((BaseActivity) fm.getActivity());
-        fm.onApiResponseCallback((BaseResponse) response.body(), responseCode);
+        fm.onApiResponseCallback(response, (BaseResponse) response.body(), responseCode);
     }
 
     public static void onFailureCallback(Throwable t, BaseFragment fm) {
