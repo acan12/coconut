@@ -116,7 +116,7 @@ dependencies {
     ```
 
 
-https://jitpack.io/docs/
+https://jitpack.io/
 
 Version:
 - `1.0.5` :added Response as object parameter on ResponseCallback
