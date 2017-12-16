@@ -114,7 +114,12 @@ dependencies {
             }
             ...
     ```
-
+ - `BaseResponse`
+    ```aidl
+       public class ArticleResponse extends BaseResponse {
+           ...
+       }
+    ```
 
 https://jitpack.io/
 

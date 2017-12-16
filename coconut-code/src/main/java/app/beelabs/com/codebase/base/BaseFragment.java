@@ -14,7 +14,7 @@ import retrofit2.Response;
  */
 
 public abstract class BaseFragment extends Fragment {
-    protected void onApiResponseCallback(Response response, BaseResponse mr, int responseCode) {
+    protected void onApiResponseCallback(Response response, BaseResponse br, int responseCode) {
     }
 
     protected void onApiFailureCallback(String message) {
