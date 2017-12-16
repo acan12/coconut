@@ -62,10 +62,64 @@ dependencies {
 
 ```
 
+5. Integrate code base with Coconut base
+ - `BaseApi`
+ 
+    ```aidl
+        public class Api extends BaseApi {
+        
+            synchronized private static ApiService initApiDomain(Context context) {
+                setApiDomain(IConfig.API_BASE_URL);
+                return (ApiService) setupApi(App.getAppComponent(), ApiService.class);
+            }
+        
+            synchronized public static void doApiSources(Context context, Callback callback) {
+                initApiDomain(context).callApiSources("en").enqueue((Callback<SourceResponse>) callback);
+            }
+    
+    ```
+ - `BaseActivity`
+    ```aidl
+       public class MainActivity extends BaseActivity {
+           ...
+       }
+    
+    ```
+ - `BaseFragment`
+    ```aidl
+    
+       public class MainFragment extends BaseFragment {
+           ...
+       }
+    ```
+    
+ - `BaseApp`
+    ```aidl
+       public class App extends BaseApp {
+           ...
+       }
+       
+    ```
+    
+ - `BaseDao`
+    ```
+        public class ResourceDao extends BaseDao {
+        
+            public ResourceDao(BaseActivity ac) {
+                super(ac);
+            }
+            
+            public void getSourcesDAO(BaseActivity ac, Callback callback) {
+                 Api.doApiSources(ac, callback);
+            }
+            ...
+    ```
+
 
 https://jitpack.io/docs/
 
 Version:
+- `1.0.5` :added Response as object parameter on ResponseCallback
 - `1.0.4` :fix bug for object modular between fragment and activity
 - `1.0.0` :launch library on basic requirement
 
