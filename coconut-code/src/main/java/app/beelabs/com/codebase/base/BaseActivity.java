@@ -20,8 +20,9 @@ import retrofit2.Response;
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements ComponentCallbacks2 {
-    protected void onApiResponseCallback(Response response, BaseResponse br, int responseCode) {
+    protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
     }
+
 
     protected void onApiFailureCallback(String message) {
         // --- default callback if not defined on child class --
@@ -45,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
 
     public static void onResponseCallback(Call<BaseResponse> call, Response response, BaseActivity ac, int responseCode) {
         ProgressDialogComponent.dismissProgressDialog(ac);
-        ac.onApiResponseCallback(response, (BaseResponse) response.body(), responseCode);
+        ac.onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
     }
 
     public static void onFailureCallback(Throwable t, BaseActivity ac) {
