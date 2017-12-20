@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onApiResponseCallback(Response response, BaseResponse mr, int responseCode) {
+    protected void onApiResponseCallback(BaseResponse mr, int responseCode, Response response) {
 
         switch (responseCode) {
 //            case IConfig.KEY_CALLER_API_SOURCE:

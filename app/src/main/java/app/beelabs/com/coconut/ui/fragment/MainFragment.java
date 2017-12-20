@@ -27,7 +27,7 @@ public class MainFragment extends BaseFragment {
 
 
     @Override
-    protected void onApiResponseCallback(Response response, BaseResponse mr, int keyID) {
+    protected void onApiResponseCallback(BaseResponse mr, int keyID, Response response) {
         if (mr.getStatus().equals("ok")) {
             Toast.makeText(getActivity(), "Status: OK, Size= " + ((SourceResponse)mr).getSources().size(), Toast.LENGTH_LONG).show();
         } else {
