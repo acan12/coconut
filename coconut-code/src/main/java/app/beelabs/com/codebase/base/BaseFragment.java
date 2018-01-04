@@ -5,6 +5,8 @@ import android.util.Log;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
+import app.beelabs.com.codebase.di.IProgress;
+import app.beelabs.com.codebase.di.component.AppComponent;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -14,6 +16,16 @@ import retrofit2.Response;
  */
 
 public abstract class BaseFragment extends Fragment {
+
+    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao) {
+        showApiProgressDialog(appComponent, dao, null);
+    }
+
+    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message) {
+        IProgress progress = appComponent.getProgressDialog();
+        progress.showProgressDialog(getActivity(), message);
+        dao.call();
+    }
     protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
     }
 
