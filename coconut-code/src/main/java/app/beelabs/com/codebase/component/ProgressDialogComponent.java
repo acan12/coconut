@@ -3,6 +3,7 @@ package app.beelabs.com.codebase.component;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.base.BaseActivity;
@@ -28,9 +29,14 @@ public class ProgressDialogComponent {
     }
 
     public static void dismissProgressDialog(BaseActivity ac) {
-        if (!ac.isFinishing() && dialog != null) {
+        try {
+            if (!ac.isFinishing() && dialog != null) {
+                dialog.dismiss();
+                dialog = null;
+            }
+        }catch (Exception e){
             dialog.dismiss();
-            dialog = null;
+            Log.e("ProgressDialog", e.getMessage());
         }
     }
 }
