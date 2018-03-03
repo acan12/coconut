@@ -35,7 +35,7 @@ public class ProgressDialogComponent {
                 dialog = null;
             }
         }catch (Exception e){
-            dialog.dismiss();
+            if(dialog != null) dialog.dismiss();
             Log.e("ProgressDialog", e.getMessage());
         }
     }
