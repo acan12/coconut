@@ -16,12 +16,13 @@ import app.beelabs.com.codebase.base.BaseActivity;
 public class ProgressDialogComponent {
     private static ProgressDialog dialog;
 
-    synchronized public static ProgressDialog showProgressDialog(Context context, String message) {
+    synchronized public static ProgressDialog showProgressDialog(Context context, String message, boolean isCanceledOnTouch) {
         if (dialog == null) {
             message = message != null ? message : IConfig.DEFAULT_LOADING;
 
             dialog = new ProgressDialog(context);
             dialog.setMessage(message + "...");
+            dialog.setCanceledOnTouchOutside(isCanceledOnTouch);
             dialog.show();
         }
 
@@ -29,14 +30,10 @@ public class ProgressDialogComponent {
     }
 
     public static void dismissProgressDialog(BaseActivity ac) {
-        try {
-            if (!ac.isFinishing() && dialog != null) {
-                dialog.dismiss();
-                dialog = null;
-            }
-        }catch (Exception e){
-            if(dialog != null) dialog.dismiss();
-            Log.e("ProgressDialog", e.getMessage());
+        if (dialog == null) return;
+        if (ac == null || !ac.isFinishing()) {
+            dialog.dismiss();
+            dialog = null;
         }
     }
 }

@@ -60,7 +60,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
 
     protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(this, message);
+        progress.showProgressDialog(this, message, true);
+        dao.call();
+    }
+
+    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message, boolean isCanceledOnTouch) {
+        IProgress progress = appComponent.getProgressDialog();
+        progress.showProgressDialog(this, message, isCanceledOnTouch);
         dao.call();
     }
 

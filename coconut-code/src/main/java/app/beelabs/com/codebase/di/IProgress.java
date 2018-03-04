@@ -7,5 +7,5 @@ import android.content.Context;
  */
 
 public interface IProgress {
-    void showProgressDialog(Context context, String message);
+    void showProgressDialog(Context context, String message, boolean isCanceledOnTouch);
 }

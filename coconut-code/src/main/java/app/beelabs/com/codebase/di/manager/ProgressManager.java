@@ -12,7 +12,7 @@ import app.beelabs.com.codebase.di.IProgress;
 
 public class ProgressManager implements IProgress {
     @Override
-    public void showProgressDialog(Context context, String message) {
-        ProgressDialogComponent.showProgressDialog(context, message);
+    public void showProgressDialog(Context context, String message, boolean isCanceledOnTouch) {
+        ProgressDialogComponent.showProgressDialog(context, message, isCanceledOnTouch);
     }
 }

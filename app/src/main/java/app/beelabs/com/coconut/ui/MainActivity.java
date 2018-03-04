@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
             public void call() {
                 this.getArticleDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
             }
-        }, "Loading");
+        }, "Loading", false);
     }
 
     @Override
