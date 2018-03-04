@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.List;
+
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
@@ -42,7 +44,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
         }
     }
 
+    protected BaseFragment onBackFragment(BaseActivity activity){
+        List fragments = activity.getSupportFragmentManager().getFragments();
+        BaseFragment currentFragment = (BaseFragment) fragments.get(fragments.size() - 1);
 
+        return currentFragment;
+    }
 
     public static void onResponseCallback(Call<BaseResponse> call, Response response, BaseActivity ac, int responseCode) {
         ProgressDialogComponent.dismissProgressDialog(ac);

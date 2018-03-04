@@ -3,6 +3,8 @@ package app.beelabs.com.codebase.base;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import java.util.List;
+
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
@@ -23,9 +25,10 @@ public abstract class BaseFragment extends Fragment {
 
     protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(getActivity(), message);
+        progress.showProgressDialog(getActivity(), message, true);
         dao.call();
     }
+
     protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
     }
 
@@ -43,6 +46,8 @@ public abstract class BaseFragment extends Fragment {
         ProgressDialogComponent.dismissProgressDialog((BaseActivity) fm.getActivity());
         fm.onApiFailureCallback(t.getMessage());
     }
+
+
 
 
 }
