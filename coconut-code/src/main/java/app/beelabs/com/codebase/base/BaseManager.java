@@ -20,9 +20,9 @@ public class BaseManager {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.connectTimeout(60, TimeUnit.SECONDS);
-        httpClient.readTimeout(60, TimeUnit.SECONDS);
-        httpClient.writeTimeout(60, TimeUnit.SECONDS);
+        httpClient.connectTimeout(15, TimeUnit.SECONDS);
+        httpClient.readTimeout(15, TimeUnit.SECONDS);
+        httpClient.writeTimeout(15, TimeUnit.SECONDS);
 
         httpClient.addInterceptor(logging);
         httpClient.addInterceptor(new Interceptor() {
