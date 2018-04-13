@@ -1,15 +1,18 @@
 package app.beelabs.com.codebase.base;
 
 import android.content.ComponentCallbacks2;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
 
+import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
@@ -22,14 +25,42 @@ import retrofit2.Response;
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements ComponentCallbacks2 {
+    private View rootView;
+
+    public View getRootView() {
+        return rootView;
+    }
+
+    public void setRootView(View rootView) {
+        this.rootView = rootView;
+    }
+
     protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
     }
 
-
-    protected void onApiFailureCallback(String message) {
+    protected void onApiFailureCallback(String message, BaseActivity ac) {
         // --- default callback if not defined on child class --
         Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
         Log.e("Message:", message);
+
+        if (ac.getRootView() != null)
+            showSnackbar(ac.getRootView(), getResources().getString(R.string.snackbar_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+    }
+
+    protected Snackbar showSnackbar(View view, String message, int duration) {
+        final Snackbar snackbar = Snackbar.make(view, message, duration);
+
+        snackbar.setAction(getResources().getString(R.string.snackbar_reply_action_label), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
+
+                finish();
+                startActivity(getIntent());
+            }
+        });
+
+        return snackbar;
     }
 
     public void showFragment(Fragment fragment, int fragmentResourceID) {
@@ -44,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
         }
     }
 
-    protected BaseFragment onBackFragment(BaseActivity activity){
+    protected BaseFragment onBackFragment(BaseActivity activity) {
         List fragments = activity.getSupportFragmentManager().getFragments();
         BaseFragment currentFragment = (BaseFragment) fragments.get(fragments.size() - 1);
 
@@ -58,7 +89,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
 
     public static void onFailureCallback(Throwable t, BaseActivity ac) {
         ProgressDialogComponent.dismissProgressDialog(ac);
-        ac.onApiFailureCallback(t.getMessage());
+        ac.onApiFailureCallback(t.getMessage(), ac);
+
     }
 
     protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao) {
@@ -76,5 +108,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
         progress.showProgressDialog(this, message, isCanceledOnTouch);
         dao.call();
     }
+
 
 }

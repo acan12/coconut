@@ -1,7 +1,6 @@
 package app.beelabs.com.coconut.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import app.beelabs.com.coconut.App;
@@ -23,8 +22,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRootView(findViewById(R.id.root));
         ButterKnife.bind(this);
-
 
         showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
             @Override
@@ -36,7 +35,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onApiResponseCallback(BaseResponse mr, int responseCode, Response response) {
-
         switch (responseCode) {
 //            case IConfig.KEY_CALLER_API_SOURCE:
 //                Toast.makeText(this, IConfig.KEY_CALLER_API_SOURCE, Toast.LENGTH_LONG).show();
@@ -60,10 +58,5 @@ public class MainActivity extends BaseActivity {
                     Toast.makeText(this, "Status: 200, but error", Toast.LENGTH_LONG).show();
                 }
         }
-    }
-
-    @Override
-    protected void onApiFailureCallback(String message) {
-        Log.e("ERROR: ", message);
     }
 }

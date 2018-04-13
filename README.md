@@ -1,4 +1,13 @@
 # coconut
+Extention fitur
+1. add snackbar if internet loss connection
+```
+    <string name="snackbar_internet_fail_message">Internet loss connection</string>
+        <string name="snackbar_reply_action_label">Reply</string>
+```
+2.
+
+---------------
 Coconut framework library for android 
 - support MVP Architecture
 - support Retrofit2 for handle request response API
