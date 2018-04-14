@@ -10,6 +10,4 @@ public class CoconutFrameLayout extends FrameLayout {
     public CoconutFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
-
-
 }

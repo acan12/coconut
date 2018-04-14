@@ -1,6 +1,7 @@
 package app.beelabs.com.coconut.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import app.beelabs.com.coconut.App;
@@ -11,12 +12,16 @@ import app.beelabs.com.coconut.presenter.dao.ResourceDao;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.CoconutFrameLayout;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Response;
 
 
 public class MainActivity extends BaseActivity {
-
+    @BindView(R.id.root)
+    CoconutFrameLayout rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +30,26 @@ public class MainActivity extends BaseActivity {
         setRootView(findViewById(R.id.root));
         ButterKnife.bind(this);
 
+
         showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
             @Override
             public void call() {
                 this.getArticleDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
             }
         }, "Loading", false);
+
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rootView.setBackgroundColor(getResources().getColor(R.color.color_white));
+            }
+        });
     }
 
     @Override
     protected void onApiResponseCallback(BaseResponse mr, int responseCode, Response response) {
+        getRootView().setBackgroundColor(getResources().getColor(R.color.color_black_transparent80));
+
         switch (responseCode) {
 //            case IConfig.KEY_CALLER_API_SOURCE:
 //                Toast.makeText(this, IConfig.KEY_CALLER_API_SOURCE, Toast.LENGTH_LONG).show();
