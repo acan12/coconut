@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="GelPenFontStyle" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/GelPen.ttf</item>
+    </style>
+
+    <style name="VolteRoundedFontStyle" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/VolteRounded-Bold.otf</item>
+    </style>
+
 </resources>

@@ -1,20 +1,32 @@
 # coconut
-Extention fitur
-1. add snackbar if internet loss connection
-```
-    <string name="snackbar_internet_fail_message">Internet loss connection</string>
-        <string name="snackbar_reply_action_label">Reply</string>
-```
-2.
-
----------------
-Coconut framework library for android 
+_Coconut framework library for android_ 
 - support MVP Architecture
 - support Retrofit2 for handle request response API
 - support Dagger2 for DI
 
-**How to install :**
-1. Add the JitPack repository to your build file
+_Extention fitur:_
+
+**1. add snackbar if internet loss connection**
+```
+    <string name="snackbar_internet_fail_message">Internet loss connection</string>
+        <string name="snackbar_reply_action_label">Reply</string>
+```
+**2. Using custom font**
+```aidl
+    setupDefaultFont("fonts/SF-Pro-Display-Black.otf"); ...App.java
+    
+    <style name="CustomFontType" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/custom_font.ttf</item>
+    </style>
+```
+
+
+
+
+**Installation guide :**
+
+**1. Add the JitPack repository to your build file**
 ```allprojects {
    		repositories {
    			...
@@ -23,14 +35,14 @@ Coconut framework library for android
    	}
 ```
 
-2. Add the dependency
+**2. Add the dependency**
 ```
 dependencies {
-		compile 'com.github.acan12:coconut:v1.0.4'
+		implementation 'com.github.acan12:coconut:v1.0.4'
 	}
 ```
 
-3. Add Application project class extend BaseApp
+**3. Add Application project class extend BaseApp**
 ```
     public class App extends BaseApp {
         private static Context context;
@@ -56,7 +68,7 @@ dependencies {
 
 ```
 
-4. Add Application class into `AndroidManifest.java`
+**4. Add Application class into `AndroidManifest.java`**
 
 ```
    ...
@@ -71,7 +83,7 @@ dependencies {
 
 ```
 
-5. Integrate code base with Coconut base
+**5. Integrate code with Coconut Framework**
  - `BaseApi`
  
     ```aidl
@@ -94,20 +106,12 @@ dependencies {
        }
     
     ```
- - `BaseFragment`
+ - `BaseFragment` ,_if you use fragment_
     ```aidl
     
        public class MainFragment extends BaseFragment {
            ...
        }
-    ```
-    
- - `BaseApp`
-    ```aidl
-       public class App extends BaseApp {
-           ...
-       }
-       
     ```
     
  - `BaseDao`
@@ -123,6 +127,7 @@ dependencies {
             }
             ...
     ```
+    
  - `BaseResponse`
     ```aidl
        public class ArticleResponse extends BaseResponse {
@@ -133,6 +138,12 @@ dependencies {
 https://jitpack.io/
 
 Version:
+- `1.0.11` :
+    * implement font framework supported by calligraphy for custom font.
+    * Show Snackbar for reply connection if got lost in the middle of process runtime.
+    * support style for dialog full screen.
+    * support style for custom font.
+    
 - `1.0.5` :added Response as object parameter on ResponseCallback
 - `1.0.4` :fix bug for object modular between fragment and activity
 - `1.0.0` :launch library on basic requirement

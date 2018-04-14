@@ -1,6 +1,7 @@
 package app.beelabs.com.codebase.base;
 
 import android.content.ComponentCallbacks2;
+import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +20,7 @@ import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import retrofit2.Call;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by arysuryawan on 8/16/17.
@@ -44,13 +46,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
         Log.e("Message:", message);
 
         if (ac.getRootView() != null)
-            showSnackbar(ac.getRootView(), getResources().getString(R.string.snackbar_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+            showSnackbar(ac.getRootView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
     }
 
     protected Snackbar showSnackbar(View view, String message, int duration) {
         final Snackbar snackbar = Snackbar.make(view, message, duration);
 
-        snackbar.setAction(getResources().getString(R.string.snackbar_reply_action_label), new View.OnClickListener() {
+        snackbar.setAction(getResources().getString(R.string.coconut_reply_action_label), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 snackbar.dismiss();
@@ -61,6 +63,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
         });
 
         return snackbar;
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public void showFragment(Fragment fragment, int fragmentResourceID) {
