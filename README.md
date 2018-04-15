@@ -4,7 +4,7 @@ _Coconut framework library for android_
 - support Retrofit2 for handle request response API
 - support Dagger2 for DI
 
-_Extention fitur:_
+`Extention fitur:`
 
 **1. add snackbar if internet loss connection**
 ```
@@ -24,7 +24,7 @@ _Extention fitur:_
 
 
 
-**Installation guide :**
+`Installation guide :`
 
 **1. Add the JitPack repository to your build file**
 ```allprojects {
