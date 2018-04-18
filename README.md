@@ -38,7 +38,11 @@ _Coconut framework library for android_
 **2. Add the dependency**
 ```
 dependencies {
-		implementation 'com.github.acan12:coconut:v1.0.4'
+		implementation 'com.github.acan12:coconut:v1.0.11'
+		implementation 'com.google.dagger:dagger:2.4'
+        annotationProcessor "com.google.dagger:dagger-compiler:2.4"
+        implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+        
 	}
 ```
 
