@@ -23,12 +23,16 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.root)
     CoconutFrameLayout rootView;
 
+    private boolean outsource = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRootView(findViewById(R.id.root));
         ButterKnife.bind(this);
+
+
 
 
         showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
@@ -47,9 +51,17 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onApiFailureCallback(String message, BaseActivity ac) {
+        super.onApiFailureCallback(message, ac);
+    }
+
+    @Override
     protected void onApiResponseCallback(BaseResponse mr, int responseCode, Response response) {
         getRootView().setBackgroundColor(getResources().getColor(R.color.color_black_transparent80));
 
+        if(!outsource)
+            new ResourceDao(this).getSourcesDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this).callback);
+        outsource = true;
         switch (responseCode) {
 //            case IConfig.KEY_CALLER_API_SOURCE:
 //                Toast.makeText(this, IConfig.KEY_CALLER_API_SOURCE, Toast.LENGTH_LONG).show();

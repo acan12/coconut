@@ -16,9 +16,10 @@ import retrofit2.Callback;
 public class Api extends BaseApi {
 
     synchronized private static ApiService initApiDomain(Context context) {
-        setApiDomain(IConfig.API_BASE_URL);
-        return (ApiService) setupApi(App.getAppComponent(), ApiService.class);
+        getInstance().setApiDomain(IConfig.API_BASE_URL);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class);
     }
+
 
     synchronized public static void doApiSources(Context context, Callback callback) {
         initApiDomain(context).callApiSources("en").enqueue((Callback<SourceResponse>) callback);

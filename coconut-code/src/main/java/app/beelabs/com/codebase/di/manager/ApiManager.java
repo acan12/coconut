@@ -12,18 +12,20 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class ApiManager extends BaseManager implements IApi {
     private Object api;
+    private String apiDomain = "";
 
     @Override
     public Object getApiService(String apiDomain, Class<IApiService> clazz) {
 
 
-        if (api == null) {
+        if (api == null || !this.apiDomain.equals(apiDomain)) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(apiDomain)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .client(getHttpClient())
                     .build();
             api = retrofit.create(clazz);
+            this.apiDomain = apiDomain;
         }
         return api;
     }

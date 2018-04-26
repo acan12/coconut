@@ -10,16 +10,27 @@ import app.beelabs.com.codebase.di.component.AppComponent;
  */
 
 public class BaseApi {
-    private static String apiDomain;
+    private String apiDomain;
+    private static BaseApi baseApi;
 
-    public static void setApiDomain(String apiDomain) {
-        BaseApi.apiDomain = apiDomain;
+    public static BaseApi getInstance(){
+        if(baseApi ==null)
+            baseApi = new BaseApi();
+        return baseApi;
     }
 
-    protected static Object setupApi(AppComponent appComponent, Class clazz) {
+    public String getApiDomain() {
+        return apiDomain;
+    }
+
+    public void setApiDomain(String apiDomain) {
+        this.apiDomain = apiDomain;
+    }
+
+    public Object setupApi(AppComponent appComponent, Class clazz) {
 
         IApi api = appComponent.getApi();
-        return api.getApiService(apiDomain, clazz);
+        return api.getApiService(getApiDomain(), clazz);
     }
 }
 
