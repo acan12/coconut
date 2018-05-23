@@ -5,7 +5,7 @@ package app.beelabs.com.coconut;
  */
 
 public interface IConfig {
-    String API_BASE_URL = "https://newsapi.org/v1/";
+    String API_BASE_URL = "https://fintech-dev.pactindo.com:8443/";//"https://newsapi.org/v1/";
     String DEFAULT_LOADING = "Loading";
 
     int KEY_CALLER_API_SOURCE = 1;

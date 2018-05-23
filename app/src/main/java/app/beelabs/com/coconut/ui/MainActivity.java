@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
         showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
             @Override
             public void call() {
-                this.getArticleDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
+                this.postPhoneNumber("081212341212", MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
             }
         }, "Loading", false);
 
@@ -57,11 +57,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onApiResponseCallback(BaseResponse mr, int responseCode, Response response) {
-        getRootView().setBackgroundColor(getResources().getColor(R.color.color_black_transparent80));
+//        getRootView().setBackgroundColor(getResources().getColor(R.color.color_black_transparent80));
 
-        if(!outsource)
-            new ResourceDao(this).getSourcesDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this).callback);
-        outsource = true;
+//        if(!outsource)
+//            new ResourceDao(this).getSourcesDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this).callback);
+//        outsource = true;
         switch (responseCode) {
 //            case IConfig.KEY_CALLER_API_SOURCE:
 //                Toast.makeText(this, IConfig.KEY_CALLER_API_SOURCE, Toast.LENGTH_LONG).show();
@@ -79,11 +79,13 @@ public class MainActivity extends BaseActivity {
 //                break;
             default:
                 // line default code
-                if (mr.getStatus().equals("ok")) {
-                    Toast.makeText(this, "Status: OK, Size= " + ((ArticleResponse) mr).getSortBy(), Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(this, "Status: 200, but error", Toast.LENGTH_LONG).show();
-                }
+//                if (mr.getStatus().equals("ok")) {
+//                    Toast.makeText(this, "Status: OK, Size= " + ((ArticleResponse) mr).getSortBy(), Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(this, "Status: 200, but error", Toast.LENGTH_LONG).show();
+//                }
         }
     }
+
+
 }

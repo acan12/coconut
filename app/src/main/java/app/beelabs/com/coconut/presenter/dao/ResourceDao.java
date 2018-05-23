@@ -22,4 +22,8 @@ public class ResourceDao extends BaseDao {
     public void getArticleDAO(BaseActivity ac, Callback callback) {
         Api.doApiArticles(ac, callback);
     }
+
+    public void postPhoneNumber(String phone, BaseActivity ac, Callback callback){
+        Api.doTestFin(phone, ac, callback);
+    }
 }

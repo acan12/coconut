@@ -15,14 +15,14 @@ public class ApiManager extends BaseManager implements IApi {
     private String apiDomain = "";
 
     @Override
-    public Object getApiService(String apiDomain, Class<IApiService> clazz) {
+    public Object getApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz) {
 
 
         if (api == null || !this.apiDomain.equals(apiDomain)) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(apiDomain)
                     .addConverterFactory(JacksonConverterFactory.create())
-                    .client(getHttpClient())
+                    .client(getHttpClient(allowUntrusted))
                     .build();
             api = retrofit.create(clazz);
             this.apiDomain = apiDomain;
