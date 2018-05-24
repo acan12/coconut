@@ -9,16 +9,18 @@ _Coconut framework library for android_
 **1. add snackbar if internet loss connection**
 ```
     <string name="snackbar_internet_fail_message">Internet loss connection</string>
-        <string name="snackbar_reply_action_label">Reply</string>
+    <string name="snackbar_reply_action_label">Reply</string>
 ```
 **2. Using custom font**
 ```aidl
-    setupDefaultFont("fonts/SF-Pro-Display-Black.otf"); ...App.java
+    App.java:
+        setupDefaultFont("fonts/SF-Pro-Display-Black.otf");
     
-    <style name="CustomFontType" parent="android:TextAppearance">
-        <!-- Custom Attr-->
-        <item name="fontPath">fonts/custom_font.ttf</item>
-    </style>
+    styles.xml:
+        <style name="CustomFontType" parent="android:TextAppearance">
+            <!-- Custom Attr-->
+            <item name="fontPath">fonts/custom_font.ttf</item>
+        </style>
 ```
 
 
@@ -39,9 +41,10 @@ _Coconut framework library for android_
 ```
 dependencies {
 		implementation 'com.github.acan12:coconut:v1.0.11'
-		implementation 'com.google.dagger:dagger:2.4'
-        annotationProcessor "com.google.dagger:dagger-compiler:2.4"
-        implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+		implementation 'com.google.dagger:dagger:2.4'        
+		annotationProcessor "com.google.dagger:dagger-compiler:2.4"
+		implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+		...
         
 	}
 ```
@@ -56,10 +59,6 @@ dependencies {
             super.onCreate();
             context = getApplicationContext();
             setupBuilder(DaggerAppComponent.builder(), this);
-        }
-    
-        public static Context getContext(){
-            return context;
         }
     
         public static AppComponent getAppComponent() {
@@ -77,7 +76,7 @@ dependencies {
 ```
    ...
    <application
-           android:name=".App"
+           android:name=".<AppClassName>"
            android:allowBackup="true"
            android:icon="@mipmap/ic_launcher"
            android:label="@string/app_name"
@@ -96,6 +95,7 @@ dependencies {
             synchronized private static ApiService initApiDomain(Context context) {
                 setApiDomain(IConfig.API_BASE_URL);
                 return (ApiService) setupApi(App.getAppComponent(), ApiService.class);
+                //return setupApi(App.getAppComponent(), ApiService.class, true); -- if set allow untrusted SSL calling
             }
         
             synchronized public static void doApiSources(Context context, Callback callback) {
@@ -110,7 +110,7 @@ dependencies {
        }
     
     ```
- - `BaseFragment` ,_if you use fragment_
+ - `BaseFragment` ,_if use fragment_
     ```aidl
     
        public class MainFragment extends BaseFragment {
@@ -142,6 +142,12 @@ dependencies {
 https://jitpack.io/
 
 Version:
+- `1.0.13` :
+    * fix base fragment has same behaviour with base activity when call api
+    
+- `1.0.12` :
+    * implement option allow untrusted SSL call on HTTPRequest
+     
 - `1.0.11` :
     * implement font framework supported by calligraphy for custom font.
     * Show Snackbar for reply connection if got lost in the middle of process runtime.

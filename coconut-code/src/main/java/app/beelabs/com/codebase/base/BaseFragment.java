@@ -29,6 +29,12 @@ public abstract class BaseFragment extends Fragment {
         dao.call();
     }
 
+    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message, boolean isCanceledOnTouch) {
+        IProgress progress = appComponent.getProgressDialog();
+        progress.showProgressDialog(getActivity(), message, isCanceledOnTouch);
+        dao.call();
+    }
+
     protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
     }
 
