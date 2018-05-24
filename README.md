@@ -142,10 +142,8 @@ dependencies {
 https://jitpack.io/
 
 Version:
-- `1.0.13` :
+- `1.0.14` :
     * fix base fragment has same behaviour with base activity when call api
-    
-- `1.0.12` :
     * implement option allow untrusted SSL call on HTTPRequest
      
 - `1.0.11` :
