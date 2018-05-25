@@ -41,7 +41,7 @@ _Coconut framework library for android_
      ```
 
 
-`Extention fitur:`
+`Extention feature:`
 
 **1. add snackbar if internet loss connection**
 ```
