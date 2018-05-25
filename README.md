@@ -63,7 +63,7 @@ _Coconut framework library for android_
 
 
 
-##Installation guide :
+## Installation guide :
 
 **1. Add the JitPack repository to your build file**
 ```allprojects {
