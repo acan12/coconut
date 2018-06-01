@@ -93,8 +93,8 @@ dependencies {
         public class Api extends BaseApi {
         
             synchronized private static ApiService initApiDomain(Context context) {
-                setApiDomain(IConfig.API_BASE_URL);
-                return (ApiService) setupApi(App.getAppComponent(), ApiService.class);
+                getInstance().setApiDomain(IConfig.API_BASE_URL);
+                return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class);
                 //return setupApi(App.getAppComponent(), ApiService.class, true); -- if set allow untrusted SSL calling
             }
         
