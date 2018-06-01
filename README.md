@@ -4,7 +4,44 @@ _Coconut framework library for android_
 - support Retrofit2 for handle request response API
 - support Dagger2 for DI
 
-`Extention fitur:`
+**Recomended Directory structure**
+ - `Project directory`
+ 
+     ```aidl
+     < your namespace application >
+        |
+        |-- App.java
+        |-- IConfig.java
+        |
+        |--- model
+        |       |
+        |       |-- api
+        |       |    |
+        |       |    |-- request
+        |       |    |-- response
+        |       |    |-- Api.java
+        |       |    |-- ApiService.java
+        |       | 
+        |       |--- db
+        |       
+        |     
+        |--- presenter
+        |      |
+        |      |-- dao
+        |--- ui
+             |
+             |-- activities
+             |-- fragment
+             |-- component
+             |-- adapter
+           
+     
+     
+          
+     ```
+
+
+`Extention feature:`
 
 **1. add snackbar if internet loss connection**
 ```
@@ -26,7 +63,7 @@ _Coconut framework library for android_
 
 
 
-`Installation guide :`
+## Installation guide :
 
 **1. Add the JitPack repository to your build file**
 ```allprojects {
@@ -138,8 +175,7 @@ dependencies {
            ...
        }
     ```
-
-https://jitpack.io/
+    
 
 Version:
 - `1.0.14` :
