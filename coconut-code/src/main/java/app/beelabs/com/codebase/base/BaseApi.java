@@ -1,6 +1,7 @@
 package app.beelabs.com.codebase.base;
 
 
+import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.di.IApi;
 import app.beelabs.com.codebase.di.component.AppComponent;
 
@@ -28,13 +29,12 @@ public class BaseApi {
     }
 
     public Object setupApi(AppComponent appComponent, Class clazz) {
-        return setupApi(appComponent, clazz, false);
+        return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND);
     }
 
-    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted) {
-
+    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout) {
         IApi api = appComponent.getApi();
-        return api.getApiService(getApiDomain(), allowUntrusted, clazz);
+        return api.getApiService(getApiDomain(), allowUntrusted, clazz, timeout);
     }
 }
 

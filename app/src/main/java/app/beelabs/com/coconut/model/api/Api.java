@@ -18,7 +18,7 @@ public class Api extends BaseApi {
 
     synchronized private static ApiService initApiDomain(Context context) {
         getInstance().setApiDomain(IConfig.API_BASE_URL);
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
     }
 
 

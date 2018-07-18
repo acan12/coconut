@@ -27,7 +27,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public class BaseManager {
 
-    protected OkHttpClient getHttpClient(boolean allowUntrustedSSL) {
+
+    protected OkHttpClient getHttpClient(boolean allowUntrustedSSL, int timeout) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -37,9 +38,9 @@ public class BaseManager {
             allowUntrustedSSL(httpClient);
         }
 
-        httpClient.connectTimeout(15, TimeUnit.SECONDS);
-        httpClient.readTimeout(15, TimeUnit.SECONDS);
-        httpClient.writeTimeout(15, TimeUnit.SECONDS);
+        httpClient.connectTimeout(timeout, TimeUnit.SECONDS);
+        httpClient.readTimeout(timeout, TimeUnit.SECONDS);
+        httpClient.writeTimeout(timeout, TimeUnit.SECONDS);
 
         httpClient.addInterceptor(logging);
         httpClient.addInterceptor(new Interceptor() {

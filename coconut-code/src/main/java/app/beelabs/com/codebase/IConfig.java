@@ -6,4 +6,6 @@ package app.beelabs.com.codebase;
 
 public interface IConfig {
     String DEFAULT_LOADING = "Loading";
+    int TIMEOUT_SHORT_INSECOND = 15;
+    int TIMEOUT_LONG_INSECOND = 120;
 }
