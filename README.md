@@ -60,6 +60,13 @@ _Coconut framework library for android_
         </style>
 ```
 
+**3. Custom timeout http request**
+```aidl
+    // TIMEOUT_SHORT_INSECOND (default)= 15 Seconds
+    // TIMEOUT_LONG_INSECOND = 120 Seconds
+    getInstance().setupApi(App.getAppComponent(), ApiService.class, false, app.beelabs.com.codebase.IConfig.TIMEOUT_LONG_INSECOND);
+
+```
 
 
 
