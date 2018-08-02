@@ -2,12 +2,10 @@ package app.beelabs.com.coconut.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.R;
-import app.beelabs.com.coconut.model.api.response.ArticleResponse;
 import app.beelabs.com.coconut.presenter.dao.ResourceDao;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDao;
@@ -15,7 +13,6 @@ import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Response;
 
 
@@ -31,8 +28,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         setRootView(findViewById(R.id.root));
         ButterKnife.bind(this);
-
-
 
 
         showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
