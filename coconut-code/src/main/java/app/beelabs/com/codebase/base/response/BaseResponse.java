@@ -14,6 +14,7 @@ public class BaseResponse {
     private MetaResponse meta;
     private DataResponse data;
 
+
     public MetaResponse getMeta() {
         return meta;
     }
@@ -35,6 +36,9 @@ public class BaseResponse {
         private boolean status;
         private int code;
         private String message;
+
+        public MetaResponse() {
+        }
 
         public boolean isStatus() {
             return status;
@@ -62,6 +66,7 @@ public class BaseResponse {
     }
 
     public class DataResponse {
-
+        public DataResponse() {
+        }
     }
 }
