@@ -42,11 +42,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Componen
 
     protected void onApiFailureCallback(String message, BaseActivity ac) {
         // --- default callback if not defined on child class --
-        Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
-        Log.e("Message:", message);
+        try {
+            Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
+            Log.e("Message:", message);
 
-        if (ac.getRootView() != null)
-            showSnackbar(ac.getRootView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+            if (ac.getRootView() != null)
+                showSnackbar(ac.getRootView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+        } catch (Exception e) {
+            Log.e("", e.getMessage());
+        }
+
     }
 
     protected Snackbar showSnackbar(View view, String message, int duration) {

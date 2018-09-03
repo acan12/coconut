@@ -37,7 +37,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void onApiFailureCallback(String message) {
-        Log.e("Message:", message);
+        Log.e("Message:", message+ "");
     }
 
 
