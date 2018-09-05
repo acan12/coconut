@@ -11,23 +11,23 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseResponse {
 
-    private MetaResponse meta;
-    private DataResponse data;
+    private BaseMetaResponse meta;
+    private BaseDataResponse data;
 
 
-    public MetaResponse getMeta() {
+    public BaseMetaResponse getMeta() {
         return meta;
     }
 
-    public void setMeta(MetaResponse meta) {
+    public void setMeta(BaseMetaResponse meta) {
         this.meta = meta;
     }
 
-    public DataResponse getData() {
+    public BaseDataResponse getData() {
         return data;
     }
 
-    public void setData(DataResponse data) {
+    public void setData(BaseDataResponse data) {
         this.data = data;
     }
 

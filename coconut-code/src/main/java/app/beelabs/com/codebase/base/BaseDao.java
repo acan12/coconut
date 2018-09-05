@@ -26,7 +26,6 @@ public class BaseDao {
         if (obj instanceof BaseFragment) {
             this.base = obj;
             this.callbackKey = keyCallback;
-            obj = ((BaseFragment) this.base).getActivity();
         }
 
     }

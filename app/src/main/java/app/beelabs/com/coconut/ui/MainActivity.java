@@ -7,6 +7,7 @@ import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.presenter.dao.ResourceDao;
+import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.response.BaseResponse;
@@ -36,6 +37,9 @@ public class MainActivity extends BaseActivity {
                 this.postPhoneNumber("081212341212", MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
             }
         }, "Loading", false);
+
+
+        showFragment(new MainFragment(), R.id.container);
 
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
