@@ -10,7 +10,7 @@ public class BaseDao {
 
     private int callbackKey;
 
-    private static Object base = null;
+    private Object base = null;
 
 
     public BaseDao(Object obj) {
