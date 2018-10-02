@@ -17,6 +17,8 @@ public class BaseResponse {
     @JsonProperty("data")
     private BaseDataResponse baseData;
 
+    private String status;
+
 
     public BaseMetaResponse getBaseMeta() {
         return baseMeta;
@@ -34,4 +36,11 @@ public class BaseResponse {
         this.baseData = baseData;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
