@@ -46,7 +46,7 @@ public class ArticleResponse extends BaseResponse {
     }
 
     @Override
-    public DataResponse getData() {
+    public DataResponse getBaseData() {
         return data;
     }
 

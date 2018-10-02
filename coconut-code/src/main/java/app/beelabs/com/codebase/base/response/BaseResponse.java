@@ -2,6 +2,7 @@ package app.beelabs.com.codebase.base.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by arysuryawan on 8/19/17.
@@ -11,24 +12,26 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseResponse {
 
-    private BaseMetaResponse meta;
-    private BaseDataResponse data;
+    @JsonProperty("meta")
+    private BaseMetaResponse baseMeta;
+    @JsonProperty("data")
+    private BaseDataResponse baseData;
 
 
-    public BaseMetaResponse getMeta() {
-        return meta;
+    public BaseMetaResponse getBaseMeta() {
+        return baseMeta;
     }
 
-    public void setMeta(BaseMetaResponse meta) {
-        this.meta = meta;
+    public void setBaseMeta(BaseMetaResponse baseMeta) {
+        this.baseMeta = baseMeta;
     }
 
-    public BaseDataResponse getData() {
-        return data;
+    public BaseDataResponse getBaseData() {
+        return baseData;
     }
 
-    public void setData(BaseDataResponse data) {
-        this.data = data;
+    public void setBaseData(BaseDataResponse baseData) {
+        this.baseData = baseData;
     }
 
 }
