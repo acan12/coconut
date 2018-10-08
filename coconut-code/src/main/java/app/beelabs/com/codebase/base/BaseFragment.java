@@ -15,7 +15,7 @@ import retrofit2.Response;
  * Created by arysuryawan on 8/16/17.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements IBaseView {
 
     protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao) {
         showApiProgressDialog(appComponent, dao, null);

@@ -26,7 +26,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Created by arysuryawan on 8/16/17.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements ComponentCallbacks2 {
+public abstract class BaseActivity extends AppCompatActivity implements IBaseView, ComponentCallbacks2 {
     private View rootView;
 
     public View getRootView() {
