@@ -1,4 +1,5 @@
 package app.beelabs.com.codebase.base;
+
 import retrofit2.Callback;
 
 /**
@@ -10,32 +11,27 @@ public class BaseDao {
 
     private int callbackKey;
 
-    private Object base = null;
+    private IPresenter base = null;
 
+    public BaseDao() {
+    }
 
-    public BaseDao(Object obj) {
+    public BaseDao(IPresenter obj) {
         this.base = obj;
 
     }
 
-    private BaseDao(Object obj, int keyCallback) {
-        if (obj instanceof BaseActivity) {
-            this.base = obj;
-            this.callbackKey = keyCallback;
-        }
-        if (obj instanceof BaseFragment) {
-            this.base = obj;
-            this.callbackKey = keyCallback;
-        }
-
+    private BaseDao(IPresenter obj, int keyCallback) {
+        this.base = obj;
+        this.callbackKey = keyCallback;
     }
 
 
-    public static BaseDao getInstance(Object current) {
+    public static BaseDao getInstance(IPresenter current) {
         return getInstance(current, -1);
     }
 
-    public static BaseDao getInstance(Object current, int key) {
+    public static BaseDao getInstance(IPresenter current, int key) {
         if (current instanceof BaseActivity)
             return new BaseDao(current, key);
         else if (current instanceof BaseFragment)
@@ -47,24 +43,21 @@ public class BaseDao {
 
         @Override
         public void onResponse(retrofit2.Call call, retrofit2.Response response) {
-            if(base == null) return;
+            if (base == null) return;
             if (base instanceof BaseActivity)
-                BaseActivity.onResponseCallback(call, response, (BaseActivity) base, callbackKey);
+                BaseActivity.onResponseCallback(response, base, callbackKey);
             else
-                BaseFragment.onResponseCallback(call, response, (BaseFragment) base, callbackKey);
+                BaseFragment.onResponseCallback(response, base, callbackKey);
 
         }
 
         @Override
         public void onFailure(retrofit2.Call call, Throwable t) {
             if (base != null && base instanceof BaseActivity)
-                BaseActivity.onFailureCallback(t, (BaseActivity) base);
+                BaseActivity.onFailureCallback(t, base);
             else
-                BaseFragment.onFailureCallback(t, (BaseFragment) base);
+                BaseFragment.onFailureCallback(t, base);
         }
     };
 
-
-    public void call() {
-    }
 }

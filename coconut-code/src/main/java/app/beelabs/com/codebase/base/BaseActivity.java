@@ -18,7 +18,6 @@ import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
-import retrofit2.Call;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -26,8 +25,18 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Created by arysuryawan on 8/16/17.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseView, ComponentCallbacks2 {
+public abstract class BaseActivity extends AppCompatActivity implements IPresenter, ComponentCallbacks2 {
     private View rootView;
+    private Context context;
+
+    @Override
+    public BaseActivity getBaseActivity() {
+        return this;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     public View getRootView() {
         return rootView;
@@ -40,14 +49,15 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
     }
 
-    protected void onApiFailureCallback(String message, BaseActivity ac) {
+    protected void onApiFailureCallback(String message, IPresenter iView) {
         // --- default callback if not defined on child class --
         try {
             Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
             Log.e("Message:", message);
 
-            if (ac.getRootView() != null)
-                showSnackbar(ac.getRootView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+
+            if (((BaseActivity) iView).getRootView() != null)
+                showSnackbar(((BaseActivity) iView).getRootView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
         } catch (Exception e) {
             Log.e("", e.getMessage());
         }
@@ -94,31 +104,31 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         return currentFragment;
     }
 
-    public static void onResponseCallback(Call<BaseResponse> call, Response response, BaseActivity ac, int responseCode) {
-        ProgressDialogComponent.dismissProgressDialog(ac);
-        ac.onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
+    public static void onResponseCallback(Response response, IPresenter iView, int responseCode) {
+        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
+        iView.getBaseActivity().onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
     }
 
-    public static void onFailureCallback(Throwable t, BaseActivity ac) {
-        ProgressDialogComponent.dismissProgressDialog(ac);
-        ac.onApiFailureCallback(t.getMessage(), ac);
+    public static void onFailureCallback(Throwable t, IPresenter iView) {
+        ProgressDialogComponent.dismissProgressDialog(((BaseActivity) iView));
+        ((BaseActivity) iView).onApiFailureCallback(t.getMessage(), ((BaseActivity) iView));
 
     }
 
-    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao) {
-        showApiProgressDialog(appComponent, dao, null);
+    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
+        showApiProgressDialog(appComponent, presenter, null);
     }
 
-    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message) {
+    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(this, message, true);
-        dao.call();
+        presenter.call();
     }
 
-    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message, boolean isCanceledOnTouch) {
+    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(this, message, isCanceledOnTouch);
-        dao.call();
+        presenter.call();
     }
 
 

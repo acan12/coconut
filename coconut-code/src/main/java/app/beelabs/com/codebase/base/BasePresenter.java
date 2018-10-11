@@ -1,6 +1,8 @@
 package app.beelabs.com.codebase.base;
 
-public class BasePresenter {
+import retrofit2.Response;
+
+public class BasePresenter  implements IDao {
     private static BasePresenter presenter;
 
 
@@ -18,5 +20,13 @@ public class BasePresenter {
         }
 
         return null;
+    }
+
+    public void call() {
+    }
+
+    @Override
+    public void responseHandler(IPresenter presenter, int responseApiCode, Response response) {
+
     }
 }

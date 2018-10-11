@@ -2,6 +2,7 @@ package app.beelabs.com.coconut.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,9 @@ import android.widget.Toast;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
-import app.beelabs.com.coconut.model.api.response.SourceResponse;
-import app.beelabs.com.coconut.presenter.dao.ResourceDao;
-import app.beelabs.com.coconut.ui.MainActivity;
-import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BaseDao;
+import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseFragment;
+import app.beelabs.com.codebase.base.IPresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import retrofit2.Response;
 
@@ -23,16 +21,16 @@ import retrofit2.Response;
  * Created by arysuryawan on 8/21/17.
  */
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements IPresenter {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        showApiProgressDialog(App.getAppComponent(), new ResourceDao((BaseActivity) getActivity()) {
+        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter() {
             @Override
             public void call() {
-                this.postPhoneNumber("081212341212", (BaseActivity) getActivity(), BaseDao.getInstance(MainFragment.this, IConfig.KEY_CALLER_API_SOURCE).callback);
+                postPhoneNumber("081212341212", MainFragment.this, IConfig.KEY_CALLER_API_SUMMARY);
             }
         }, "Loading", false);
 
@@ -41,12 +39,11 @@ public class MainFragment extends BaseFragment {
 
 
     @Override
-    protected void onApiResponseCallback(BaseResponse mr, int keyID, Response response) {
-//        if (mr.getBaseMeta().isStatus()) {
-//            Toast.makeText(getActivity(), "Status: OK, Size= " + ((SourceResponse)mr).getSources().size(), Toast.LENGTH_LONG).show();
-//        } else {
-//            Toast.makeText(getActivity(), "Status: 200, but error", Toast.LENGTH_LONG).show();
-//        }
+    protected void onApiResponseCallback(BaseResponse mr, int responseCode, Response response) {
+        Log.d("", "");
+        if(responseCode == IConfig.KEY_CALLER_API_SUMMARY){
+            Toast.makeText(getContext(), "api SUMMARY being called!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

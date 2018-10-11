@@ -1,15 +1,15 @@
 package app.beelabs.com.coconut.ui;
 
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Toast;
 
-import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.R;
-import app.beelabs.com.coconut.presenter.dao.ResourceDao;
+import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BaseDao;
+import app.beelabs.com.codebase.base.BasePresenter;
+import app.beelabs.com.codebase.base.IPresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
 import butterknife.BindView;
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import retrofit2.Response;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements IPresenter {
     @BindView(R.id.root)
     CoconutFrameLayout rootView;
 
@@ -30,59 +30,26 @@ public class MainActivity extends BaseActivity {
         setRootView(findViewById(R.id.root));
         ButterKnife.bind(this);
 
-
-        showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
-            @Override
-            public void call() {
-                this.postPhoneNumber("081212341212", MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
-            }
-        }, "Loading", false);
-
+        ResourcePresenter presenter = (ResourcePresenter) BasePresenter.getInstance(ResourcePresenter.class);
+        presenter.callSource(this, IConfig.KEY_CALLER_API_SOURCE);
 
         showFragment(new MainFragment(), R.id.container);
 
-        rootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rootView.setBackgroundColor(getResources().getColor(R.color.color_white));
-            }
-        });
     }
 
     @Override
-    protected void onApiFailureCallback(String message, BaseActivity ac) {
-        super.onApiFailureCallback(message, ac);
+    protected void onApiFailureCallback(String message, IPresenter iView) {
+        super.onApiFailureCallback(message, iView);
     }
 
     @Override
     protected void onApiResponseCallback(BaseResponse mr, int responseCode, Response response) {
-//        getRootView().setBackgroundColor(getResources().getColor(R.color.color_black_transparent80));
 
-//        if(!outsource)
-//            new ResourceDao(this).getSourcesDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this).callback);
-//        outsource = true;
         switch (responseCode) {
-//            case IConfig.KEY_CALLER_API_SOURCE:
-//                Toast.makeText(this, IConfig.KEY_CALLER_API_SOURCE, Toast.LENGTH_LONG).show();
-//
-//                showProgressDialogOnDAOCalled(new ResourceDao(this) {
-//                    @Override
-//                    public void call() {
-//                        this.getSourcesDAO(MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_ARTICLE).callback);
-//                    }
-//                });
-//
-//                break;
-//            case IConfig.KEY_CALLER_API_ARTICLE:
-//                Toast.makeText(this, IConfig.KEY_CALLER_API_ARTICLE, Toast.LENGTH_LONG).show();
-//                break;
-            default:
-                // line default code
-//                if (mr.getStatus().equals("ok")) {
-//                    Toast.makeText(this, "Status: OK, Size= " + ((ArticleResponse) mr).getSortBy(), Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(this, "Status: 200, but error", Toast.LENGTH_LONG).show();
-//                }
+            case IConfig.KEY_CALLER_API_SOURCE:
+                Toast.makeText(this, "api Source being called!", Toast.LENGTH_SHORT).show();
+
+                break;
         }
     }
 
