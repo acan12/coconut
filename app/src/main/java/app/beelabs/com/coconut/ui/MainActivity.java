@@ -27,22 +27,21 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutLayout(R.id.root);
         ButterKnife.bind(this);
 
-//        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this) {
-//            @Override
-//            public void call() {
-//                ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(MainActivity.this))).getSource();
-//            }
-//        }, "Testing ", false);
+        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this) {
+            @Override
+            public void call() {
+                ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(MainActivity.this))).getSource();
+            }
+        }, "Testing ", false);
 
 
-        ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(this))).getSource();
+//        ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(this))).getSource();
 //        showFragment(new MainFragment(), R.id.container);
 
     }
 
     @Override
     public void handleData(SourceResponse model) {
-        ProgressDialogComponent.dismissProgressDialog(this);
         Toast.makeText(this, model.getSources().size() + "", Toast.LENGTH_SHORT).show();
         Log.d("TEST", "testing handle data source");
     }

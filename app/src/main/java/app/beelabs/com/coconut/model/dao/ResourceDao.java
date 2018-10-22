@@ -6,6 +6,7 @@ import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.IPresenter;
+import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import retrofit2.Response;
@@ -20,6 +21,7 @@ public class ResourceDao extends BaseDao {
 
     private ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback;
     private IResourceDao rdao;
+    private IView iv;
 
     private BasePresenter bp;
 
@@ -33,15 +35,16 @@ public class ResourceDao extends BaseDao {
     }
 
 
-    public ResourceDao(IResourceDao rdao, ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback) {
+    public ResourceDao(IResourceDao rdao, IView iv, ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback) {
         this.rdao = rdao;
+        this.iv = iv;
         this.onPresenterResponseCallback = onPresenterResponseCallback;
     }
 
     public void getSourceDAO(BasePresenter bp) {
         this.bp = bp;
 
-        Api.doApiSources(BaseDao.getInstance(this, KEY_CALLER_API_SOURCE).callback);
+        Api.doApiSources(BaseDao.getInstance(this, iv, KEY_CALLER_API_SOURCE).callback);
     }
 
 //    public void getArticleDAO(IPresenter iView, Callback callback) {

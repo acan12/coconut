@@ -16,33 +16,36 @@ public class BaseDao implements IDao {
 
     //    private IPresenter base = null;
     private IDao base = null;
+    private IView iv = null;
 
     public BaseDao() {
     }
 
-    public BaseDao(IDao obj) {
-        this.base = obj;
+    public BaseDao(IDao dao) {
+        this.base = dao;
 
     }
 
-    private BaseDao(IDao obj, int keyCallback) {
-        this.base = obj;
+    private BaseDao(IDao dao, IView iv, int keyCallback) {
+        this.base = dao;
+        this.iv = iv;
         this.callbackKey = keyCallback;
+
     }
 
 
     public static BaseDao getInstance(IDao current) {
-        return getInstance(current, -1);
+        return getInstance(current, null, -1);
     }
 
-    public static BaseDao getInstance(IDao current, int key) {
+    public static BaseDao getInstance(IDao current, IView iv, int key) {
 //        if (current instanceof BaseActivity)
 //            return new BaseDao(current, key);
 //        else if (current instanceof BaseFragment)
 //            return new BaseDao(current, key);
 //        return null;
 
-        return new BaseDao(current, key);
+        return new BaseDao(current, iv, key);
     }
 
     @Override
@@ -73,15 +76,15 @@ public class BaseDao implements IDao {
     }
 
 
-    public static void onResponseCallback(Response response, IDao dao, int responseCode) {
-
+    public static void onResponseCallback(Response response, IDao dao, IView iview, int responseCode) {
+        ProgressDialogComponent.dismissProgressDialog(((BaseActivity) iview));
 
         dao.onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
     }
 
 
-    public static void onFailureCallback(Throwable t, IDao dao) {
-//        ProgressDialogComponent.dismissProgressDialog(((BaseActivity) iView));
+    public static void onFailureCallback(Throwable t, IDao dao, IView iview) {
+        ProgressDialogComponent.dismissProgressDialog(((BaseActivity) iview));
         dao.onApiFailureCallback(t.getMessage());
 
     }
@@ -93,14 +96,14 @@ public class BaseDao implements IDao {
         public void onResponse(retrofit2.Call call, retrofit2.Response response) {
             if (base == null) return;
             if (base instanceof BaseDao)
-                BaseDao.onResponseCallback(response, base, callbackKey);
+                BaseDao.onResponseCallback(response, base, iv, callbackKey);
 
         }
 
         @Override
         public void onFailure(retrofit2.Call call, Throwable t) {
             if (base != null && base instanceof BaseDao)
-                BaseDao.onFailureCallback(t, base);
+                BaseDao.onFailureCallback(t, base, iv);
 
         }
     };

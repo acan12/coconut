@@ -7,7 +7,6 @@ import app.beelabs.com.coconut.model.dao.ResourceDao;
 import app.beelabs.com.coconut.ui.IMainView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
 
@@ -18,7 +17,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
         this.iv = iv;
     }
 
-    public IMainView getView(){
+    public IMainView getView() {
         return this.iv;
     }
 
@@ -30,7 +29,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
     @Override
     public void getSource() {
-        (new ResourceDao(this, new OnPresenterResponseCallback() {
+        (new ResourceDao(this, iv, new OnPresenterResponseCallback() {
             @Override
             public void call(BaseResponse br) {
                 SourceResponse model = (SourceResponse) br;
