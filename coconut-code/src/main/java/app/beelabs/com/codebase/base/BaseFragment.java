@@ -1,13 +1,9 @@
 package app.beelabs.com.codebase.base;
 
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
-import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
-import retrofit2.Response;
 
 
 /**
@@ -16,10 +12,10 @@ import retrofit2.Response;
 
 public abstract class BaseFragment extends Fragment implements IPresenter {
 
-    @Override
-    public BaseActivity getBaseActivity() {
-        return (BaseActivity) getActivity();
-    }
+//    @Override
+//    public BaseActivity getCurrentActivity() {
+//        return (BaseActivity) getActivity();
+//    }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
         showApiProgressDialog(appComponent, presenter, null);
@@ -37,23 +33,23 @@ public abstract class BaseFragment extends Fragment implements IPresenter {
         presenter.call();
     }
 
-    protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
-    }
+//    protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
+//    }
+//
+//    protected void onApiFailureCallback(String message) {
+//        Log.e("Message:", message + "");
+//    }
 
-    protected void onApiFailureCallback(String message) {
-        Log.e("Message:", message + "");
-    }
 
-
-    public static void onResponseCallback(Response response, IPresenter iView, int responseCode) {
-        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
-        ((BaseFragment) iView).onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
-    }
-
-    public static void onFailureCallback(Throwable t, IPresenter iView) {
-        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
-        ((BaseFragment) iView).onApiFailureCallback(t.getMessage());
-    }
+//    public static void onResponseCallback(Response response, IPresenter iView, int responseCode) {
+//        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
+//        ((BaseFragment) iView).onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
+//    }
+//
+//    public static void onFailureCallback(Throwable t, IPresenter iView) {
+//        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
+//        ((BaseFragment) iView).onApiFailureCallback(t.getMessage());
+//    }
 
 
 }

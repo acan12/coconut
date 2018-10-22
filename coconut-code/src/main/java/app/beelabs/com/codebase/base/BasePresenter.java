@@ -1,22 +1,22 @@
 package app.beelabs.com.codebase.base;
 
-import retrofit2.Response;
+import android.util.Log;
 
-public class BasePresenter  implements IDao {
+import app.beelabs.com.codebase.base.response.BaseResponse;
+
+public class BasePresenter {
     private static BasePresenter presenter;
 
 
-    public static BasePresenter getInstance(Class clazz) {
+    public static BasePresenter getInstance(BasePresenter x) {
         try {
             if (presenter == null) {
-                presenter = (BasePresenter) clazz.newInstance();
 
+                presenter = x ;
                 return presenter;
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERRORxx", e.getMessage());
         }
 
         return null;
@@ -25,8 +25,16 @@ public class BasePresenter  implements IDao {
     public void call() {
     }
 
-    @Override
-    public void responseHandler(IPresenter presenter, int responseApiCode, Response response) {
+    public void presenterCallback(BasePresenter.OnPresenterResponseCallback presenterResponse){
 
     }
+
+    public static class OnPresenterResponseCallback {
+
+        public void call(BaseResponse br){
+
+        }
+
+    }
+
 }
