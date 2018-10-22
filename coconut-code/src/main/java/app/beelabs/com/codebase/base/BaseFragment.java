@@ -10,7 +10,7 @@ import app.beelabs.com.codebase.di.component.AppComponent;
  * Created by arysuryawan on 8/16/17.
  */
 
-public abstract class BaseFragment extends Fragment implements IPresenter {
+public abstract class BaseFragment extends Fragment implements IView {
 
 //    @Override
 //    public BaseActivity getCurrentActivity() {

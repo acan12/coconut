@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -30,26 +32,27 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
     public void setupCoconutLayout(int rootIdLayout){
-        this.rootView = rootView;
+
+        this.rootView = findViewById(rootIdLayout);
     }
 
 //    protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
 //    }
 //
-//    protected void onApiFailureCallback(String message, IPresenter iView) {
-//        // --- default callback if not defined on child class --
-//        try {
-//            Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
-//            Log.e("Message:", message);
-//
-//
-//            if (((BaseActivity) iView).getRootView() != null)
-//                showSnackbar(((BaseActivity) iView).getRootView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
-//        } catch (Exception e) {
-//            Log.e("", e.getMessage());
-//        }
-//
-//    }
+    protected void onApiFailureCallback(String message, IPresenter iView) {
+        // --- default callback if not defined on child class --
+        try {
+            Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
+            Log.e("Message:", message);
+
+
+            if (rootView != null)
+                showSnackbar(rootView, getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+        } catch (Exception e) {
+            Log.e("", e.getMessage());
+        }
+
+    }
 
     protected Snackbar showSnackbar(View view, String message, int duration) {
         final Snackbar snackbar = Snackbar.make(view, message, duration);
@@ -91,17 +94,6 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         return currentFragment;
     }
 
-//    public static void onResponseCallback(Response response, IPresenter iView, int responseCode) {
-//        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
-//        iView.getBaseActivity().onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
-//    }
-//
-//    public static void onFailureCallback(Throwable t, IPresenter iView) {
-//        ProgressDialogComponent.dismissProgressDialog(((BaseActivity) iView));
-//        ((BaseActivity) iView).onApiFailureCallback(t.getMessage(), ((BaseActivity) iView));
-//
-//    }
-
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
         showApiProgressDialog(appComponent, presenter, null);
     }
@@ -118,9 +110,4 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         presenter.call();
     }
 
-
-    @Override
-    public BaseActivity getCurrentActivity() {
-        return null;
-    }
 }

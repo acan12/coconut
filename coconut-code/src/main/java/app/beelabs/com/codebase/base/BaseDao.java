@@ -1,6 +1,7 @@
 package app.beelabs.com.codebase.base;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -10,7 +11,7 @@ import retrofit2.Response;
 
 public class BaseDao implements IDao {
 
-    private IPresenter presenter;
+    private BasePresenter presenter;
     private int callbackKey;
 
     //    private IPresenter base = null;
@@ -45,13 +46,10 @@ public class BaseDao implements IDao {
     }
 
     @Override
-    public IPresenter getPresenter() {
+    public BasePresenter getPresenter() {
         return presenter;
     }
 
-    public void setPresenter(IPresenter presenter) {
-        this.presenter = presenter;
-    }
 
     @Override
     public void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
@@ -76,7 +74,8 @@ public class BaseDao implements IDao {
 
 
     public static void onResponseCallback(Response response, IDao dao, int responseCode) {
-//        ProgressDialogComponent.dismissProgressDialog(idao.getBaseActivity());
+
+
         dao.onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
     }
 
@@ -96,12 +95,6 @@ public class BaseDao implements IDao {
             if (base instanceof BaseDao)
                 BaseDao.onResponseCallback(response, base, callbackKey);
 
-
-//            if (base instanceof BaseActivity)
-//                BaseActivity.onResponseCallback(response, base, callbackKey);
-//            else
-//                BaseFragment.onResponseCallback(response, base, callbackKey);
-
         }
 
         @Override
@@ -109,11 +102,6 @@ public class BaseDao implements IDao {
             if (base != null && base instanceof BaseDao)
                 BaseDao.onFailureCallback(t, base);
 
-
-//            if (base != null && base instanceof BaseActivity)
-//                BaseActivity.onFailureCallback(t, base);
-//            else
-//                BaseFragment.onFailureCallback(t, base);
         }
     };
 

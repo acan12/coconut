@@ -6,13 +6,14 @@ import app.beelabs.com.codebase.base.response.BaseResponse;
 
 public class BasePresenter {
     private static BasePresenter presenter;
+    private IView iview;
 
 
-    public static BasePresenter getInstance(BasePresenter x) {
+    public static BasePresenter getInstance(BasePresenter bp) {
         try {
             if (presenter == null) {
 
-                presenter = x ;
+                presenter = bp ;
                 return presenter;
             }
         } catch (Exception e) {
@@ -22,12 +23,10 @@ public class BasePresenter {
         return null;
     }
 
+
     public void call() {
     }
 
-    public void presenterCallback(BasePresenter.OnPresenterResponseCallback presenterResponse){
-
-    }
 
     public static class OnPresenterResponseCallback {
 

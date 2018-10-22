@@ -7,6 +7,7 @@ import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.IPresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import retrofit2.Response;
 
 import static app.beelabs.com.coconut.IConfig.KEY_CALLER_API_SOURCE;
@@ -26,7 +27,7 @@ public class ResourceDao extends BaseDao {
     public interface IResourceDao  {
         void postPhoneNumber(String phone);
 
-        BasePresenter getSource();
+        void getSource();
 
 
     }
@@ -37,8 +38,9 @@ public class ResourceDao extends BaseDao {
         this.onPresenterResponseCallback = onPresenterResponseCallback;
     }
 
-    public void getSource(BasePresenter bp) {
+    public void getSourceDAO(BasePresenter bp) {
         this.bp = bp;
+
         Api.doApiSources(BaseDao.getInstance(this, KEY_CALLER_API_SOURCE).callback);
     }
 
@@ -57,6 +59,7 @@ public class ResourceDao extends BaseDao {
             if (responseCode == KEY_CALLER_API_SOURCE) {
                 SourceResponse model = (SourceResponse) br;
                 if (model.getStatus().equals("ok")) {
+
                     onPresenterResponseCallback.call(model);
                 }
             }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseFragment;
 import app.beelabs.com.codebase.base.IPresenter;
 
@@ -14,7 +15,7 @@ import app.beelabs.com.codebase.base.IPresenter;
  * Created by arysuryawan on 8/21/17.
  */
 
-public class MainFragment extends BaseFragment implements IPresenter {
+public class MainFragment extends BaseFragment {
 
     @Nullable
     @Override
@@ -29,6 +30,11 @@ public class MainFragment extends BaseFragment implements IPresenter {
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+//    @Override
+//    public BaseActivity getCurrentActivity() {
+//        return null;
+//    }
 
 
 //    @Override
