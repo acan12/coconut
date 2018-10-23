@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
         showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this) {
             @Override
-            public void call(BasePresenter presenter) {
+            public void call() {
                 getSource();
             }
 

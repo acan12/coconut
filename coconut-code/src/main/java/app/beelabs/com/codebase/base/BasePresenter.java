@@ -24,7 +24,7 @@ public class BasePresenter implements IPresenter{
     }
 
     @Override
-    public void call(BasePresenter bp) {
+    public void call() {
 
     }
 

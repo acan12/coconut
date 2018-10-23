@@ -101,13 +101,13 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(this, message, true);
-        presenter.call(presenter);
+        presenter.call();
     }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(this, message, isCanceledOnTouch);
-        presenter.call(presenter);
+        presenter.call();
     }
 
 }
