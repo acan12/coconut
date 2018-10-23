@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         this.context = context;
     }
 
-    public void setupCoconutLayout(int rootIdLayout){
+    public void setupCoconutContentView(int rootIdLayout){
 
         this.rootView = findViewById(rootIdLayout);
     }
@@ -101,13 +101,13 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(this, message, true);
-        presenter.call();
+        presenter.call(presenter);
     }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(this, message, isCanceledOnTouch);
-        presenter.call();
+        presenter.call(presenter);
     }
 
 }

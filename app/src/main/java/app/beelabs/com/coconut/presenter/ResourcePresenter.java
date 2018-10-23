@@ -29,9 +29,10 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
     @Override
     public void getSource() {
-        (new ResourceDao(this, iv, new OnPresenterResponseCallback() {
+        (new ResourceDao(this, new OnPresenterResponseCallback() {
             @Override
             public void call(BaseResponse br) {
+                done();
                 SourceResponse model = (SourceResponse) br;
                 iv.handleData(model);
             }

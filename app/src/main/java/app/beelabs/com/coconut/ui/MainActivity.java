@@ -24,15 +24,21 @@ public class MainActivity extends BaseActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupCoconutLayout(R.id.root);
+        setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
         showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this) {
             @Override
-            public void call() {
-                ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(MainActivity.this))).getSource();
+            public void call(BasePresenter presenter) {
+                getSource();
             }
-        }, "Testing ", false);
+
+            @Override
+            public void done() {
+                Toast.makeText(MainActivity.this,"Done!", Toast.LENGTH_SHORT).show();
+                ProgressDialogComponent.dismissProgressDialog(MainActivity.this);
+            }
+        }, "Please wait ", false);
 
 
 //        ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(this))).getSource();

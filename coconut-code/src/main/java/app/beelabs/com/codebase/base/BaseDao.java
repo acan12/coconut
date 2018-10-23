@@ -1,7 +1,6 @@
 package app.beelabs.com.codebase.base;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -14,38 +13,31 @@ public class BaseDao implements IDao {
     private BasePresenter presenter;
     private int callbackKey;
 
-    //    private IPresenter base = null;
-    private IDao base = null;
-    private IView iv = null;
+    private IDao dao;
 
     public BaseDao() {
     }
 
     public BaseDao(IDao dao) {
-        this.base = dao;
+        this.dao = dao;
 
     }
 
-    private BaseDao(IDao dao, IView iv, int keyCallback) {
-        this.base = dao;
-        this.iv = iv;
+    private BaseDao(IDao dao, int keyCallback) {
+        this.dao = dao;
         this.callbackKey = keyCallback;
 
     }
 
 
-    public static BaseDao getInstance(IDao current) {
-        return getInstance(current, null, -1);
-    }
-
-    public static BaseDao getInstance(IDao current, IView iv, int key) {
+    public static BaseDao getInstance(IDao current, int key) {
 //        if (current instanceof BaseActivity)
 //            return new BaseDao(current, key);
 //        else if (current instanceof BaseFragment)
 //            return new BaseDao(current, key);
 //        return null;
 
-        return new BaseDao(current, iv, key);
+        return new BaseDao(current, key);
     }
 
     @Override
@@ -76,15 +68,15 @@ public class BaseDao implements IDao {
     }
 
 
-    public static void onResponseCallback(Response response, IDao dao, IView iview, int responseCode) {
-        ProgressDialogComponent.dismissProgressDialog(((BaseActivity) iview));
+    public static void onResponseCallback(Response response, IDao dao, int responseCode) {
+
 
         dao.onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
     }
 
 
-    public static void onFailureCallback(Throwable t, IDao dao, IView iview) {
-        ProgressDialogComponent.dismissProgressDialog(((BaseActivity) iview));
+    public static void onFailureCallback(Throwable t, IDao dao) {
+
         dao.onApiFailureCallback(t.getMessage());
 
     }
@@ -94,16 +86,16 @@ public class BaseDao implements IDao {
 
         @Override
         public void onResponse(retrofit2.Call call, retrofit2.Response response) {
-            if (base == null) return;
-            if (base instanceof BaseDao)
-                BaseDao.onResponseCallback(response, base, iv, callbackKey);
+            if (dao == null) return;
+            if (dao instanceof BaseDao)
+                BaseDao.onResponseCallback(response, dao, callbackKey);
 
         }
 
         @Override
         public void onFailure(retrofit2.Call call, Throwable t) {
-            if (base != null && base instanceof BaseDao)
-                BaseDao.onFailureCallback(t, base, iv);
+            if (dao != null && dao instanceof BaseDao)
+                BaseDao.onFailureCallback(t, dao);
 
         }
     };

@@ -35,16 +35,15 @@ public class ResourceDao extends BaseDao {
     }
 
 
-    public ResourceDao(IResourceDao rdao, IView iv, ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback) {
+    public ResourceDao(IResourceDao rdao, ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback) {
         this.rdao = rdao;
-        this.iv = iv;
         this.onPresenterResponseCallback = onPresenterResponseCallback;
     }
 
     public void getSourceDAO(BasePresenter bp) {
         this.bp = bp;
 
-        Api.doApiSources(BaseDao.getInstance(this, iv, KEY_CALLER_API_SOURCE).callback);
+        Api.doApiSources(BaseDao.getInstance(this, KEY_CALLER_API_SOURCE).callback);
     }
 
 //    public void getArticleDAO(IPresenter iView, Callback callback) {
@@ -62,8 +61,8 @@ public class ResourceDao extends BaseDao {
             if (responseCode == KEY_CALLER_API_SOURCE) {
                 SourceResponse model = (SourceResponse) br;
                 if (model.getStatus().equals("ok")) {
-
                     onPresenterResponseCallback.call(model);
+
                 }
             }
         }

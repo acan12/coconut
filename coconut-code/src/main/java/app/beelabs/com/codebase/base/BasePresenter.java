@@ -4,7 +4,7 @@ import android.util.Log;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;
 
-public class BasePresenter {
+public class BasePresenter implements IPresenter{
     private static BasePresenter presenter;
     private IView iview;
 
@@ -23,9 +23,16 @@ public class BasePresenter {
         return null;
     }
 
+    @Override
+    public void call(BasePresenter bp) {
 
-    public void call() {
     }
+
+    @Override
+    public void done() {
+
+    }
+
 
 
     public static class OnPresenterResponseCallback {
