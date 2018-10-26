@@ -8,10 +8,10 @@ import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
+import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,22 +27,16 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
-        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this) {
+        showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
             @Override
             public void call() {
                 getSource();
             }
-
-            @Override
-            public void done() {
-                Toast.makeText(MainActivity.this,"Done!", Toast.LENGTH_SHORT).show();
-                ProgressDialogComponent.dismissProgressDialog(MainActivity.this);
-            }
-        }, "Please wait ", false);
+        }), "Please wait ", false);
 
 
 //        ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(this))).getSource();
-//        showFragment(new MainFragment(), R.id.container);
+        showFragment(new MainFragment(), R.id.container);
 
     }
 
@@ -51,4 +45,5 @@ public class MainActivity extends BaseActivity implements IMainView {
         Toast.makeText(this, model.getSources().size() + "", Toast.LENGTH_SHORT).show();
         Log.d("TEST", "testing handle data source");
     }
+
 }

@@ -21,13 +21,12 @@ public class ResourceDao extends BaseDao {
 
     private ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback;
     private IResourceDao rdao;
-    private IView iv;
-
-    private BasePresenter bp;
 
     // definition usecase
     public interface IResourceDao  {
-        void postPhoneNumber(String phone);
+        BasePresenter getPresenter();
+
+//        void postPhoneNumber(String phone);
 
         void getSource();
 
@@ -40,19 +39,17 @@ public class ResourceDao extends BaseDao {
         this.onPresenterResponseCallback = onPresenterResponseCallback;
     }
 
-    public void getSourceDAO(BasePresenter bp) {
-        this.bp = bp;
-
-        Api.doApiSources(BaseDao.getInstance(this, KEY_CALLER_API_SOURCE).callback);
+    public void getSourceDAO() {
+        Api.doApiSources(BaseDao.getInstance(this, rdao.getPresenter(), KEY_CALLER_API_SOURCE).callback);
     }
 
 //    public void getArticleDAO(IPresenter iView, Callback callback) {
 //        Api.doApiArticles(iView.getBaseActivity(), callback);
 //    }
 
-    public void postPhoneNumber(String phone) {
+//    public void postPhoneNumber(String phone) {
 //        Api.doTestFin(phone, BaseDao.getInstance(this, KEY_CALLER_API_SUMMARY).callback);
-    }
+//    }
 
 
     @Override

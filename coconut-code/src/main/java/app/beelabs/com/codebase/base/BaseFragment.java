@@ -12,10 +12,6 @@ import app.beelabs.com.codebase.di.component.AppComponent;
 
 public abstract class BaseFragment extends Fragment implements IView {
 
-//    @Override
-//    public BaseActivity getCurrentActivity() {
-//        return (BaseActivity) getActivity();
-//    }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
         showApiProgressDialog(appComponent, presenter, null);
@@ -32,24 +28,5 @@ public abstract class BaseFragment extends Fragment implements IView {
         progress.showProgressDialog(getActivity(), message, isCanceledOnTouch);
         presenter.call();
     }
-
-//    protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
-//    }
-//
-//    protected void onApiFailureCallback(String message) {
-//        Log.e("Message:", message + "");
-//    }
-
-
-//    public static void onResponseCallback(Response response, IPresenter iView, int responseCode) {
-//        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
-//        ((BaseFragment) iView).onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
-//    }
-//
-//    public static void onFailureCallback(Throwable t, IPresenter iView) {
-//        ProgressDialogComponent.dismissProgressDialog(iView.getBaseActivity());
-//        ((BaseFragment) iView).onApiFailureCallback(t.getMessage());
-//    }
-
 
 }

@@ -59,4 +59,5 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
     }
+
 }

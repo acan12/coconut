@@ -1,9 +1,8 @@
 package app.beelabs.com.codebase.component;
 
-
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
+import android.widget.ProgressBar;
 
 import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.base.BaseActivity;

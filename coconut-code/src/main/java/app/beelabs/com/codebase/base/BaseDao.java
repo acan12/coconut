@@ -10,10 +10,12 @@ import retrofit2.Response;
 
 public class BaseDao implements IDao {
 
-    private BasePresenter presenter;
+    private static BaseDao base;
     private int callbackKey;
 
     private IDao dao;
+    private BasePresenter bp;
+    private String key;
 
     public BaseDao() {
     }
@@ -23,26 +25,26 @@ public class BaseDao implements IDao {
 
     }
 
-    private BaseDao(IDao dao, int keyCallback) {
+    private BaseDao(IDao dao, BasePresenter bp, int keyCallback) {
         this.dao = dao;
+        this.bp = bp;
         this.callbackKey = keyCallback;
 
     }
 
-
-    public static BaseDao getInstance(IDao current, int key) {
-//        if (current instanceof BaseActivity)
-//            return new BaseDao(current, key);
-//        else if (current instanceof BaseFragment)
-//            return new BaseDao(current, key);
-//        return null;
-
-        return new BaseDao(current, key);
+    public String getKey() {
+        return key;
     }
 
-    @Override
-    public BasePresenter getPresenter() {
-        return presenter;
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public static BaseDao getInstance(IDao current, BasePresenter bp, int key) {
+        if(base == null || !base.getKey().equals(key))
+            base = new BaseDao(current, bp, key);
+
+        return base;
     }
 
 
@@ -68,17 +70,14 @@ public class BaseDao implements IDao {
     }
 
 
-    public static void onResponseCallback(Response response, IDao dao, int responseCode) {
-
-
+    public void onResponseCallback(Response response, IDao dao, int responseCode) {
+        bp.done();
         dao.onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
     }
 
 
-    public static void onFailureCallback(Throwable t, IDao dao) {
-
+    public void onFailureCallback(Throwable t, IDao dao) {
         dao.onApiFailureCallback(t.getMessage());
-
     }
 
 
@@ -88,15 +87,13 @@ public class BaseDao implements IDao {
         public void onResponse(retrofit2.Call call, retrofit2.Response response) {
             if (dao == null) return;
             if (dao instanceof BaseDao)
-                BaseDao.onResponseCallback(response, dao, callbackKey);
-
+                base.onResponseCallback(response, dao, callbackKey);
         }
 
         @Override
         public void onFailure(retrofit2.Call call, Throwable t) {
             if (dao != null && dao instanceof BaseDao)
-                BaseDao.onFailureCallback(t, dao);
-
+                base.onFailureCallback(t, dao);
         }
     };
 

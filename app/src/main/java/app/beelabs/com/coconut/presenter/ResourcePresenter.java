@@ -17,26 +17,32 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
         this.iv = iv;
     }
 
-    public IMainView getView() {
-        return this.iv;
-    }
+
+
+    //    public IMainView getView() {
+//        return this.iv;
+//    }
 
     @Override
-    public void postPhoneNumber(String phone) {
-        Log.d("", "");
-//        (new ResourceDao((IPresenter) this)).postPhoneNumber(phone);
+    public BasePresenter getPresenter() {
+        return this;
     }
+
+//    @Override
+//    public void postPhoneNumber(String phone) {
+//        Log.d("", "");
+////        (new ResourceDao((IPresenter) this)).postPhoneNumber(phone);
+//    }
 
     @Override
     public void getSource() {
         (new ResourceDao(this, new OnPresenterResponseCallback() {
             @Override
             public void call(BaseResponse br) {
-                done();
                 SourceResponse model = (SourceResponse) br;
                 iv.handleData(model);
             }
-        })).getSourceDAO(this);
+        })).getSourceDAO();
     }
 
 }

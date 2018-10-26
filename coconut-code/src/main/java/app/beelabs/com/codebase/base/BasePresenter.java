@@ -1,26 +1,18 @@
 package app.beelabs.com.codebase.base;
 
-import android.util.Log;
-
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.ProgressDialogComponent;
 
-public class BasePresenter implements IPresenter{
+public class BasePresenter implements IPresenter {
     private static BasePresenter presenter;
-    private IView iview;
+    private static BaseActivity ba;
 
 
-    public static BasePresenter getInstance(BasePresenter bp) {
-        try {
-            if (presenter == null) {
+    public static BasePresenter getInstance(BaseActivity activity, BasePresenter bp) {
+        ba = activity;
+        presenter = bp;
 
-                presenter = bp ;
-                return presenter;
-            }
-        } catch (Exception e) {
-            Log.e("ERRORxx", e.getMessage());
-        }
-
-        return null;
+        return presenter;
     }
 
     @Override
@@ -30,14 +22,14 @@ public class BasePresenter implements IPresenter{
 
     @Override
     public void done() {
+        ProgressDialogComponent.dismissProgressDialog(ba);
 
     }
 
 
-
     public static class OnPresenterResponseCallback {
 
-        public void call(BaseResponse br){
+        public void call(BaseResponse br) {
 
         }
 

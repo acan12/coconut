@@ -24,12 +24,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity implements IView, ComponentCallbacks2 {
     private View rootView;
-    private Context context;
-
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
+//    private Context context;
+//
+//
+//    public void setContext(Context context) {
+//        this.context = context;
+//    }
 
     public void setupCoconutContentView(int rootIdLayout){
 
