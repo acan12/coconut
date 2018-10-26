@@ -41,7 +41,7 @@ public class BaseDao implements IDao {
     }
 
     public static BaseDao getInstance(IDao current, BasePresenter bp, int key) {
-        if(base == null || !base.getKey().equals(key))
+        if (base == null || base.getKey() == null || !base.getKey().equals(key))
             base = new BaseDao(current, bp, key);
 
         return base;
@@ -77,6 +77,7 @@ public class BaseDao implements IDao {
 
 
     public void onFailureCallback(Throwable t, IDao dao) {
+        bp.fail();
         dao.onApiFailureCallback(t.getMessage());
     }
 

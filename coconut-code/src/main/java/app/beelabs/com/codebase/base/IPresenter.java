@@ -5,4 +5,6 @@ public interface IPresenter {
 
     void done();
 
+    void fail();
+
 }

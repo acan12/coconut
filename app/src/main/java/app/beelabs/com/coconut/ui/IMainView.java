@@ -5,6 +5,6 @@ import app.beelabs.com.codebase.base.IView;
 
 public interface IMainView extends IView {
 
-    void handleData(SourceResponse model);
+    void handleDataSource(SourceResponse model);
 
 }

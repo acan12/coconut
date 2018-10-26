@@ -29,4 +29,8 @@ public abstract class BaseFragment extends Fragment implements IView {
         presenter.call();
     }
 
+    @Override
+    public void handleFail() {
+
+    }
 }

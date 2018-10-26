@@ -26,6 +26,12 @@ public class BasePresenter implements IPresenter {
 
     }
 
+    @Override
+    public void fail() {
+        done();
+        ba.handleFail();
+    }
+
 
     public static class OnPresenterResponseCallback {
 

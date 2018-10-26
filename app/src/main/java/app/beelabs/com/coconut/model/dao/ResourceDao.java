@@ -2,6 +2,7 @@ package app.beelabs.com.coconut.model.dao;
 
 import app.beelabs.com.coconut.model.api.Api;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
+import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.BasePresenter;
@@ -12,6 +13,7 @@ import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import retrofit2.Response;
 
 import static app.beelabs.com.coconut.IConfig.KEY_CALLER_API_SOURCE;
+import static app.beelabs.com.coconut.IConfig.KEY_CALLER_API_SUMMARY;
 
 /**
  * Created by arysuryawan on 8/19/17.
@@ -26,7 +28,7 @@ public class ResourceDao extends BaseDao {
     public interface IResourceDao  {
         BasePresenter getPresenter();
 
-//        void postPhoneNumber(String phone);
+        void postPhoneNumber(String phone);
 
         void getSource();
 
@@ -47,9 +49,9 @@ public class ResourceDao extends BaseDao {
 //        Api.doApiArticles(iView.getBaseActivity(), callback);
 //    }
 
-//    public void postPhoneNumber(String phone) {
-//        Api.doTestFin(phone, BaseDao.getInstance(this, KEY_CALLER_API_SUMMARY).callback);
-//    }
+    public void postPhoneNumber(String phone) {
+        Api.doTestFin(phone, BaseDao.getInstance(this, rdao.getPresenter(), KEY_CALLER_API_SUMMARY).callback);
+    }
 
 
     @Override
@@ -61,7 +63,13 @@ public class ResourceDao extends BaseDao {
                     onPresenterResponseCallback.call(model);
 
                 }
+            }else if(responseCode == KEY_CALLER_API_SUMMARY){
+                SummaryResponse model = (SummaryResponse) br;
+                if(model.getDescriptionCode().equals("Success")){
+                    onPresenterResponseCallback.call(model);
+                }
             }
         }
     }
+
 }

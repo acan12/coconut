@@ -24,21 +24,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity implements IView, ComponentCallbacks2 {
     private View rootView;
-//    private Context context;
-//
-//
-//    public void setContext(Context context) {
-//        this.context = context;
-//    }
 
     public void setupCoconutContentView(int rootIdLayout){
 
         this.rootView = findViewById(rootIdLayout);
     }
 
-//    protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
-//    }
-//
     protected void onApiFailureCallback(String message, IPresenter iView) {
         // --- default callback if not defined on child class --
         try {
@@ -110,4 +101,8 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         presenter.call();
     }
 
+    @Override
+    public void handleFail() {
+
+    }
 }

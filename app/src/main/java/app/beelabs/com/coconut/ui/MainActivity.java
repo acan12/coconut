@@ -35,15 +35,19 @@ public class MainActivity extends BaseActivity implements IMainView {
         }), "Please wait ", false);
 
 
-//        ((ResourcePresenter) BasePresenter.getInstance(new ResourcePresenter(this))).getSource();
+        ((ResourcePresenter) BasePresenter.getInstance(this, new ResourcePresenter(this))).getSource();
         showFragment(new MainFragment(), R.id.container);
 
     }
 
     @Override
-    public void handleData(SourceResponse model) {
+    public void handleDataSource(SourceResponse model) {
         Toast.makeText(this, model.getSources().size() + "", Toast.LENGTH_SHORT).show();
         Log.d("TEST", "testing handle data source");
     }
 
+    @Override
+    public void handleFail() {
+        Toast.makeText(this,   "Internet Down!", Toast.LENGTH_SHORT).show();
+    }
 }
