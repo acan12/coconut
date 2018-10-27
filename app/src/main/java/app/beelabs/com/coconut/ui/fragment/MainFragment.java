@@ -26,13 +26,13 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
+        // way 3 calling from fragment
         showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance((BaseActivity) getActivity(), new ResourcePresenter(this) {
             @Override
             public void call() {
                 postPhoneNumber("081212341212");
             }
         }), "Please wait ", false);
-        ;
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
