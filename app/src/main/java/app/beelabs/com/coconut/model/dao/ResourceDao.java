@@ -1,5 +1,7 @@
 package app.beelabs.com.coconut.model.dao;
 
+import java.io.File;
+
 import app.beelabs.com.coconut.model.api.Api;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
@@ -32,6 +34,14 @@ public class ResourceDao extends BaseDao {
 
         void getSource();
 
+        void uploadFile(String noteVal,
+                        String startTimeVal,
+                        String endTimeVal,
+                        String startDateVal,
+                        String endDateVal,
+                        String employeeIdVal,
+                        File file);
+
 
     }
 
@@ -51,6 +61,16 @@ public class ResourceDao extends BaseDao {
 
     public void postPhoneNumber(String phone) {
         Api.doTestFin(phone, BaseDao.getInstance(this, rdao.getPresenter(), KEY_CALLER_API_SUMMARY).callback);
+    }
+
+    public void postingUploadFile(String noteVal,
+                                  String startTimeVal,
+                                  String endTimeVal,
+                                  String startDateVal,
+                                  String endDateVal,
+                                  String employeeIdVal,
+                                  File file){
+        Api.doUploadTimesheetTrx(noteVal, startTimeVal, endTimeVal, startDateVal, endDateVal, employeeIdVal, file);
     }
 
 

@@ -1,8 +1,18 @@
 package app.beelabs.com.coconut.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.R;
@@ -11,6 +21,7 @@ import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
+import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +30,9 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements IMainView {
     @BindView(R.id.root)
     CoconutFrameLayout rootView;
+
+    @BindView(R.id.demo_image)
+    ImageView demoImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +45,26 @@ public class MainActivity extends BaseActivity implements IMainView {
         showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
             @Override
             public void call() {
-                getSource();
+
+//                getSource();
+
+
+
+                Uri imageUri = Uri.fromFile(new File(getAssets()+"/demo.png"));
+                File f = new File(imageUri.getPath());
+                Log.d("file exist? ", f.exists()+"");
+                try {
+
+                    InputStream stream = getAssets().open("demo.png");
+                    Drawable d = Drawable.createFromStream(stream, null);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                uploadFile("testing", "09:00", "17:00",
+                        "2018-10-24", "2018-10-24", "1", null);
             }
 
             // custom override when done loading
@@ -43,7 +76,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         }), "Please wait ", false);
 
         // way 2
-//        ((ResourcePresenter) BasePresenter.getInstance(this, new ResourcePresenter(this))).getSource();
+//        ((ResourcePresenter) BasePresenter.getInstance(this, new ResoxurcePresenter(this))).getSource();
 
 //        showFragment(new MainFragment(), R.id.container);
 
@@ -58,5 +91,11 @@ public class MainActivity extends BaseActivity implements IMainView {
     @Override
     public void handleFail() {
         Toast.makeText(this,   "Internet Down!", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void handleDataUpload(BaseResponse model) {
+        Toast.makeText(this, model.getBaseMeta().getMessage() + "", Toast.LENGTH_SHORT).show();
     }
 }

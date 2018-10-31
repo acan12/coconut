@@ -2,6 +2,8 @@ package app.beelabs.com.coconut.presenter;
 
 import android.util.Log;
 
+import java.io.File;
+
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.model.dao.ResourceDao;
@@ -59,4 +61,19 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
         })).getSourceDAO();
     }
 
+
+    @Override
+    public void uploadFile(String noteVal, String startTimeVal, String endTimeVal,
+                           String startDateVal, String endDateVal,
+                           String employeeIdVal, File file) {
+
+        (new ResourceDao(this, new OnPresenterResponseCallback() {
+            @Override
+            public void call(BaseResponse br) {
+                BaseResponse model = br;
+                iv.handleDataUpload(model);
+            }
+        })).postingUploadFile(noteVal, startTimeVal, endTimeVal,
+                startDateVal, endDateVal, employeeIdVal, file);
+    }
 }
