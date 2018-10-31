@@ -1,11 +1,8 @@
 package app.beelabs.com.coconut.ui;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,7 +15,6 @@ import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
-import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
@@ -90,7 +86,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void handleFail() {
-        Toast.makeText(this,   "Internet Down!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Internet Down!", Toast.LENGTH_SHORT).show();
     }
 
 
