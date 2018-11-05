@@ -38,41 +38,41 @@ public class MainActivity extends BaseActivity implements IMainView {
         ButterKnife.bind(this);
 
         // way 1
-        showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
-            @Override
-            public void call() {
-
-//                getSource();
-
-
-
-                Uri imageUri = Uri.fromFile(new File(getAssets()+"/demo.png"));
-                File f = new File(imageUri.getPath());
-                Log.d("file exist? ", f.exists()+"");
-                try {
-
-                    InputStream stream = getAssets().open("demo.png");
-                    Drawable d = Drawable.createFromStream(stream, null);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                uploadFile("testing", "09:00", "17:00",
-                        "2018-10-24", "2018-10-24", "1", null);
-            }
-
-            // custom override when done loading
+//        showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
 //            @Override
-//            public void done() {
-//                super.done();
-//                Toast.makeText(MainActivity.this, "Done!", Toast.LENGTH_SHORT).show();
+//            public void call() {
+//
+////                getSource();
+//
+//
+//
+//                Uri imageUri = Uri.fromFile(new File(getAssets()+"/demo.png"));
+//                File f = new File(imageUri.getPath());
+//                Log.d("file exist? ", f.exists()+"");
+//                try {
+//
+//                    InputStream stream = getAssets().open("demo.png");
+//                    Drawable d = Drawable.createFromStream(stream, null);
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//                uploadFile("testing", "09:00", "17:00",
+//                        "2018-10-24", "2018-10-24", "1", null);
 //            }
-        }), "Please wait ", false);
+//
+//            // custom override when done loading
+////            @Override
+////            public void done() {
+////                super.done();
+////                Toast.makeText(MainActivity.this, "Done!", Toast.LENGTH_SHORT).show();
+////            }
+//        }), "Please wait ", false);
 
         // way 2
-//        ((ResourcePresenter) BasePresenter.getInstance(this, new ResoxurcePresenter(this))).getSource();
+        ((ResourcePresenter) BasePresenter.getInstance(this, new ResourcePresenter(this))).getSource();
 
 //        showFragment(new MainFragment(), R.id.container);
 
