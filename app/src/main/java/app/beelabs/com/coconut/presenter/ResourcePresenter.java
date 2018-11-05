@@ -3,6 +3,7 @@ package app.beelabs.com.coconut.presenter;
 import android.util.Log;
 
 import java.io.File;
+import java.util.List;
 
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
@@ -11,6 +12,7 @@ import app.beelabs.com.coconut.ui.IMainView;
 import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import io.reactivex.Observable;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
 
@@ -59,6 +61,17 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                 iv.handleDataSource(model);
             }
         })).getSourceDAO();
+    }
+
+    @Override
+    public Observable<SourceResponse> getSourceRX() {
+        return (new ResourceDao(this, new OnPresenterResponseCallback() {
+            @Override
+            public void call(BaseResponse br) {
+                SourceResponse model = (SourceResponse) br;
+                iv.handleDataSource(model);
+            }
+        })).getSourceRXDAO();
     }
 
 

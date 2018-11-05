@@ -3,6 +3,7 @@ package app.beelabs.com.coconut.model.api;
 import android.content.Context;
 
 import java.io.File;
+import java.util.List;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
@@ -10,6 +11,7 @@ import app.beelabs.com.coconut.model.api.response.ArticleResponse;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.codebase.base.BaseApi;
+import io.reactivex.Observable;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -40,6 +42,14 @@ public class Api extends BaseApi {
     synchronized public static void doApiSources(Callback callback) {
         initApiDomain2().callApiSources("en").enqueue((Callback<SourceResponse>) callback);
     }
+
+    synchronized public static Observable<SourceResponse> doApiRXSources() {
+        return initApiDomain2().callApiRXSources("en");
+    }
+
+
+
+
 
     synchronized public static void doApiArticles(Context context, Callback callback) {
         initApiDomain().callApiArticles("the-next-web", "latest", "6d362365d5e245faa1fe3253c83c45ac").enqueue((Callback<ArticleResponse>) callback);

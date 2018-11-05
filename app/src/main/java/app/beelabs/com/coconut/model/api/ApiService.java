@@ -1,9 +1,12 @@
 package app.beelabs.com.coconut.model.api;
 
+import java.util.List;
+
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -29,6 +32,17 @@ public interface ApiService {
             "Content-Type: application/json"})
     @GET("sources")
     Call<SourceResponse> callApiSources(@Query("language") String language);
+
+    @Headers({
+            "Cache-Control: no-cache",
+            "Cache-Control: no-store",
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("sources")
+    Observable<SourceResponse> callApiRXSources(@Query("language") String language);
+
+
 
 
     @Headers({

@@ -1,6 +1,7 @@
 package app.beelabs.com.coconut.model.dao;
 
 import java.io.File;
+import java.util.List;
 
 import app.beelabs.com.coconut.model.api.Api;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
@@ -12,6 +13,7 @@ import app.beelabs.com.codebase.base.IPresenter;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
+import io.reactivex.Observable;
 import retrofit2.Response;
 
 import static app.beelabs.com.coconut.IConfig.KEY_CALLER_API_SOURCE;
@@ -34,6 +36,8 @@ public class ResourceDao extends BaseDao {
 
         void getSource();
 
+        Observable<SourceResponse> getSourceRX();
+
         void uploadFile(String noteVal,
                         String startTimeVal,
                         String endTimeVal,
@@ -54,6 +58,12 @@ public class ResourceDao extends BaseDao {
     public void getSourceDAO() {
         Api.doApiSources(BaseDao.getInstance(this, rdao.getPresenter(), KEY_CALLER_API_SOURCE).callback);
     }
+
+    public Observable<SourceResponse> getSourceRXDAO() {
+        return Api.doApiRXSources();
+    }
+
+
 
 //    public void getArticleDAO(IPresenter iView, Callback callback) {
 //        Api.doApiArticles(iView.getBaseActivity(), callback);
