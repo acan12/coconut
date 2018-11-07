@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 import app.beelabs.com.coconut.model.pojo.Article;
-import app.beelabs.com.codebase.base.response.BaseDataResponse;
+import app.beelabs.com.codebase.base.response.DefaultDataResponse;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 
 /**
@@ -55,7 +55,7 @@ public class ArticleResponse extends BaseResponse {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class DataResponse extends BaseDataResponse {
+    public class DataResponse extends DefaultDataResponse {
 
     }
 }

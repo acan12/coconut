@@ -3,11 +3,14 @@ package app.beelabs.com.coconut.model.api;
 import android.content.Context;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
+import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.codebase.base.BaseApi;
@@ -23,6 +26,17 @@ import retrofit2.Callback;
  */
 public class Api extends BaseApi {
 
+    private static Map<String, String> initHeader() {
+        Map<String, String> map = new HashMap<>();
+        map.put("Token", "eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjoxLCJlbWFpbCI6InJhbmlhQGNsYXBwaW5nYXBlLmNvbSIsInBsYXRmb3JtIjoid2Vic2l0ZSIsImtleSI6IjdYdk0xYmJuc3I3V0VjbU9ubFNjTnpvcElnMm5MQStjbld5SDc0Z1oiLCJ0aW1lc3RhbXAiOiIyMDE4LTExLTA2IDExOjI0OjQwICswNzAwIn0.wSPAcZJV8VBUSG8DAp_laovF7dFDhLxVJGQZmmDs3PsEz6SBn7FE2qF7k1UoY5Qq30wqjTDZAho1a55Yy2Fctg");
+        map.put("Platform", "website");
+        map.put("Cache-Control", "no-store");
+        map.put("Content-Type", "application/json");
+
+        return map;
+    }
+
+
     synchronized private static ApiService initApiDomain() {
         getInstance().setApiDomain(IConfig.API_BASE_URL);
         return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
@@ -36,6 +50,16 @@ public class Api extends BaseApi {
     synchronized private static ApiService initApiDomain3() {
         getInstance().setApiDomain(IConfig.API_BASE_URL3);
         return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
+    }
+
+    synchronized private static ApiService initApiDomainJPremi() {
+        getInstance().setApiDomain(IConfig.API_BASE_URLJPREMI);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
+    }
+
+
+    synchronized public static Observable<ProfileResponseModel> doApiProfile() {
+        return initApiDomainJPremi().callApiRXProfile(initHeader());
     }
 
 

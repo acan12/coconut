@@ -13,26 +13,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BaseResponse {
 
     @JsonProperty("meta")
-    private BaseMetaResponse baseMeta;
+    private DefaultMetaResponse baseMeta;
     @JsonProperty("data")
-    private BaseDataResponse baseData;
+    private DefaultDataResponse baseData;
 
     private String status;
 
 
-    public BaseMetaResponse getBaseMeta() {
+    public DefaultMetaResponse getBaseMeta() {
         return baseMeta;
     }
 
-    public void setBaseMeta(BaseMetaResponse baseMeta) {
+    public void setBaseMeta(DefaultMetaResponse baseMeta) {
         this.baseMeta = baseMeta;
     }
 
-    public BaseDataResponse getBaseData() {
+    public DefaultDataResponse getBaseData() {
         return baseData;
     }
 
-    public void setBaseData(BaseDataResponse baseData) {
+    public void setBaseData(DefaultDataResponse baseData) {
         this.baseData = baseData;
     }
 

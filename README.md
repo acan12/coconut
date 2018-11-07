@@ -185,6 +185,11 @@ dependencies {
     
 
 Version:
+- [mvp2]:
+    * support multiple resource directories
+    * full mvp implementation
+    * integrate Retrofit with RXObserver
+    
 - `1.0.14` :
     * fix base fragment has same behaviour with base activity when call api
     * implement option allow untrusted SSL call on HTTPRequest

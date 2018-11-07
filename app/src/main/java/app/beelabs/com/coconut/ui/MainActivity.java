@@ -6,9 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.reactivestreams.Subscription;
-
 import app.beelabs.com.coconut.R;
+import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseActivity;
@@ -24,6 +23,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
+
 public class MainActivity extends BaseActivity implements IMainView {
     @BindView(R.id.root)
     CoconutFrameLayout rootView;
@@ -31,11 +31,14 @@ public class MainActivity extends BaseActivity implements IMainView {
     @BindView(R.id.demo_image)
     ImageView demoImage;
 
+    @BindView(R.id.content1)
+    TextView content1;
     @BindView(R.id.content2)
     TextView content2;
 
 
     private Disposable disposable;
+    private Observable<ProfileResponseModel> profileObservable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +82,43 @@ public class MainActivity extends BaseActivity implements IMainView {
 //        }), "Please wait ", false);
 
         // way 2
+//        doWay1();
+        doWayPremi();
+
+
+//        showFragment(new MainFragment(), R.id.container);
+
+    }
+
+    private void doWayPremi() {
+
+
+        ((ResourcePresenter) BasePresenter.getInstance(this, new ResourcePresenter(this)))
+                .getProfileRX();
+
+//        Observable.interval(0, 1000,
+//                TimeUnit.MILLISECONDS)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<Long>() {
+//                               @Override
+//                               public void accept(Long aLong) throws Exception {
+//                                   content1.setText(String.valueOf(aLong));
+//                               }
+//                           }
+//                );
+
+
+    }
+
+    private void doWay1() {
+
         Observer<SourceResponse> observer = new Observer<SourceResponse>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
-                Toast.makeText(MainActivity.this, "Load onsubscribe", Toast.LENGTH_SHORT).show();
+                content2.setText("Loading...");
+//                Toast.makeText(MainActivity.this, "Load onsubscribe", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -100,9 +135,14 @@ public class MainActivity extends BaseActivity implements IMainView {
 
             @Override
             public void onComplete() {
-                Toast.makeText(MainActivity.this, "Load COmpleted", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Load COmpleted", Toast.LENGTH_SHORT).show();
             }
         };
+
+        ((ResourcePresenter) BasePresenter.getInstance(this, new ResourcePresenter(this)))
+                .getSourceRX().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
 //        ((ResourcePresenter) BasePresenter.getInstance(this, new ResourcePresenter(this)))
 //                .getSource();
@@ -110,16 +150,41 @@ public class MainActivity extends BaseActivity implements IMainView {
                 .getSourceRX().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
-//        showFragment(new MainFragment(), R.id.container);
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Toast.makeText(MainActivity.this, "Destroy", Toast.LENGTH_SHORT).show();
+        disposable.dispose();
     }
 
     @Override
     protected void onDestroy() {
-        disposable.dispose();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+
+    // handle response method
+
+
+    @Override
+    public void handleProfileComplete(ProfileResponseModel model) {
+        if (model.getMeta().isStatus()) {
+            content2.setText("Full name: " + model.getData().getFull_name());
+        } else {
+            Toast.makeText(this, "Not Valid", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

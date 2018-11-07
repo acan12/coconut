@@ -55,13 +55,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingPrefix" />
 
+        <include layout="@layout/content_profile" />
+
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/loadButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

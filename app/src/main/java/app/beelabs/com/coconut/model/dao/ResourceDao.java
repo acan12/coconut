@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import app.beelabs.com.coconut.model.api.Api;
+import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
@@ -34,6 +35,8 @@ public class ResourceDao extends BaseDao {
 
         void postPhoneNumber(String phone);
 
+        void getProfileRX();
+
         void getSource();
 
         Observable<SourceResponse> getSourceRX();
@@ -54,6 +57,13 @@ public class ResourceDao extends BaseDao {
         this.rdao = rdao;
         this.onPresenterResponseCallback = onPresenterResponseCallback;
     }
+
+
+
+    public Observable<ProfileResponseModel> getProfileDAO() {
+        return Api.doApiProfile();
+    }
+
 
     public void getSourceDAO() {
         Api.doApiSources(BaseDao.getInstance(this, rdao.getPresenter(), KEY_CALLER_API_SOURCE).callback);

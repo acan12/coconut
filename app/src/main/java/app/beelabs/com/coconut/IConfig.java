@@ -8,6 +8,7 @@ public interface IConfig {
     String API_BASE_URL = "https://fintech-dev.pactindo.com:8443/";
     String API_BASE_URL2 = "https://newsapi.org/v1/";
     String API_BASE_URL3 = "http://api.dev.hrsteps.com/v1/";
+    String API_BASE_URLJPREMI = "http://developer.jagoanpremi.com/v1/";
 
 
     int KEY_CALLER_API_SOURCE = 1;

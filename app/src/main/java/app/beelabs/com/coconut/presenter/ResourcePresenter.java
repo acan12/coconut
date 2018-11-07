@@ -3,8 +3,9 @@ package app.beelabs.com.coconut.presenter;
 import android.util.Log;
 
 import java.io.File;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.model.dao.ResourceDao;
@@ -12,7 +13,11 @@ import app.beelabs.com.coconut.ui.IMainView;
 import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.support.rx.RxObserver;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
 
@@ -51,6 +56,37 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
         })).postPhoneNumber(phone);
 //        (new ResourceDao((IPresenter) this)).postPhoneNumber(phone);
     }
+
+    @Override
+    public void getProfileRX() {
+        (new ResourceDao(this, new OnPresenterResponseCallback() {
+            @Override
+            public void call(BaseResponse br) {
+                ProfileResponseModel model = (ProfileResponseModel) br;
+            }
+        })).getProfileDAO().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .debounce(400, TimeUnit.MILLISECONDS)
+        .subscribe(new RxObserver<ProfileResponseModel>() {
+
+            @Override
+            public void onNext(Object o) {
+                iv.handleProfileComplete((ProfileResponseModel) o);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+
+    }
+
+
 
     @Override
     public void getSource() {

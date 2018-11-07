@@ -3,13 +3,13 @@ package app.beelabs.com.codebase.base.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseMetaResponse {
+public class DefaultMetaResponse {
 
     private boolean status;
     private int code;
     private String message;
 
-    public BaseMetaResponse() {
+    public DefaultMetaResponse() {
     }
 
     public boolean isStatus() {
