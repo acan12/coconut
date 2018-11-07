@@ -6,17 +6,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
-import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseActivity implements IMainView {
@@ -41,26 +46,37 @@ public class MainActivity extends BaseActivity implements IMainView {
         doFirstWay();
 
 
-        showFragment(new MainFragment(), R.id.container);
+//        showFragment(new MainFragment(), R.id.container);
 
     }
 
     private void doFirstWay() {
-        ((ResourcePresenter) BasePresenter.getInstance(this, new ResourcePresenter(this)))
-                .getProfileRX();
+        Observable.timer(10000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .repeat()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this, new ResourcePresenter(MainActivity.this)))
+                                .getProfileRX();
+                    }
+                });
+
     }
-
-
-
-
-
 
 
     // handle response method
     @Override
+    public void handleProcessing() {
+        content2.setTextColor(getResources().getColor(R.color.color_grey));
+    }
+
+    @Override
     public void handleProfileDone(ProfileResponseModel model) {
         if (model.getMeta().isStatus()) {
             content2.setText("Full name: " + model.getData().getFull_name());
+            content2.setTextColor(getResources().getColor(R.color.color_black_transparent80));
         } else {
             Toast.makeText(this, "Not Valid", Toast.LENGTH_SHORT).show();
         }

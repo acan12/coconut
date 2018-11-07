@@ -29,7 +29,7 @@ android {
     }
 
     sourceSets {
-        main.res.srcDirs += ['src/main/res-content']
+        main.res.srcDirs += ['src/main/res-content', 'src/main/res-row']
     }
 }
 
@@ -57,4 +57,15 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':coconut-code')
+
+    implementation 'com.github.ybq:AndroidSpinKit:v1.0.0'
+}
+
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+
 }

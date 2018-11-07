@@ -7,6 +7,7 @@ import app.beelabs.com.codebase.base.response.BaseResponse;
 
 public interface IMainView extends IView {
 
+    void handleProcessing();
     void handleDataSource(SourceResponse model);
     void handleDataUpload(BaseResponse model);
 

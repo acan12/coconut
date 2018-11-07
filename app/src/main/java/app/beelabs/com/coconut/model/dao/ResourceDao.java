@@ -15,6 +15,8 @@ import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 import static app.beelabs.com.coconut.IConfig.KEY_CALLER_API_SOURCE;
@@ -61,7 +63,8 @@ public class ResourceDao extends BaseDao {
 
 
     public Observable<ProfileResponseModel> getProfileDAO() {
-        return Api.doApiProfile();
+        return Api.doApiProfile().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 

@@ -3,7 +3,6 @@ package app.beelabs.com.coconut.presenter;
 import android.util.Log;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
@@ -15,8 +14,7 @@ import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.disposables.Disposable;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
 
@@ -53,10 +51,13 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
     @Override
     public void getProfileRX() {
-        (new ResourceDao(this, null)).getProfileDAO().subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .debounce(400, TimeUnit.MILLISECONDS)
+        (new ResourceDao(this, null)).getProfileDAO()
                 .subscribe(new RxObserver<ProfileResponseModel>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        iv.handleProcessing();
+                    }
 
                     @Override
                     public void onNext(Object o) {
