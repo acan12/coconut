@@ -16,7 +16,6 @@ import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
@@ -34,10 +33,6 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     }
 
 
-    //    public IMainView getView() {
-//        return this.iv;
-//    }
-
     @Override
     public BasePresenter getPresenter() {
         return this;
@@ -54,38 +49,28 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
             }
         })).postPhoneNumber(phone);
-//        (new ResourceDao((IPresenter) this)).postPhoneNumber(phone);
     }
 
     @Override
     public void getProfileRX() {
-        (new ResourceDao(this, new OnPresenterResponseCallback() {
-            @Override
-            public void call(BaseResponse br) {
-                ProfileResponseModel model = (ProfileResponseModel) br;
-            }
-        })).getProfileDAO().subscribeOn(Schedulers.newThread())
+        (new ResourceDao(this, null)).getProfileDAO().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .debounce(400, TimeUnit.MILLISECONDS)
-        .subscribe(new RxObserver<ProfileResponseModel>() {
+                .subscribe(new RxObserver<ProfileResponseModel>() {
 
-            @Override
-            public void onNext(Object o) {
-                iv.handleProfileComplete((ProfileResponseModel) o);
-            }
+                    @Override
+                    public void onNext(Object o) {
+                        iv.handleProfileDone((ProfileResponseModel) o);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        iv.handleFail();
+                    }
 
-            @Override
-            public void onComplete() {
-            }
-        });
+                });
 
     }
-
 
 
     @Override

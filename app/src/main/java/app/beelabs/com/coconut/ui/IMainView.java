@@ -10,6 +10,6 @@ public interface IMainView extends IView {
     void handleDataSource(SourceResponse model);
     void handleDataUpload(BaseResponse model);
 
-    void handleProfileComplete(ProfileResponseModel model);
+    void handleProfileDone(ProfileResponseModel model);
 
 }
