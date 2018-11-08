@@ -1,7 +1,9 @@
 package app.beelabs.com.coconut.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,14 +14,17 @@ import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
+import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -36,6 +41,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     @BindView(R.id.content2)
     TextView content2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +49,12 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
+//        doFirstWay();
+
+
+        showFragment(new MainFragment(), R.id.container);
+
         doFirstWay();
-
-
-//        showFragment(new MainFragment(), R.id.container);
 
     }
 
@@ -58,11 +66,22 @@ public class MainActivity extends BaseActivity implements IMainView {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this, new ResourcePresenter(MainActivity.this)))
-                                .getProfileRX();
+                        runProfileRX();
                     }
+
                 });
 
+    }
+
+    private void runProfileRX() {
+        ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this,
+                new ResourcePresenter(MainActivity.this)))
+                .getProfileRX();
+    }
+
+    @OnClick(R.id.loadButton)
+    public void onLoadButton(View view){
+        showSnackbar(rootView, "Internet down", Snackbar.LENGTH_SHORT).show();
     }
 
 
@@ -90,7 +109,9 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void handleFail() {
-        Toast.makeText(this, "Internet Down!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Internet Down!", Toast.LENGTH_SHORT).show();
+        showSnackbar(rootView, "Internet down", Snackbar.LENGTH_SHORT).show();
+        doFirstWay();
     }
 
 

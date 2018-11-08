@@ -49,6 +49,11 @@ public class BaseDao implements IDao {
 
 
     @Override
+    public BasePresenter getPresenter() {
+        return null;
+    }
+
+    @Override
     public void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
 
     }

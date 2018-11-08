@@ -36,6 +36,12 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
         return this;
     }
 
+
+
+
+
+
+
     @Override
     public void postPhoneNumber(String phone) {
         Log.d("", "");
@@ -51,7 +57,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
     @Override
     public void getProfileRX() {
-        (new ResourceDao(this, null)).getProfileDAO()
+        new ResourceDao(this).getProfileRxDAO()
                 .subscribe(new RxObserver<ProfileResponseModel>() {
 
                     @Override
@@ -76,24 +82,24 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
     @Override
     public void getSource() {
-        (new ResourceDao(this, new OnPresenterResponseCallback() {
+        new ResourceDao(this, new OnPresenterResponseCallback() {
             @Override
             public void call(BaseResponse br) {
                 SourceResponse model = (SourceResponse) br;
                 iv.handleDataSource(model);
             }
-        })).getSourceDAO();
+        }).getSourceDAO();
     }
 
     @Override
     public Observable<SourceResponse> getSourceRX() {
-        return (new ResourceDao(this, new OnPresenterResponseCallback() {
+        return new ResourceDao(this, new OnPresenterResponseCallback() {
             @Override
             public void call(BaseResponse br) {
                 SourceResponse model = (SourceResponse) br;
                 iv.handleDataSource(model);
             }
-        })).getSourceRXDAO();
+        }).getSourceRXDAO();
     }
 
 
@@ -102,13 +108,13 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                            String startDateVal, String endDateVal,
                            String employeeIdVal, File file) {
 
-        (new ResourceDao(this, new OnPresenterResponseCallback() {
+        new ResourceDao(this, new OnPresenterResponseCallback() {
             @Override
             public void call(BaseResponse br) {
                 BaseResponse model = br;
                 iv.handleDataUpload(model);
             }
-        })).postingUploadFile(noteVal, startTimeVal, endTimeVal,
+        }).postingUploadFile(noteVal, startTimeVal, endTimeVal,
                 startDateVal, endDateVal, employeeIdVal, file);
     }
 }

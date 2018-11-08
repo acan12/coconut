@@ -1,5 +1,7 @@
 package app.beelabs.com.codebase.support.util;
 
+import android.os.Build;
+
 import java.security.MessageDigest;
 import java.util.Random;
 import java.util.UUID;
@@ -9,6 +11,21 @@ import java.util.UUID;
  */
 
 public class DeviceUtil {
+
+    public static boolean isAndroidVersion(int androidVersion, String operator){
+        int version = Build.VERSION.SDK_INT;
+        boolean result = false;
+        switch(operator){
+            case ">=":
+                result = version >= androidVersion;
+                break;
+            case "==":
+                result = version == androidVersion;
+                break;
+        }
+
+        return result;
+    }
 
     public static String getUUID() {
 

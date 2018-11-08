@@ -7,7 +7,6 @@ import app.beelabs.com.codebase.di.component.AppComponent;
 import app.beelabs.com.codebase.di.component.DaggerAppComponent;
 import app.beelabs.com.codebase.di.module.ApiServiceModule;
 import app.beelabs.com.codebase.di.module.AppModule;
-import app.beelabs.com.codebase.support.util.FontUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**

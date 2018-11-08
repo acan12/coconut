@@ -10,6 +10,7 @@ import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.BasePresenter;
+import app.beelabs.com.codebase.base.IDaoPresenter;
 import app.beelabs.com.codebase.base.IPresenter;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
@@ -32,8 +33,7 @@ public class ResourceDao extends BaseDao {
     private IResourceDao rdao;
 
     // definition usecase
-    public interface IResourceDao  {
-        BasePresenter getPresenter();
+    public interface IResourceDao extends IDaoPresenter {
 
         void postPhoneNumber(String phone);
 
@@ -54,6 +54,9 @@ public class ResourceDao extends BaseDao {
 
     }
 
+    public ResourceDao(IResourceDao rdao) {
+        this.rdao = rdao;
+    }
 
     public ResourceDao(IResourceDao rdao, ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback) {
         this.rdao = rdao;
@@ -62,7 +65,7 @@ public class ResourceDao extends BaseDao {
 
 
 
-    public Observable<ProfileResponseModel> getProfileDAO() {
+    public Observable<ProfileResponseModel> getProfileRxDAO() {
         return Api.doApiProfile().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -1,6 +1,5 @@
 package app.beelabs.com.coconut.model.api;
 
-import java.util.List;
 import java.util.Map;
 
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
@@ -48,8 +47,6 @@ public interface ApiService {
     })
     @GET("sources")
     Observable<SourceResponse> callApiRXSources(@Query("language") String language);
-
-
 
 
     @Headers({

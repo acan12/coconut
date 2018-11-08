@@ -20,6 +20,15 @@ public class RxCompositeDisposableManager {
     public RxCompositeDisposableManager() {
     }
 
+
+    interface IRxCallback {
+        public void onNext();
+
+        public void onError();
+
+        public void onComplete();
+    }
+
     public static void add(Disposable disposable) {
         getCompositeDisposable().add(disposable);
     }
