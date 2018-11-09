@@ -24,7 +24,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -80,7 +79,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     @OnClick(R.id.loadButton)
-    public void onLoadButton(View view){
+    public void onLoadButton(View view) {
         showSnackbar(rootView, "Internet down", Snackbar.LENGTH_SHORT).show();
     }
 
