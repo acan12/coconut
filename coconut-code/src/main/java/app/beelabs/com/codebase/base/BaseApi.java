@@ -14,6 +14,9 @@ public class BaseApi {
     private String apiDomain;
     private static BaseApi baseApi;
 
+    public BaseApi() {
+    }
+
     public static BaseApi getInstance(){
         if(baseApi ==null)
             baseApi = new BaseApi();

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
+import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
@@ -53,7 +54,20 @@ public class MainActivity extends BaseActivity implements IMainView {
 
         showFragment(new MainFragment(), R.id.container);
 
-        doFirstWay();
+//        doThirdWay();
+
+    }
+
+    private void doThirdWay() {
+
+        showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
+            @Override
+            public void call() {
+                getSource();
+//                postPhoneNumber("081212341212");
+            }
+        }), "Please wait ", false);
+
 
     }
 
@@ -107,10 +121,10 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     @Override
-    public void handleFail() {
+    public void handleFail(String message) {
 //        Toast.makeText(this, "Internet Down!", Toast.LENGTH_SHORT).show();
-        showSnackbar(rootView, "Internet down", Snackbar.LENGTH_SHORT).show();
-        doFirstWay();
+        showSnackbar(rootView, message, Snackbar.LENGTH_SHORT).show();
+//        doFirstWay();
     }
 
 

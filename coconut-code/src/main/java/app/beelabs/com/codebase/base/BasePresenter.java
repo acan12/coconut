@@ -5,11 +5,11 @@ import app.beelabs.com.codebase.component.ProgressDialogComponent;
 
 public class BasePresenter implements IPresenter {
     private static BasePresenter presenter;
-    private static BaseActivity ba;
+    private static IView iview;
 
 
-    public static BasePresenter getInstance(BaseActivity activity, BasePresenter bp) {
-        ba = activity;
+    public static BasePresenter getInstance(IView iv, BasePresenter bp) {
+        iview = iv;
         presenter = bp;
 
         return presenter;
@@ -22,14 +22,14 @@ public class BasePresenter implements IPresenter {
 
     @Override
     public void done() {
-        ProgressDialogComponent.dismissProgressDialog(ba);
+        ProgressDialogComponent.dismissProgressDialog(iview.getBaseActivity());
 
     }
 
     @Override
-    public void fail() {
+    public void fail(String message) {
         done();
-        ba.handleFail();
+        iview.handleFail(message);
     }
 
 

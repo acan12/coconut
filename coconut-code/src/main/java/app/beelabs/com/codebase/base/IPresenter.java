@@ -5,6 +5,6 @@ public interface IPresenter {
 
     void done();
 
-    void fail();
+    void fail(String message);
 
 }

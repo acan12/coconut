@@ -1,6 +1,5 @@
 package app.beelabs.com.coconut.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
-import app.beelabs.com.coconut.ui.MainActivity;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseFragment;
 import app.beelabs.com.codebase.base.BasePresenter;
@@ -49,11 +47,15 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
         Log.d("TEST", "testing handle data summary");
     }
 
+    @Override
+    public BaseActivity getBaseActivity() {
+        return (BaseActivity) getActivity();
+    }
+
 
     @Override
-    public void handleFail() {
-        Toast.makeText(getActivity(), "Fragment Internet Down!", Toast.LENGTH_SHORT).show();
-        new Intent(getActivity(), MainActivity.class);
+    public void handleFail(String message) {
+        Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
     }
 
 }

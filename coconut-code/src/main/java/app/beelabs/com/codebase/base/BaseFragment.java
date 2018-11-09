@@ -30,7 +30,7 @@ public abstract class BaseFragment extends Fragment implements IView {
     }
 
     @Override
-    public void handleFail() {
+    public void handleFail(String message) {
 
     }
 }

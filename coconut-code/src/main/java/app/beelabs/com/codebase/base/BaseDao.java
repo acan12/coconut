@@ -82,7 +82,7 @@ public class BaseDao implements IDao {
 
 
     public void onFailureCallback(Throwable t, IDao dao) {
-        bp.fail();
+        bp.fail(t.getMessage());
         dao.onApiFailureCallback(t.getMessage());
     }
 
