@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 26
@@ -30,6 +31,12 @@ android {
 
     sourceSets {
         main.res.srcDirs += ['src/main/res-content']
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            force 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        }
     }
 }
 

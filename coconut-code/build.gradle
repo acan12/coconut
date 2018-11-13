@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'realm-android'
 
 group='com.github.acan12'
 
@@ -48,6 +49,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.1'   // RX
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1' // RX
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
 
     implementation 'com.android.support:appcompat-v7:26.+'
     testImplementation 'junit:junit:4.12'
