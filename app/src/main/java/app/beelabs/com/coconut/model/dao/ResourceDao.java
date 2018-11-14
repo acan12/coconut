@@ -1,5 +1,7 @@
 package app.beelabs.com.coconut.model.dao;
 
+import android.content.Context;
+
 import java.io.File;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 import static app.beelabs.com.coconut.IConfig.KEY_CALLER_API_SOURCE;
@@ -81,8 +84,9 @@ public class ResourceDao extends BaseDao {
 
 
 
-//    public void getArticleDAO(IPresenter iView, Callback callback) {
-//        Api.doApiArticles(iView.getBaseActivity(), callback);
+//    public void getArticleDAO(Context context, Callback callback) {
+//        Database db = Database.initDatabase(context);
+//        db.saveToRealm()
 //    }
 
     public void postPhoneNumber(String phone) {

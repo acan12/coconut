@@ -1,12 +1,27 @@
 package app.beelabs.com.coconut.model.db;
 
-import android.content.Context;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-import app.beelabs.com.codebase.base.BaseDatabase;
+public class UserDB extends RealmObject {
 
-public class UserDB extends BaseDatabase {
+    @PrimaryKey
+    private int id;
+    private String name;
 
-    public void loadUser(Context context){
-        setupRealm(context);
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
