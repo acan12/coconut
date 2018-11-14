@@ -23,11 +23,12 @@ _Coconut framework library for android_
         |       |    |-- ApiService.java
         |       | 
         |       |--- db
+        |       |--- dao
         |       
         |     
         |--- presenter
         |      |
-        |      |-- dao
+        |      |-- <xxx>Presenter.java
         |--- ui
              |
              |-- activities
@@ -162,18 +163,35 @@ dependencies {
        }
     ```
     
+- `BaseDialog` 
+    ```aidl
+       public class MainDialog extends BaseDialog {
+          ...  
+       }
+          
+                  
+    ```
+    
  - `BaseDao`
     ```
         public class ResourceDao extends BaseDao {
+        
         
             public ResourceDao(BaseActivity ac) {
                 super(ac);
             }
             
             public void getSourcesDAO(BaseActivity ac, Callback callback) {
-                 Api.doApiSources(ac, callback);
+                Api.doApiSources(ac, callback);
             }
             ...
+            
+            private Database db;
+            
+            public void saveUser(BaseActivity ac){
+                db = Database.initDatabase(context); -- setup database configuration
+                db.saveToRealm()
+            }
     ```
     
  - `BaseResponse`
