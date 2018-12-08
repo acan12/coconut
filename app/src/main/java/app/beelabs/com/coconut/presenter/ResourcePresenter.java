@@ -1,5 +1,6 @@
 package app.beelabs.com.coconut.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.File;
@@ -31,16 +32,17 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     }
 
 
+
+
     @Override
     public BasePresenter getPresenter() {
         return this;
     }
 
-
-
-
-
-
+    @Override
+    public Context getContext() {
+        return iv.getBaseActivity();
+    }
 
     @Override
     public void postPhoneNumber(String phone) {

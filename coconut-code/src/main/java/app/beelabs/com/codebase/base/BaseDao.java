@@ -151,6 +151,13 @@ public class BaseDao implements IDao {
             realm.commitTransaction();
             return obj;
         }
+
+        public void doTransactionWithRealm(TransactionCallback callback){
+            realm.beginTransaction();
+            callback.call();
+            realm.commitTransaction();
+        }
+
         public RealmResults getCollectionRealm(Class clazz) {
             RealmResults objects = realm.where(clazz).findAll();
             return objects;
@@ -203,6 +210,12 @@ public class BaseDao implements IDao {
             }
         }
 
+        public static class TransactionCallback {
+
+            public void call(){
+
+            }
+        }
     }
 
 }
