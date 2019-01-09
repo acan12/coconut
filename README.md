@@ -206,16 +206,17 @@ dependencies {
        }
     ```
     
-
-Version:
-- [mvp2]:
+**[mvp coconut 2]**
     * support multiple resource directories
     * full mvp implementation
     * integrate Retrofit with RXObserver
+    
+Version:
 
 - `2.0.5` :
     * Using mvp framework version 2
     * fix issue for Api management in base code
+    * improve dialog custom style
     
 - `1.0.14` :
     * fix base fragment has same behaviour with base activity when call api
