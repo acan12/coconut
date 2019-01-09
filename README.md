@@ -69,6 +69,17 @@ _Coconut framework library for android_
 
 ```
 
+**4. Loading dialog layout**
+```aidl
+    LoadingDialogComponent dialog = new LoadingDialogComponent(this, R.style.CoconutDialogFullScreen);
+    dialog.show();
+    
+    
+    // custom style color background , update color hex in color.xml
+    <color name="color_background_dialog">#CCFFFFFF</color>
+    
+```
+
 
 
 ## Installation guide :
@@ -172,6 +183,11 @@ dependencies {
     ```aidl
        public class MainDialog extends BaseDialog {
           ...  
+        
+          @Override
+          protected void onCreate(Bundle savedInstanceState) {
+              ...
+          }
        }
           
                   
