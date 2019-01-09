@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import app.beelabs.com.coconut.App;
@@ -25,7 +24,6 @@ import retrofit2.Callback;
  * Created by arysuryawan on 8/18/17.
  */
 public class Api extends BaseApi {
-    private static ApiService apiService;
 
     private static Map<String, String> initHeader() {
         Map<String, String> map = new HashMap<>();
@@ -75,9 +73,6 @@ public class Api extends BaseApi {
     synchronized public static Observable<SourceResponse> doApiRXSources() {
         return initApiDomain2().callApiRXSources("en");
     }
-
-
-
 
 
     synchronized public static void doApiArticles(Context context, Callback callback) {
