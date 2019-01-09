@@ -25,6 +25,7 @@ import retrofit2.Callback;
  * Created by arysuryawan on 8/18/17.
  */
 public class Api extends BaseApi {
+    private static ApiService apiService;
 
     private static Map<String, String> initHeader() {
         Map<String, String> map = new HashMap<>();
@@ -38,12 +39,12 @@ public class Api extends BaseApi {
 
 
     synchronized private static ApiService initApiDomain() {
-        getInstance().setApiDomain(IConfig.API_BASE_URL);
         return (ApiService) getInstance()
-                .setupApi(App.getAppComponent(),
+                .setupApiDomain(IConfig.API_BASE_URL, App.getAppComponent(),
                         ApiService.class,
                         true,
                         app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
+
     }
 
     synchronized private static ApiService initApiDomain2() {

@@ -6,5 +6,6 @@ package app.beelabs.com.codebase.di;
  */
 
 public interface IApi {
-    Object getApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout);
+    Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout);
+
 }

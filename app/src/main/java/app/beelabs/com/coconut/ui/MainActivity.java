@@ -20,6 +20,7 @@ import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
+import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,7 +50,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
-//        doFirstWay();
+        doFirstWay();
 
 
         showFragment(new MainFragment(), R.id.container);
@@ -72,6 +73,9 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     private void doFirstWay() {
+        LoadingDialogComponent dialog = new LoadingDialogComponent(this, R.style.CoconutDialogFullScreen);
+        dialog.show();
+
         Observable.timer(10000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .repeat()
@@ -79,7 +83,8 @@ public class MainActivity extends BaseActivity implements IMainView {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        runProfileRX();
+                        dialog.dismiss();
+//                        runProfileRX();
                     }
 
                 });

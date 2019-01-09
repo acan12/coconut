@@ -35,9 +35,17 @@ public class BaseApi {
         return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND);
     }
 
+
     public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout) {
         IApi api = appComponent.getApi();
-        return api.getApiService(getApiDomain(), allowUntrusted, clazz, timeout);
+
+        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout);
+    }
+
+
+    public Object setupApiDomain(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout){
+        this.apiDomain = domain;
+        return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout);
     }
 }
 

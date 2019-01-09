@@ -23,7 +23,7 @@ _Coconut framework library for android_
         |       |    |-- ApiService.java
         |       | 
         |       |--- db
-        |       |--- dao
+        |       |--- dao (interactor)
         |       
         |     
         |--- presenter
@@ -104,6 +104,11 @@ dependencies {
             super.onCreate();
             context = getApplicationContext();
             setupBuilder(DaggerAppComponent.builder(), this);
+            
+            // optional setup custom font path,
+            // make sure put font file under main/assets/fonts/
+            setupDefaultFont("fonts/SF-Pro-Display-Black.otf");  
+            
         }
     
         public static AppComponent getAppComponent() {
@@ -137,14 +142,14 @@ dependencies {
     ```aidl
         public class Api extends BaseApi {
         
-            synchronized private static ApiService initApiDomain(Context context) {
+            synchronized private static ApiService initApiDomain() {
                 getInstance().setApiDomain(IConfig.API_BASE_URL);
                 return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class);
                 //return setupApi(App.getAppComponent(), ApiService.class, true); -- if set allow untrusted SSL calling
             }
         
-            synchronized public static void doApiSources(Context context, Callback callback) {
-                initApiDomain(context).callApiSources("en").enqueue((Callback<SourceResponse>) callback);
+            synchronized public static void doApiSources(Callback callback) {
+                initApiDomain().callApiSources("en").enqueue((Callback<SourceResponse>) callback);
             }
     
     ```
@@ -207,6 +212,10 @@ Version:
     * support multiple resource directories
     * full mvp implementation
     * integrate Retrofit with RXObserver
+
+- `2.0.5` :
+    * Using mvp framework version 2
+    * fix issue for Api management in base code
     
 - `1.0.14` :
     * fix base fragment has same behaviour with base activity when call api
