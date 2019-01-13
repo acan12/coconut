@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import app.beelabs.com.codebase.R;
+import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -85,13 +86,15 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         return currentFragment;
     }
 
+
+    // handle progress dialog
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
         showApiProgressDialog(appComponent, presenter, null);
     }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(this, message, true);
+        progress.showProgressDialog(this, message, false);
         presenter.call();
     }
 
@@ -100,6 +103,16 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         progress.showProgressDialog(this, message, isCanceledOnTouch);
         presenter.call();
     }
+
+
+    protected void showApiCustomProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
+        IProgress progress = appComponent.getProgressDialog();
+        progress.showLoadingDialog(new LoadingDialogComponent(message, this, R.style.CoconutDialogFullScreen));
+        presenter.call();
+
+    }
+
+    //--- end ----
 
     @Override
     public void handleFail(String message) {

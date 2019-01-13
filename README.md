@@ -76,7 +76,9 @@ _Coconut framework library for android_
     
     
     // custom style color background , update color hex in color.xml
-    <color name="color_background_dialog">#CCFFFFFF</color>
+    <color name="color_background_dialog">#CCFFFFFF</color> 
+    <color name="colorCoconut_text_dialog">#fff</color>
+    <color name="colorCoconut_iconloading_dialog">#ababab</color>
     
 ```
 

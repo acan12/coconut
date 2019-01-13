@@ -15,12 +15,10 @@ import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
-import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,32 +48,27 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
-        doFirstWay();
+//        doFirstWay();
+//        showFragment(new MainFragment(), R.id.container);
 
-
-        showFragment(new MainFragment(), R.id.container);
-
-//        doThirdWay();
+        doThirdWay();
 
     }
 
     private void doThirdWay() {
 
-        showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
+        showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
             @Override
             public void call() {
                 getSource();
 //                postPhoneNumber("081212341212");
             }
-        }), "Please wait ", false);
+        }), "Updating customer");
 
 
     }
 
     private void doFirstWay() {
-        LoadingDialogComponent dialog = new LoadingDialogComponent(this, R.style.CoconutDialogFullScreen);
-        dialog.show();
-
         Observable.timer(10000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .repeat()
@@ -83,7 +76,6 @@ public class MainActivity extends BaseActivity implements IMainView {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        dialog.dismiss();
 //                        runProfileRX();
                     }
 

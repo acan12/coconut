@@ -42,7 +42,7 @@ public class BaseDialog extends Dialog {
 
     protected void setWindowContentDialogLayout(int layoutId) {
         Window w = getWindow();
-        w.setBackgroundDrawable(new ColorDrawable(getContext().getResources().getColor(R.color.color_background_dialog)));
+        w.setBackgroundDrawable(new ColorDrawable(getContext().getResources().getColor(R.color.colorCoconut_background_dialog)));
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         w.setLayout(widthLayout, heightLayout);

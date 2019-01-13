@@ -1,6 +1,7 @@
 package app.beelabs.com.codebase.base;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 
 public class BasePresenter implements IPresenter {
@@ -23,6 +24,7 @@ public class BasePresenter implements IPresenter {
     @Override
     public void done() {
         ProgressDialogComponent.dismissProgressDialog(iview.getBaseActivity());
+        LoadingDialogComponent.closeDialog(iview.getBaseActivity());
 
     }
 

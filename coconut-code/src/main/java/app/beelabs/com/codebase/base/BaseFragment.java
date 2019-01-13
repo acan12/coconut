@@ -2,6 +2,8 @@ package app.beelabs.com.codebase.base;
 
 import android.support.v4.app.Fragment;
 
+import app.beelabs.com.codebase.R;
+import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
 
@@ -26,6 +28,12 @@ public abstract class BaseFragment extends Fragment implements IView {
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(getActivity(), message, isCanceledOnTouch);
+        presenter.call();
+    }
+
+    protected void showLoadingDialog(AppComponent appComponent, BasePresenter presenter, String message) {
+        IProgress progress = appComponent.getProgressDialog();
+        progress.showLoadingDialog(new LoadingDialogComponent(message, getActivity(), R.style.CoconutDialogFullScreen));
         presenter.call();
     }
 

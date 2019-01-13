@@ -1,20 +1,26 @@
 package app.beelabs.com.codebase.component;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.widget.TextView;
 
+import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.R;
+import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDialog;
 import butterknife.ButterKnife;
 
 public class LoadingDialogComponent extends BaseDialog {
-    private Activity activity;
 
-    public LoadingDialogComponent(@NonNull Context context, int style) {
+    private String message;
+    private static LoadingDialogComponent dialog;
+    private TextView text;
+
+
+    public LoadingDialogComponent(@NonNull String message, Context context, int style) {
         super(context, style);
-        this.activity = activity;
+        this.message = message;
     }
 
     @Override
@@ -22,6 +28,31 @@ public class LoadingDialogComponent extends BaseDialog {
         super.onCreate(savedInstanceState);
         setWindowContentDialogLayout(R.layout.dialog_loading);
         ButterKnife.bind(this);
+
+        dialog = this;
+
+        text = (TextView) findViewById(R.id.loading_text);
+        text.setText(message);
+    }
+
+    synchronized public static LoadingDialogComponent showCustomProgressDialog(Context context, String message) {
+        if (dialog == null) {
+            message = message != null ? message : IConfig.DEFAULT_LOADING;
+
+            dialog = new LoadingDialogComponent(message, context, R.style.CoconutDialogFullScreen);
+            dialog.show();
+        }
+
+        return dialog;
+
+    }
+
+    public static void closeDialog(BaseActivity ac) {
+        if (dialog == null) return;
+        if (ac == null || !ac.isFinishing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
 
     }
 }
