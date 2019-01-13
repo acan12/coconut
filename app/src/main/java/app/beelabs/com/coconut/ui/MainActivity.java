@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements IMainView {
                 getSource();
 //                postPhoneNumber("081212341212");
             }
-        }), "Updating customer");
+        }), "Updating...");
 
 
     }

@@ -7,7 +7,7 @@
     <!-- Coconut color -->
     <color name="colorCoconut_background_dialog">#CC000000</color>
     <color name="colorCoconut_text_dialog">#fff</color>
-    <color name="colorCoconut_iconloading_dialog">#ababab</color>
+    <!--<color name="colorCoconut_iconloading_dialog">#ababab</color>-->
 
     <color name="color_grey">#ababab</color>
     <color name="color_blue">#00BFFF</color>

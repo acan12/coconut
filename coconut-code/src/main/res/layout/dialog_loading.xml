@@ -10,13 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ProgressBar
+        <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/loading_icon"
+            style="@style/SpinKitView.Large.Wave"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:indeterminateTintMode="src_atop"
-            android:indeterminateTint="@color/colorCoconut_iconloading_dialog" />
+            app:SpinKit_Color="@color/colorCoconut_iconloading_dialog" />
 
         <TextView
             android:id="@+id/loading_text"
