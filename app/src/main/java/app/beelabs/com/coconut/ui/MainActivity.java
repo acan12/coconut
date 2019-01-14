@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
             @Override
             public void call() {
-                getSource();
+                getSourceRX();
 //                postPhoneNumber("081212341212");
             }
         }), "Updating...");
@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements IMainView {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-//                        runProfileRX();
+                        runProfileRX();
                     }
 
                 });
@@ -119,9 +119,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void handleFail(String message) {
-//        Toast.makeText(this, "Internet Down!", Toast.LENGTH_SHORT).show();
         showSnackbar(rootView, message, Snackbar.LENGTH_SHORT).show();
-//        doFirstWay();
     }
 
 

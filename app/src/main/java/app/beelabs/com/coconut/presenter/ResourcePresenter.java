@@ -13,8 +13,8 @@ import app.beelabs.com.coconut.ui.IMainView;
 import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import app.beelabs.com.codebase.support.rx.RxObserver;
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
@@ -30,8 +30,6 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     public ResourcePresenter(IMainFragmentView ifv) {
         this.ifv = ifv;
     }
-
-
 
 
     @Override
@@ -94,14 +92,16 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     }
 
     @Override
-    public Observable<SourceResponse> getSourceRX() {
-        return new ResourceDao(this, new OnPresenterResponseCallback() {
-            @Override
-            public void call(BaseResponse br) {
-                SourceResponse model = (SourceResponse) br;
-                iv.handleDataSource(model);
-            }
-        }).getSourceRXDAO();
+    public void getSourceRX() {
+        new ResourceDao(this).getSourceRXDAO()
+                .subscribe(new RxObserver<ProfileResponseModel>() {
+                    @Override
+                    public void onNext(Object o) {
+                        LoadingDialogComponent.closeDialog(iv.getBaseActivity());
+                        iv.handleDataSource((SourceResponse) o);
+                    }
+                });
+        ;
     }
 
 

@@ -1,9 +1,6 @@
 package app.beelabs.com.coconut.model.dao;
 
-import android.content.Context;
-
 import java.io.File;
-import java.util.List;
 
 import app.beelabs.com.coconut.model.api.Api;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
@@ -11,16 +8,11 @@ import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseDao;
-import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.IDaoPresenter;
-import app.beelabs.com.codebase.base.IPresenter;
-import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 import static app.beelabs.com.coconut.IConfig.KEY_CALLER_API_SOURCE;
@@ -44,7 +36,7 @@ public class ResourceDao extends BaseDao {
 
         void getSource();
 
-        Observable<SourceResponse> getSourceRX();
+        void getSourceRX();
 
         void uploadFile(String noteVal,
                         String startTimeVal,
@@ -67,7 +59,6 @@ public class ResourceDao extends BaseDao {
     }
 
 
-
     public Observable<ProfileResponseModel> getProfileRxDAO() {
         return Api.doApiProfile().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -79,9 +70,9 @@ public class ResourceDao extends BaseDao {
     }
 
     public Observable<SourceResponse> getSourceRXDAO() {
-        return Api.doApiRXSources();
+        return Api.doApiRXSources().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
-
 
 
 //    public void getArticleDAO(Context context, Callback callback) {
@@ -99,7 +90,7 @@ public class ResourceDao extends BaseDao {
                                   String startDateVal,
                                   String endDateVal,
                                   String employeeIdVal,
-                                  File file){
+                                  File file) {
         Api.doUploadTimesheetTrx(noteVal, startTimeVal, endTimeVal, startDateVal, endDateVal, employeeIdVal, file);
     }
 
@@ -113,9 +104,9 @@ public class ResourceDao extends BaseDao {
                     onPresenterResponseCallback.call(model);
 
                 }
-            }else if(responseCode == KEY_CALLER_API_SUMMARY){
+            } else if (responseCode == KEY_CALLER_API_SUMMARY) {
                 SummaryResponse model = (SummaryResponse) br;
-                if(model.getDescriptionCode().equals("Success")){
+                if (model.getDescriptionCode().equals("Success")) {
                     onPresenterResponseCallback.call(model);
                 }
             }
