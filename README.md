@@ -74,12 +74,22 @@ _Coconut framework library for android_
     LoadingDialogComponent dialog = new LoadingDialogComponent(this, R.style.CoconutDialogFullScreen);
     dialog.show();
     
-    
     // custom style color background , update color hex in color.xml
     <color name="color_background_dialog">#CCFFFFFF</color> 
     <color name="colorCoconut_text_dialog">#fff</color>
     <color name="colorCoconut_iconloading_dialog">#ababab</color>
     
+```
+
+**5. use custom loading for api calling**
+```aidl
+
+    showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
+        @Override
+        public void call() {
+            getSourceRX();
+        }
+    }), "Updating...");
 ```
 
 
