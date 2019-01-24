@@ -102,6 +102,7 @@ dependencies {
 		implementation 'com.google.dagger:dagger:2.4'        
 		annotationProcessor "com.google.dagger:dagger-compiler:2.4"
 		implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+		implementation 'com.github.ybq:Android-SpinKit:1.2.0'
 		...
         
 	}
