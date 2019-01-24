@@ -5,7 +5,7 @@ apply plugin: 'realm-android'
 group='com.github.acan12'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     lintOptions {
         abortOnError false        // true by default
         checkAllWarnings false
@@ -35,7 +35,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:design:28.0.0'
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'  // OkHttp
@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
 //    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
 
-    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support:appcompat-v7:28.+'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
