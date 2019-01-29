@@ -1,8 +1,11 @@
 package app.beelabs.com.codebase.support.util;
 
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Build;
 
 import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
@@ -12,10 +15,10 @@ import java.util.UUID;
 
 public class DeviceUtil {
 
-    public static boolean isAndroidVersion(int androidVersion, String operator){
+    public static boolean isAndroidVersion(int androidVersion, String operator) {
         int version = Build.VERSION.SDK_INT;
         boolean result = false;
-        switch(operator){
+        switch (operator) {
             case ">=":
                 result = version >= androidVersion;
                 break;
@@ -68,6 +71,38 @@ public class DeviceUtil {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+
+
+    // Glenn
+    public static boolean isExceptionalDevice(){
+        String[] exceptionalDevices = {"xiaomi", "meizu"};
+        String manufacturer = Build.MANUFACTURER;
+
+        boolean findMatchData = Arrays.asList(exceptionalDevices).contains(manufacturer.toLowerCase());
+
+        return findMatchData;
+    }
+
+    public boolean isAppInstalled(String packageName, Activity activity) {
+        try {
+            activity.getPackageManager().getApplicationInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    public static boolean isEmulator() {
+        return Build.FINGERPRINT.startsWith("generic")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Nox")
+                || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || "google_sdk".equals(Build.PRODUCT);
     }
 
 }
