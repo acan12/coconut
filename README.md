@@ -83,7 +83,7 @@ _Coconut framework library for android_
     
 ```
 
-**5. use custom loading for api calling**
+**5. use custom loading for api call**
 ```aidl
 
     showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
