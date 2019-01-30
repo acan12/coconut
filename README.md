@@ -245,6 +245,7 @@ dependencies {
 Version:
 - `2.0.8` (coming soon) :
     * RX implementation for timer
+    
 - `2.0.7` :
     * add new custom loading component
     * fix issue retrofit reference in race condition
