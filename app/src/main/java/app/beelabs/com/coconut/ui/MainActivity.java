@@ -19,6 +19,7 @@ import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
+import app.beelabs.com.codebase.support.rx.RxTimer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,10 +49,10 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
-//        doFirstWay();
+        doFirstWay();
 //        showFragment(new MainFragment(), R.id.container);
 
-        doThirdWay();
+//        doThirdWay();
 
     }
 
@@ -69,17 +70,12 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     private void doFirstWay() {
-        Observable.timer(10000, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .repeat()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        runProfileRX();
-                    }
-
-                });
+        RxTimer.doTimer(10000, false, new RxTimer(){
+            @Override
+            public void onCallback(Long along) {
+                Toast.makeText(MainActivity.this, "Timer using RX", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
