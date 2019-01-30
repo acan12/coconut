@@ -1,6 +1,7 @@
 # coconut
 _Coconut framework library for android_ 
 - support MVP Architecture
+- support RX implementation for Retrofit adapter
 - support Retrofit2 for handle request response API
 - support Dagger2 for DI
 
@@ -29,6 +30,7 @@ _Coconut framework library for android_
         |--- presenter
         |      |
         |      |-- <xxx>Presenter.java
+        |  
         |--- ui
              |
              |-- activities
@@ -75,7 +77,7 @@ _Coconut framework library for android_
     dialog.show();
     
     // custom style color background , update color hex in color.xml
-    <color name="color_background_dialog">#CCFFFFFF</color> 
+    <color name="colorCoconut_background_dialog">#CCFFFFFF</color> 
     <color name="colorCoconut_text_dialog">#fff</color>
     <color name="colorCoconut_iconloading_dialog">#ababab</color>
     
@@ -241,7 +243,10 @@ dependencies {
     * integrate Retrofit with RXObserver
     
 Version:
-
+- `2.0.7` :
+    * add new custom loading component
+    * fix issue retrofit reference in race condition
+     
 - `2.0.5` :
     * Using mvp framework version 2
     * fix issue for Api management in base code
