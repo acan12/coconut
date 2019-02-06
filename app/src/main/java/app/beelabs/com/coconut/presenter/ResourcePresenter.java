@@ -72,7 +72,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
                     @Override
                     public void onError(Throwable e) {
-                        iv.handleFail(e.getMessage());
+                        iv.handleError(e.getMessage());
                     }
 
                 });
@@ -87,6 +87,11 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
             public void call(BaseResponse br) {
                 SourceResponse model = (SourceResponse) br;
                 iv.handleDataSource(model);
+            }
+
+            @Override
+            public void error(String message) {
+                iv.handleError(message);
             }
         }).getSourceDAO();
     }

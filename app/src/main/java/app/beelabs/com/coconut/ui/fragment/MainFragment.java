@@ -54,7 +54,7 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
 
 
     @Override
-    public void handleFail(String message) {
+    public void handleError(String message) {
         Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
     }
 

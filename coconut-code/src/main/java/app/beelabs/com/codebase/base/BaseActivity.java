@@ -115,7 +115,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     //--- end ----
 
     @Override
-    public void handleFail(String message) {
+    public void handleError(String message) {
 
     }
 

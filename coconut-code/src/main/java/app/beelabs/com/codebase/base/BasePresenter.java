@@ -31,13 +31,17 @@ public class BasePresenter implements IPresenter {
     @Override
     public void fail(String message) {
         done();
-        iview.handleFail(message);
+        iview.handleError(message);
     }
 
 
     public static class OnPresenterResponseCallback {
 
         public void call(BaseResponse br) {
+
+        }
+
+        public void error(String message) {
 
         }
 

@@ -113,4 +113,8 @@ public class ResourceDao extends BaseDao {
         }
     }
 
+    @Override
+    public void onApiFailureCallback(String message) {
+        onPresenterResponseCallback.error(message);
+    }
 }
