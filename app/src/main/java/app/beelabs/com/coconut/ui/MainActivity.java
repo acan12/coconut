@@ -8,8 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.TimeUnit;
-
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
@@ -24,10 +22,6 @@ import app.beelabs.com.codebase.support.rx.RxTimer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseActivity implements IMainView {
@@ -71,7 +65,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     private void doFirstWay() {
-        RxTimer.doTimer(10000, false, new RxTimer(){
+        RxTimer.doTimer(10000, false, new RxTimer() {
             @Override
             public void onCallback(Long along) {
                 Toast.makeText(MainActivity.this, "Timer using RX", Toast.LENGTH_SHORT).show();
@@ -116,6 +110,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void handleError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         showSnackbar(rootView, message, Snackbar.LENGTH_SHORT).show();
     }
 

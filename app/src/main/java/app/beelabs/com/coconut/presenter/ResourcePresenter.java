@@ -88,11 +88,6 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                 SourceResponse model = (SourceResponse) br;
                 iv.handleDataSource(model);
             }
-
-            @Override
-            public void error(String message) {
-                iv.handleError(message);
-            }
         }).getSourceDAO();
     }
 

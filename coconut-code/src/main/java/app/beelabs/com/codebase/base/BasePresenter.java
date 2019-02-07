@@ -41,10 +41,6 @@ public class BasePresenter implements IPresenter {
 
         }
 
-        public void error(String message) {
-
-        }
-
     }
 
 }
