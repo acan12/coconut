@@ -22,11 +22,4 @@ public class ScreenUtil {
         x.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.heightPixels;
     }
-
-    public static String formatMoneyIDR(long number) {
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
-        String result = "Rp " + formatter.format(number).replaceAll(",", ".");
-
-        return result;
-    }
 }
