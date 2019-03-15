@@ -1,5 +1,7 @@
 package app.beelabs.com.codebase.di.manager;
 
+import java.io.InputStream;
+
 import app.beelabs.com.codebase.base.BaseManager;
 import app.beelabs.com.codebase.di.IApi;
 import app.beelabs.com.codebase.di.IApiService;

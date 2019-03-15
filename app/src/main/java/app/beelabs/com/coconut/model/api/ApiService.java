@@ -1,9 +1,12 @@
 package app.beelabs.com.coconut.model.api;
 
+import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
+import app.beelabs.com.coconut.model.api.response.LoginResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -36,4 +39,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("merchant/rest/sfa/historySummary")
     Call<BaseResponse> callApiTestFintech( @Field("phoneNumber") String phone);
+
+
+
+    @POST("sfa/auth/login")
+    Call<LoginResponseModel> callApiLogin(@Body LoginRequestModel model);
 }
