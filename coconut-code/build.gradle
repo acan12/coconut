@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.acan12'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     lintOptions {
         abortOnError false        // true by default
         checkAllWarnings false
@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "2.0.9"
 
@@ -37,7 +37,7 @@ dependencies {
 
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.+'
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:design:28.0.0'
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'  // OkHttp
