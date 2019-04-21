@@ -12,6 +12,7 @@ import app.beelabs.com.coconut.model.dao.ResourceDao;
 import app.beelabs.com.coconut.ui.IMainView;
 import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
+import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import app.beelabs.com.codebase.support.rx.RxObserver;
@@ -58,15 +59,17 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     @Override
     public void getProfileRX() {
         new ResourceDao(this).getProfileRxDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>() {
+                .subscribe(new RxObserver<ProfileResponseModel>(iv, "Ambil data...") {
 
                     @Override
                     public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
                         iv.handleProcessing();
                     }
 
                     @Override
                     public void onNext(Object o) {
+                        super.onNext(o);
                         iv.handleProfileDone((ProfileResponseModel) o);
                     }
 
@@ -94,16 +97,14 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     @Override
     public void getSourceRX() {
         new ResourceDao(this).getSourceRXDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>() {
+                .subscribe(new RxObserver<ProfileResponseModel>(iv, "Ambil Data") {
                     @Override
                     public void onNext(Object o) {
-                        LoadingDialogComponent.closeDialog(iv.getBaseActivity());
+                        super.onNext(o);
                         iv.handleDataSource((SourceResponse) o);
                     }
                 });
-        ;
     }
-
 
     @Override
     public void uploadFile(String noteVal, String startTimeVal, String endTimeVal,

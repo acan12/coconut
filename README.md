@@ -237,12 +237,24 @@ dependencies {
        }
     ```
     
-**6. Implementation RXTimer**
+**6. Implementation RxTimer**
 ```
     RxTimer.doTimer(long delay, boolean repeat, RxTimer callback)
 ```
 
-**7. Prevent from being Rooted, FakeGPS, shareApp**
+**7. Implementation loading message within Rx**
+```
+    new ResourceDao(this).getSourceRXDAO()
+                .subscribe(new RxObserver<ProfileResponseModel>(iv, "Update data...") {
+                    @Override
+                    public void onNext(Object o) {
+                        super.onNext(o);
+                        iv.handleDataSource((SourceResponse) o);
+                    }
+                });
+```
+
+**8. Prevent from being Rooted, FakeGPS, shareApp**
     
 **[mvp coconut 2]**
     * support multiple resource directories

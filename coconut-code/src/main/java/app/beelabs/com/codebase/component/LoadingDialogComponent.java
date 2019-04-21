@@ -35,7 +35,7 @@ public class LoadingDialogComponent extends BaseDialog {
         text.setText(message);
     }
 
-    synchronized public static LoadingDialogComponent showCustomProgressDialog(Context context, String message) {
+    synchronized public static LoadingDialogComponent openLoadingDialog(Context context, String message) {
         if (dialog == null) {
             message = message != null ? message : IConfig.DEFAULT_LOADING;
 
@@ -47,7 +47,7 @@ public class LoadingDialogComponent extends BaseDialog {
 
     }
 
-    public static void closeDialog(BaseActivity ac) {
+    public static void closeLoadingDialog(BaseActivity ac) {
         if (dialog == null) return;
         if (ac == null || !ac.isFinishing()) {
             dialog.dismiss();

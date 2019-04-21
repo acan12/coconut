@@ -24,7 +24,7 @@ public class BasePresenter implements IPresenter {
     @Override
     public void done() {
         ProgressDialogComponent.dismissProgressDialog(iview.getBaseActivity());
-        LoadingDialogComponent.closeDialog(iview.getBaseActivity());
+        LoadingDialogComponent.closeLoadingDialog(iview.getBaseActivity());
 
     }
 

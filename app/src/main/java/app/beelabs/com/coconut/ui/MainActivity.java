@@ -44,22 +44,29 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
-        doFirstWay();
-        showFragment(new MainFragment(), R.id.container);
-
+//        doFirstWay();
+//        showFragment(new MainFragment(), R.id.container);
+//
         doThirdWay();
+
+//        runProfileRX();
 
     }
 
     private void doThirdWay() {
 
-        showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
-            @Override
-            public void call() {
-                getSourceRX();
-//                postPhoneNumber("081212341212");
-            }
-        }), "Updating...");
+//        showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
+//            @Override
+//            public void call() {
+//                getSourceRX();
+////                postPhoneNumber("081212341212");
+//            }
+//        }), "Updating...");
+
+
+        ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this,
+                new ResourcePresenter(MainActivity.this)))
+                .getSourceRX();
 
 
     }
