@@ -237,14 +237,23 @@ dependencies {
        }
     ```
     
+**6. Implementation RXTimer**
+```
+    RxTimer.doTimer(long delay, boolean repeat, RxTimer callback)
+```
+
+**7. Prevent from being Rooted, FakeGPS, shareApp**
+    
 **[mvp coconut 2]**
     * support multiple resource directories
     * full mvp implementation
     * integrate Retrofit with RXObserver
     
 Version:
-- `2.0.8` (coming soon) :
+- `2.0.9` :
     * RX implementation for timer
+    * support RXTimer for timer action base on RX
+    * support preventation from fakeGPS, rooted, appshare
     
 - `2.0.7` :
     * add new custom loading component
