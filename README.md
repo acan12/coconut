@@ -255,6 +255,11 @@ dependencies {
 ```
 
 **8. Prevent from being Rooted, FakeGPS, shareApp**
+```
+    SecurityUtil.isPackageInstalled(new String[]{"com.xxxx.app"}, getPackageManager());
+    SecurityUtil.isRooted();
+    SecurityUtil.isMockLocationEnabled(this);
+```
     
 **[mvp coconut 2]**
     * support multiple resource directories
