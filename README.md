@@ -244,14 +244,14 @@ dependencies {
 
 **7. Implementation loading message within Rx**
 ```
-    (Activity)
-    ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
+    (Activity / Fragment)
+    -> ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
     
     (Interface UI class)
-    create self interface extends IView as parent of interface in framework 
+    -> create self interface extends IView as parent of interface in framework 
     
     (Presenter)
-    @Override
+    -> @Override
         public void getSourceRX(String messageLoading) {
             new ResourceDao(this).getSourceRXDAO()
                     .subscribe(new RxObserver<ProfileResponseModel>(iv, messageLoading) {
@@ -264,9 +264,9 @@ dependencies {
         }
         
     (Interface DAO/ Interactor)
-    create self interface extends IDao as parent of interface in framework
-    sample code:
+    -> create self interface extends IDao as parent of interface in framework
     
+    [sample code] ->
     private [custom presenter name]Presenter.OnPresenterResponseCallback onPresenterResponseCallback;
         private IResourceDao rdao;
     
