@@ -36,7 +36,7 @@ public class ResourceDao extends BaseDao {
 
         void getSource();
 
-        void getSourceRX();
+        void getSourceRX(String messageLoading);
 
         void uploadFile(String noteVal,
                         String startTimeVal,
@@ -80,8 +80,9 @@ public class ResourceDao extends BaseDao {
 //        db.saveToRealm()
 //    }
 
-    public void postPhoneNumber(String phone) {
-        Api.doTestFin(phone, BaseDao.getInstance(this, rdao.getPresenter(), KEY_CALLER_API_SUMMARY).callback);
+    public Observable<SummaryResponse> postPhoneNumber(String phone) {
+        return Api.doRXTestFin(phone).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public void postingUploadFile(String noteVal,

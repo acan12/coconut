@@ -59,7 +59,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("merchant/rest/sfa/historySummary")
-    Call<SummaryResponse> callApiTestFintech(@Field("phoneNumber") String phone);
+    Observable<SummaryResponse> callApiRXTestFintech(@Field("phoneNumber") String phone);
 
 
     @Multipart

@@ -18,6 +18,7 @@ public class RxTimer {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
+                        if(callback == null) return;
                         callback.onCallback(aLong);
 
                         return;

@@ -1,7 +1,6 @@
 package app.beelabs.com.coconut.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.io.File;
 
@@ -14,17 +13,15 @@ import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import io.reactivex.disposables.Disposable;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
 
-    private IMainView iv;
+    private IView iv;
     private IMainFragmentView ifv;
 
-
-    public ResourcePresenter(IMainView iv) {
+    public ResourcePresenter(IView iv) {
         this.iv = iv;
     }
 
@@ -40,42 +37,49 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
 
     @Override
     public Context getContext() {
-        return iv.getBaseActivity();
+        return iv.getCurrentActivity();
     }
 
     @Override
     public void postPhoneNumber(String phone) {
-        Log.d("", "");
-        (new ResourceDao(this, new OnPresenterResponseCallback() {
-            @Override
-            public void call(BaseResponse br) {
-                SummaryResponse model = (SummaryResponse) br;
-                ifv.handleDataSummary(model);
-
-            }
-        })).postPhoneNumber(phone);
-    }
-
-    @Override
-    public void getProfileRX() {
-        new ResourceDao(this).getProfileRxDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>(iv, "Ambil data...") {
-
+        new ResourceDao(this).postPhoneNumber(phone)
+                .subscribe(new RxObserver<SummaryResponse>(iv, "Ambil Data Summary..."){
                     @Override
                     public void onSubscribe(Disposable d) {
                         super.onSubscribe(d);
-                        iv.handleProcessing();
+
                     }
 
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        iv.handleProfileDone((ProfileResponseModel) o);
+                        ((IMainFragmentView)iv).handleDataSummary((SummaryResponse) o);
+                    }
+                });
+
+    }
+
+    @Override
+    public void getProfileRX() {
+        new ResourceDao(this).getProfileRxDAO()
+                .subscribe(new RxObserver<ProfileResponseModel>(iv, null) {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        ((IMainView)iv).handleProcessing();
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        super.onNext(o);
+                        ((IMainView)iv).handleProfileDone((ProfileResponseModel) o);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        iv.handleError(e.getMessage());
+                        super.onError(e);
+                        ((IMainView)iv).handleError(e.getMessage());
                     }
 
                 });
@@ -89,19 +93,19 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
             @Override
             public void call(BaseResponse br) {
                 SourceResponse model = (SourceResponse) br;
-                iv.handleDataSource(model);
+                ((IMainView)iv).handleDataSource(model);
             }
         }).getSourceDAO();
     }
 
     @Override
-    public void getSourceRX() {
+    public void getSourceRX(String messageLoading) {
         new ResourceDao(this).getSourceRXDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>(iv, "Ambil Data") {
+                .subscribe(new RxObserver<ProfileResponseModel>(iv, messageLoading) {
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        iv.handleDataSource((SourceResponse) o);
+                        ((IMainView)iv).handleDataSource((SourceResponse) o);
                     }
                 });
     }
@@ -115,7 +119,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
             @Override
             public void call(BaseResponse br) {
                 BaseResponse model = br;
-                iv.handleDataUpload(model);
+                ((IMainView)iv).handleDataUpload(model);
             }
         }).postingUploadFile(noteVal, startTimeVal, endTimeVal,
                 startDateVal, endDateVal, employeeIdVal, file);

@@ -32,23 +32,17 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
 
 
     private void doSecondWay() {
-        showApiProgressDialog(App.getAppComponent(), BasePresenter.getInstance((BaseActivity) getActivity(), new ResourcePresenter(this) {
-            @Override
-            public void call() {
-                postPhoneNumber("081212341212");
-            }
-        }), "Please wait ", false);
-
+        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).postPhoneNumber("081212341212");
     }
 
     @Override
     public void handleDataSummary(SummaryResponse model) {
-        Toast.makeText(getActivity(), model.getDescriptionCode() + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), model.getAcquisitionData().size() + "", Toast.LENGTH_SHORT).show();
         Log.d("TEST", "testing handle data summary");
     }
 
     @Override
-    public BaseActivity getBaseActivity() {
+    public BaseActivity getCurrentActivity() {
         return (BaseActivity) getActivity();
     }
 

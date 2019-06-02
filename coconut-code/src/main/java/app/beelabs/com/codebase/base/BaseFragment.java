@@ -41,4 +41,5 @@ public abstract class BaseFragment extends Fragment implements IView {
     public void handleError(String message) {
 
     }
+
 }

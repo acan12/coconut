@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
@@ -44,52 +43,29 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
-//        doFirstWay();
-//        showFragment(new MainFragment(), R.id.container);
-//
-        doThirdWay();
+    }
 
-//        runProfileRX();
+    private void callMultiCaller() {
+
+        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
+        doGetProfile();
 
     }
 
-    private void doThirdWay() {
-
-//        showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
-//            @Override
-//            public void call() {
-//                getSourceRX();
-////                postPhoneNumber("081212341212");
-//            }
-//        }), "Updating...");
-
-
-        ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this,
-                new ResourcePresenter(MainActivity.this)))
-                .getSourceRX();
-
-
-    }
-
-    private void doFirstWay() {
-        RxTimer.doTimer(10000, false, new RxTimer() {
+    private void doGetProfile() {
+        RxTimer.doTimer(3000, false, new RxTimer() {
             @Override
             public void onCallback(Long along) {
-                Toast.makeText(MainActivity.this, "Timer using RX", Toast.LENGTH_SHORT).show();
+                ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this, ResourcePresenter.class)).getProfileRX();
             }
         });
 
     }
 
-    private void runProfileRX() {
-        ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this,
-                new ResourcePresenter(MainActivity.this)))
-                .getProfileRX();
-    }
-
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
-        showSnackbar(rootView, "Internet down", Snackbar.LENGTH_SHORT).show();
+        callMultiCaller();
+        showFragment(new MainFragment(), R.id.container);
     }
 
 
@@ -117,7 +93,6 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void handleError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         showSnackbar(rootView, message, Snackbar.LENGTH_SHORT).show();
     }
 

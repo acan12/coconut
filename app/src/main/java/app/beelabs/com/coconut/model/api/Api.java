@@ -80,8 +80,8 @@ public class Api extends BaseApi {
                 "6d362365d5e245faa1fe3253c83c45ac").enqueue((Callback<ArticleResponse>) callback);
     }
 
-    synchronized public static void doTestFin(String phone, Callback callback) {
-        initApiDomain().callApiTestFintech(phone).enqueue((Callback<SummaryResponse>) callback);
+    synchronized public static Observable<SummaryResponse> doRXTestFin(String phone) {
+        return initApiDomain().callApiRXTestFintech(phone);
     }
 
 
