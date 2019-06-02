@@ -267,7 +267,7 @@ dependencies {
     -> create self interface extends IDao as parent of interface in framework
     
     [sample code] ->
-    ```
+    
         private [custom presenter name]Presenter.OnPresenterResponseCallback onPresenterResponseCallback;
         private IResourceDao rdao;
     
@@ -291,7 +291,6 @@ dependencies {
             this.onPresenterResponseCallback = onPresenterResponseCallback;
         }
         ...
-    ```
     
 ```
 
