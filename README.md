@@ -244,14 +244,53 @@ dependencies {
 
 **7. Implementation loading message within Rx**
 ```
-    new ResourceDao(this).getSourceRXDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>(iv, "Update data...") {
-                    @Override
-                    public void onNext(Object o) {
-                        super.onNext(o);
-                        iv.handleDataSource((SourceResponse) o);
-                    }
-                });
+    (Activity)
+    ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
+    
+    (Interface UI class)
+    create self interface extends IView as parent of interface in framework 
+    
+    (Presenter)
+    @Override
+        public void getSourceRX(String messageLoading) {
+            new ResourceDao(this).getSourceRXDAO()
+                    .subscribe(new RxObserver<ProfileResponseModel>(iv, messageLoading) {
+                        @Override
+                        public void onNext(Object o) {
+                            super.onNext(o);
+                            [Interface UI class].handle[your function name]((SourceResponse) o);
+                        }
+                    });
+        }
+        
+    (Interface DAO/ Interactor)
+    create self interface extends IDao as parent of interface in framework
+    sample code:
+    
+    private [custom presenter name]Presenter.OnPresenterResponseCallback onPresenterResponseCallback;
+        private IResourceDao rdao;
+    
+        // definition usecase
+        public interface I[custom presenter name]Dao extends IDaoPresenter {
+
+            ...   
+            void getSourceRX(String messageLoading);
+    
+            ...
+    
+    
+        }
+    
+        public [custom presenter name]Dao(I[custom presenter name] rdao) {
+            this.rdao = rdao;
+        }
+    
+        public [custom presenter name]Dao(I[custom presenter name]Dao rdao, ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback) {
+            this.rdao = rdao;
+            this.onPresenterResponseCallback = onPresenterResponseCallback;
+        }
+        ...
+    
 ```
 
 **8. Prevent from being Rooted, FakeGPS, shareApp**
@@ -261,12 +300,15 @@ dependencies {
     SecurityUtil.isMockLocationEnabled(this);
 ```
     
-**[mvp coconut 2]**
-    * support multiple resource directories
-    * full mvp implementation
-    * integrate Retrofit with RXObserver
     
 Version:
+- `2.0.10` :
+    * Optimizing to avoid memory leaks 
+    * Optimizing RxObserver when use to call Api
+    * Support multiple resource directories allocation
+    * Full mvp implementation
+    
+    
 - `2.0.9` :
     * RX implementation for timer
     * support RXTimer for timer action base on RX
