@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import app.beelabs.com.coconut.App;
+import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseActivity;
@@ -25,11 +26,9 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         doSecondWay();
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
-
 
     private void doSecondWay() {
         ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).postPhoneNumber("081212341212");

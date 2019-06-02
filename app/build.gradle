@@ -30,7 +30,10 @@ android {
     }
 
     sourceSets {
-        main.res.srcDirs += ['src/main/res-content']
+        main.res.srcDirs += ['src/main/res-activities',
+                             'src/main/res-fragment',
+                             'src/main/res-content',
+                             'src/main/res-row']
     }
 
     configurations.all {
