@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.beelabs.com.coconut.App;
+import app.beelabs.com.coconut.BuildConfig;
 import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
@@ -41,23 +42,23 @@ public class Api extends BaseApi {
                 .setupApiDomain(IConfig.API_BASE_URL, App.getAppComponent(),
                         ApiService.class,
                         true,
-                        app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
+                        app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG);
 
     }
 
     synchronized private static ApiService initApiDomain2() {
         getInstance().setApiDomain(IConfig.API_BASE_URL2);
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG);
     }
 
     synchronized private static ApiService initApiDomain3() {
         getInstance().setApiDomain(IConfig.API_BASE_URL3);
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG);
     }
 
     synchronized private static ApiService initApiDomainJPremi() {
         getInstance().setApiDomain(IConfig.API_BASE_URLJPREMI);
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG);
     }
 
 

@@ -124,29 +124,29 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
 
     // handle progress dialog
-    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
-        showApiProgressDialog(appComponent, presenter, null);
-    }
+//    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
+//        showApiProgressDialog(appComponent, presenter, null);
+//    }
 
-    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
-        IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(this, message, false);
-        presenter.call();
-    }
+//    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
+//        IProgress progress = appComponent.getProgressDialog();
+//        progress.showProgressDialog(this, message, false);
+//        presenter.call();
+//    }
 
-    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
-        IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(this, message, isCanceledOnTouch);
-        presenter.call();
-    }
-
-
-    protected void showApiCustomProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
-        IProgress progress = appComponent.getProgressDialog();
-        progress.showLoadingDialog(new LoadingDialogComponent(message, this, R.style.CoconutDialogFullScreen));
-        presenter.call();
-
-    }
+//    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
+//        IProgress progress = appComponent.getProgressDialog();
+//        progress.showProgressDialog(this, message, isCanceledOnTouch);
+//        presenter.call();
+//    }
+//
+//
+//    protected void showApiCustomProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
+//        IProgress progress = appComponent.getProgressDialog();
+//        progress.showLoadingDialog(new LoadingDialogComponent(message, this, R.style.CoconutDialogFullScreen));
+//        presenter.call();
+//
+//    }
 
     private void registerBroadCastReceiver() {
         broadcastReceiver = new BroadcastReceiver() {

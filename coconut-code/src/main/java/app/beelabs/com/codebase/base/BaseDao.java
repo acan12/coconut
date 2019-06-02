@@ -5,6 +5,7 @@ import android.util.Log;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.support.util.CryptoUtil;
 import app.beelabs.com.codebase.support.util.DeviceUtil;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -136,7 +137,7 @@ public class BaseDao implements IDao {
             RealmConfiguration realmConfig = new RealmConfiguration.Builder()
                     .deleteRealmIfMigrationNeeded()
                     .name(context.getResources().getString(R.string.database_package_name))
-                    .encryptionKey(DeviceUtil.encryptedKey64())
+                    .encryptionKey(CryptoUtil.encryptedKey64())
                     .build();
             // Get a Realm instance for this thread
             realm = Realm.getInstance(realmConfig);

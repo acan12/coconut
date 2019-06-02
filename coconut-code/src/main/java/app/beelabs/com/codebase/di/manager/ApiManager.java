@@ -17,13 +17,13 @@ public class ApiManager extends BaseManager implements IApi {
     private String apiDomain = "";
 
     @Override
-    public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout) {
+    public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(apiDomain)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(getHttpClient(allowUntrusted, timeout))
+                .client(getHttpClient(allowUntrusted, timeout, enableLoggingHttp))
                 .build();
         api = retrofit.create(clazz);
         this.apiDomain = apiDomain;

@@ -1,5 +1,6 @@
 package app.beelabs.com.coconut.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -42,7 +43,6 @@ public class MainActivity extends BaseActivity implements IMainView {
         setContentView(R.layout.activity_main);
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
-
     }
 
     private void callMultiCaller() {
@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         content2.setTextColor(getResources().getColor(R.color.color_grey));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void handleProfileDone(ProfileResponseModel model) {
         if (model.getMeta().isStatus()) {

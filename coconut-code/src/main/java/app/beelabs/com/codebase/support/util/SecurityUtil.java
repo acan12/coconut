@@ -1,8 +1,11 @@
 package app.beelabs.com.codebase.support.util;
 
+import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
 
@@ -11,6 +14,15 @@ import java.io.File;
 import app.beelabs.com.codebase.BuildConfig;
 
 public class SecurityUtil {
+
+    @SuppressLint("MissingPermission")
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
     public static boolean isPackageInstalled(String[] packagenames, PackageManager packageManager) {
         for (String packageName : packagenames) {

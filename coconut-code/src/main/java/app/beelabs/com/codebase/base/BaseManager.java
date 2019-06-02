@@ -15,6 +15,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import app.beelabs.com.codebase.BuildConfig;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,9 +29,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class BaseManager {
 
 
-    protected OkHttpClient getHttpClient(boolean allowUntrustedSSL, int timeout) {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+    protected OkHttpClient getHttpClient(boolean allowUntrustedSSL, int timeout, boolean enableLoggingHttp) {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -52,7 +51,13 @@ public class BaseManager {
         httpClient.readTimeout(timeout, TimeUnit.SECONDS);
         httpClient.writeTimeout(timeout, TimeUnit.SECONDS);
 
-        httpClient.addInterceptor(logging);
+        if(enableLoggingHttp) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            httpClient.addInterceptor(logging);
+        }
+
+
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

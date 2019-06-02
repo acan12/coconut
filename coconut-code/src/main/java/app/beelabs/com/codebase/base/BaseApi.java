@@ -31,21 +31,21 @@ public class BaseApi {
         this.apiDomain = apiDomain;
     }
 
-    public Object setupApi(AppComponent appComponent, Class clazz) {
-        return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND);
+    public Object setupApi(AppComponent appComponent, Class clazz, boolean enableLoggingHttp) {
+        return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND, enableLoggingHttp);
     }
 
 
-    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout) {
+    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp) {
         IApi api = appComponent.getApi();
 
-        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout);
+        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout, enableLoggingHttp);
     }
 
 
-    public Object setupApiDomain(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout){
+    public Object setupApiDomain(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp){
         this.apiDomain = domain;
-        return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout);
+        return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout, enableLoggingHttp);
     }
 }
 
