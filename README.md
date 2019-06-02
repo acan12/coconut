@@ -267,12 +267,13 @@ dependencies {
     -> create self interface extends IDao as parent of interface in framework
     
     [sample code] ->
-    private [custom presenter name]Presenter.OnPresenterResponseCallback onPresenterResponseCallback;
+    ```
+        private [custom presenter name]Presenter.OnPresenterResponseCallback onPresenterResponseCallback;
         private IResourceDao rdao;
     
         // definition usecase
         public interface I[custom presenter name]Dao extends IDaoPresenter {
-
+    
             ...   
             void getSourceRX(String messageLoading);
     
@@ -290,6 +291,7 @@ dependencies {
             this.onPresenterResponseCallback = onPresenterResponseCallback;
         }
         ...
+    ```
     
 ```
 
