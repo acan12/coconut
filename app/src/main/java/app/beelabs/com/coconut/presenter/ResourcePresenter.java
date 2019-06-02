@@ -19,14 +19,9 @@ import io.reactivex.disposables.Disposable;
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
 
     private IView iv;
-    private IMainFragmentView ifv;
 
     public ResourcePresenter(IView iv) {
         this.iv = iv;
-    }
-
-    public ResourcePresenter(IMainFragmentView ifv) {
-        this.ifv = ifv;
     }
 
 
