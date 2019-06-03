@@ -243,14 +243,19 @@ dependencies {
 ```
 
 **7. Implementation loading message within Rx**
-```
+
 - `(Activity / Fragment)`
+```aidl
     -> ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
+```
     
 - `(Interface UI class)`
+```aidl
     -> create self interface extends IView as parent of interface in framework 
+```
     
 - `(Presenter)`
+```aidl
     -> @Override
         public void getSourceRX(String messageLoading) {
             new ResourceDao(this).getSourceRXDAO()
@@ -262,8 +267,10 @@ dependencies {
                         }
                     });
         }
+```
         
 - `(Interface DAO/ Interactor)`
+```aidl
     -> create self interface extends IDao as parent of interface in framework
     
     [sample code] ->
@@ -302,9 +309,8 @@ dependencies {
 ```
 
 **9. Handle alert warning for Internet lost connection snackbar
-```
-
 - `[Activity / Fragment]`
+```aidl
     @Override
     public View getContentView() {
         return findViewById(R.id.root);
