@@ -10,6 +10,13 @@ public class BasePresenter implements IPresenter {
     private static BasePresenter presenter;
     private static IView iview;
 
+    public static BasePresenter getInstance(IView iv, BasePresenter bp) {
+        iview = iv;
+        presenter = bp;
+
+        return presenter;
+    }
+
     public static BasePresenter getInstance(IView iv, Class clazz) {
         iview = iv;
         try {
