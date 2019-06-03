@@ -16,7 +16,6 @@ import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.CoconutFrameLayout;
 import app.beelabs.com.codebase.support.rx.RxTimer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +41,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     }
 
-    private void callMultiCaller() {
+    private void callMultiApi() {
 
         ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
         doGetProfile();
@@ -61,7 +60,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
-        callMultiCaller();
+        callMultiApi();
         showFragment(new MainFragment(), R.id.container);
     }
 
@@ -102,6 +101,6 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void handleRetryConnection() {
-        callMultiCaller();
+        callMultiApi();
     }
 }
