@@ -1,9 +1,11 @@
 package app.beelabs.com.codebase.support.rx;
 
+import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.component.SnackbarInternetConnection;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -38,6 +40,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     @Override
     public void onError(Throwable e) {
         LoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity());
+        SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 
     @Override

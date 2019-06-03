@@ -14,7 +14,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class ApiManager extends BaseManager implements IApi {
     private Object api;
-    private String apiDomain = "";
 
     @Override
     public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp) {
@@ -26,7 +25,6 @@ public class ApiManager extends BaseManager implements IApi {
                 .client(getHttpClient(allowUntrusted, timeout, enableLoggingHttp))
                 .build();
         api = retrofit.create(clazz);
-        this.apiDomain = apiDomain;
 
         return api;
     }

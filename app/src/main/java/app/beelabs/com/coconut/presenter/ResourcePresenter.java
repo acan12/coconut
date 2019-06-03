@@ -13,6 +13,7 @@ import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.SnackbarInternetConnection;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import io.reactivex.disposables.Disposable;
 
@@ -74,13 +75,12 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        ((IMainView)iv).handleError(e.getMessage());
+                        iv.handleError(e.getMessage());
                     }
 
                 });
 
     }
-
 
     @Override
     public void getSource() {

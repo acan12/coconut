@@ -22,16 +22,26 @@ import app.beelabs.com.codebase.base.BasePresenter;
 
 public class MainFragment extends BaseFragment implements IMainFragmentView {
 
+    private View layout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        layout = inflater.inflate(R.layout.fragment_main, container, false);
         doSecondWay();
-        return inflater.inflate(R.layout.fragment_main, container, false);
+
+        return layout;
     }
 
     private void doSecondWay() {
         ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).postPhoneNumber("081212341212");
     }
+
+    @Override
+    public View getContentView() {
+        return layout;
+    }
+
 
     @Override
     public void handleDataSummary(SummaryResponse model) {

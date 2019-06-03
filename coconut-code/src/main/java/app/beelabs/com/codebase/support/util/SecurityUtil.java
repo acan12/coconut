@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -16,11 +17,16 @@ import app.beelabs.com.codebase.BuildConfig;
 public class SecurityUtil {
 
     @SuppressLint("MissingPermission")
-    private boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    public static boolean isNetworkAvailable(Context context) {
+        try {
+            ConnectivityManager connectivityManager
+                    = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        } catch (Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return false;
     }
 
 

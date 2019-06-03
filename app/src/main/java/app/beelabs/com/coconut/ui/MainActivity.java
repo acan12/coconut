@@ -2,7 +2,6 @@ package app.beelabs.com.coconut.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,9 +24,6 @@ import butterknife.OnClick;
 
 
 public class MainActivity extends BaseActivity implements IMainView {
-    @BindView(R.id.root)
-    CoconutFrameLayout rootView;
-
     @BindView(R.id.demo_image)
     ImageView demoImage;
 
@@ -43,6 +39,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         setContentView(R.layout.activity_main);
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
+
     }
 
     private void callMultiCaller() {
@@ -68,6 +65,10 @@ public class MainActivity extends BaseActivity implements IMainView {
         showFragment(new MainFragment(), R.id.container);
     }
 
+    @Override
+    public View getContentView() {
+        return findViewById(R.id.root);
+    }
 
     // handle response method
     @Override
@@ -92,14 +93,15 @@ public class MainActivity extends BaseActivity implements IMainView {
         Log.d("TEST", "testing handle data source");
     }
 
-    @Override
-    public void handleError(String message) {
-        showSnackbar(rootView, message, Snackbar.LENGTH_SHORT).show();
-    }
-
 
     @Override
     public void handleDataUpload(BaseResponse model) {
         Toast.makeText(this, model.getBaseMeta().getMessage() + "", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void handleRetryConnection() {
+        callMultiCaller();
     }
 }

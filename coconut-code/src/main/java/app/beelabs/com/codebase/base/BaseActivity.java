@@ -67,36 +67,36 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         }
     }
 
-    protected void onApiFailureCallback(String message, IPresenter iView) {
-        // --- default callback if not defined on child class --
-        try {
-            Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
-            Log.e("Message:", message);
+//    protected void onApiFailureCallback(String message, IPresenter iView) {
+//        // --- default callback if not defined on child class --
+//        try {
+//            Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
+//            Log.e("Message:", message);
+//
+//
+//            if (rootView != null)
+//                showSnackbar(rootView, getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+//        } catch (Exception e) {
+//            Log.e("", e.getMessage());
+//        }
+//
+//    }
 
-
-            if (rootView != null)
-                showSnackbar(rootView, getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
-        } catch (Exception e) {
-            Log.e("", e.getMessage());
-        }
-
-    }
-
-    protected Snackbar showSnackbar(View view, String message, int duration) {
-        final Snackbar snackbar = Snackbar.make(view, message, duration);
-
-        snackbar.setAction(getResources().getString(R.string.coconut_reply_action_label), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-
-                finish();
-                startActivity(getIntent());
-            }
-        });
-
-        return snackbar;
-    }
+//    protected Snackbar showSnackbar(View view, String message, int duration) {
+//        final Snackbar snackbar = Snackbar.make(view, message, duration);
+//
+//        snackbar.setAction(getResources().getString(R.string.coconut_reply_action_label), new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                snackbar.dismiss();
+//
+//                finish();
+//                startActivity(getIntent());
+//            }
+//        });
+//
+//        return snackbar;
+//    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -168,5 +168,15 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     @Override
     public BaseActivity getCurrentActivity() {
         return this;
+    }
+
+    @Override
+    public View getContentView() {
+        return null;
+    }
+
+    @Override
+    public void handleRetryConnection() {
+
     }
 }

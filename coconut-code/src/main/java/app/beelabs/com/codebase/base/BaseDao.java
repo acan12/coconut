@@ -76,8 +76,8 @@ public class BaseDao implements IDao {
 //            Log.e("Message:", message);
 //
 //
-//            if (((BaseActivity) iView).getRootView() != null)
-//                showSnackbar(((BaseActivity) iView).getRootView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
+//            if (((BaseActivity) iView).getContentView() != null)
+//                showSnackbar(((BaseActivity) iView).getContentView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
 //        } catch (Exception e) {
 //            Log.e("", e.getMessage());
 //        }
