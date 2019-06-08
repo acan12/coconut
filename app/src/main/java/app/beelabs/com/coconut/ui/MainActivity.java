@@ -43,8 +43,9 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     private void callMultiApi() {
 
-        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
-        doGetProfile();
+        ResourcePresenter resourcePresenter = ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class));
+        resourcePresenter.getSourceRX("Ambil Data");
+//        doGetProfile();
 
     }
 
