@@ -5,14 +5,12 @@ import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -29,8 +27,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class BaseActivity extends AppCompatActivity implements IView, ComponentCallbacks2 {
     private BroadcastReceiver broadcastReceiver;
     private View rootView;
+    private LocalBroadcastManager bManager;
+    private BroadcastReceiver bReceiver;
 
-    public void setupCoconutContentView(int rootIdLayout){
+    public void setupCoconutContentView(int rootIdLayout) {
 
         this.rootView = findViewById(rootIdLayout);
     }
@@ -44,10 +44,10 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        if(broadcastReceiver != null) {
+        if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
         }
+        super.onDestroy();
     }
 
     @Override
@@ -62,14 +62,20 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
          * is still holding a strong reference to it.
          * */
 
-        if(broadcastReceiver != null) {
-            unregisterReceiver(broadcastReceiver);
+        if (broadcastReceiver != null) {
+            bManager.unregisterReceiver(broadcastReceiver);
         }
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        bManager.unregisterReceiver(broadcastReceiver);
+        super.onBackPressed();
     }
 
     public void showFragment(Fragment fragment, int fragmentResourceID) {
@@ -118,13 +124,15 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
     private void registerBroadCastReceiver() {
-        broadcastReceiver = new BroadcastReceiver() {
+        bReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 //your receiver code goes here!
             }
         };
-        registerReceiver(broadcastReceiver, new IntentFilter("SmsMessage.intent.MAIN"));
+
+        bManager = LocalBroadcastManager.getInstance(this);
+        bManager.registerReceiver(bReceiver, new IntentFilter("CoconutAction"));
     }
 
     //--- end ----

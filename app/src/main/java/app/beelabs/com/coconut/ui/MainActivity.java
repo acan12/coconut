@@ -1,6 +1,7 @@
 package app.beelabs.com.coconut.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,6 +63,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
         callMultiApi();
+
         showFragment(new MainFragment(), R.id.container);
     }
 
@@ -91,6 +93,8 @@ public class MainActivity extends BaseActivity implements IMainView {
     public void handleDataSource(SourceResponse model) {
         Toast.makeText(this, model.getSources().size() + "", Toast.LENGTH_SHORT).show();
         Log.d("TEST", "testing handle data source");
+
+        startActivity(new Intent(this, SecondActivity.class));
     }
 
 
