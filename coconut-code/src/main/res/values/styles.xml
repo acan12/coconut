@@ -13,8 +13,8 @@
     </style>
 
     <style name="DialogAnimation" >
-        <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
-        <item name="android:windowExitAnimation">@anim/slide_down_dialog</item>
+        <item name="android:windowEnterAnimation">@anim/fadein</item>
+        <item name="android:windowExitAnimation">@anim/fadeout</item>
     </style>
 
 </resources>

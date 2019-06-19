@@ -9,16 +9,19 @@ import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDialog;
+import app.beelabs.com.codebase.support.rx.RxTimer;
 
 public class LoadingDialogComponent extends BaseDialog {
 
     private String message;
+    private long timerMilis;
     private TextView text;
     private static LoadingDialogComponent dialog;
 
-    public LoadingDialogComponent(@NonNull String message, Context context, int style) {
+    public LoadingDialogComponent(@NonNull String message, long timerMilis, Context context, int style) {
         super(context, style);
         this.message = message;
+        this.timerMilis = timerMilis;
     }
 
     @Override
@@ -31,11 +34,11 @@ public class LoadingDialogComponent extends BaseDialog {
         text.setText(message);
     }
 
-    synchronized public static LoadingDialogComponent openLoadingDialog(BaseActivity activity, String message) {
+    synchronized public static LoadingDialogComponent openLoadingDialog(BaseActivity activity, String message, long timerMilis) {
         if (dialog == null) {
             message = message != null ? message : IConfig.DEFAULT_LOADING;
 
-            dialog = new LoadingDialogComponent(message, activity, R.style.CoconutDialogFullScreen);
+            dialog = new LoadingDialogComponent(message, timerMilis, activity, R.style.CoconutDialogFullScreen);
             dialog.show();
         }
 
@@ -43,9 +46,10 @@ public class LoadingDialogComponent extends BaseDialog {
 
     }
 
-    public static void closeLoadingDialog(BaseActivity ac) {
+    public static void closeLoadingDialog(BaseActivity ac, long timerMilis) {
         if (dialog == null) return;
         if (ac == null || !ac.isFinishing()) {
+            RxTimer.doTimer(timerMilis, false, null);
             dialog.dismiss();
             dialog = null;
         }

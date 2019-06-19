@@ -33,7 +33,7 @@ public abstract class BaseFragment extends Fragment implements IView {
 
     protected void showLoadingDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showLoadingDialog(new LoadingDialogComponent(message, getActivity(), R.style.CoconutDialogFullScreen));
+        progress.showLoadingDialog(new LoadingDialogComponent(message, 0, getActivity(), R.style.CoconutDialogFullScreen));
         presenter.call();
     }
 

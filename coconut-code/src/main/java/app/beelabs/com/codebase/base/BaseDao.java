@@ -115,7 +115,6 @@ public class BaseDao implements IDao {
 
 
     // database
-
     public static class Database {
 
         // --- realm db config ---

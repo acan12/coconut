@@ -118,7 +118,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     protected void showApiCustomProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showLoadingDialog(new LoadingDialogComponent(message, this, R.style.CoconutDialogFullScreen));
+        progress.showLoadingDialog(new LoadingDialogComponent(message, 0, this, R.style.CoconutDialogFullScreen));
         presenter.call();
 
     }
