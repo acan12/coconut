@@ -1,3 +1,6 @@
+[![Release](https://jitpack.io/v/User/Repo.svg)]
+(https://jitpack.io/#User/Repo)
+
 # coconut
 _Coconut framework library for android_ 
 - support MVP Architecture
