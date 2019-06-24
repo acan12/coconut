@@ -1,5 +1,5 @@
-[![Release](https://jitpack.io/v/#acan12/coconut.svg)]
-(https://jitpack.io/acan12/Repo)
+[![Release](https://jitpack.io/v/acan12/coconut.svg)]
+(https://jitpack.io/#acan12/coconut)
 
 # coconut
 _Coconut framework library for android_ 
