@@ -77,9 +77,11 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         bManager.unregisterReceiver(broadcastReceiver);
 
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
+        int backStackCount = fm.getBackStackEntryCount();
+        if (backStackCount > 1) {
             fm.popBackStack();
         } else {
+            fm.popBackStack();
             super.onBackPressed();
         }
 

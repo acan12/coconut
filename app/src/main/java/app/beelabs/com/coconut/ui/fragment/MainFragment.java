@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import app.beelabs.com.coconut.R;
@@ -14,6 +15,7 @@ import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseFragment;
 import app.beelabs.com.codebase.base.BasePresenter;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -23,6 +25,9 @@ import butterknife.OnClick;
  */
 
 public class MainFragment extends BaseFragment implements IMainFragmentView {
+
+    @BindView(R.id.fragment1Button)
+    TextView fragment1Button;
 
     private View layout;
 
@@ -39,8 +44,8 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
 
     @OnClick(R.id.fragment1Button)
     public void onSwithFragment(View view){
-
-        ((BaseActivity) getActivity()).showFragment(new SecondFragment(), R.id.container);
+        fragment1Button.setText("Replace fragment text");
+        ((BaseActivity) getActivity()).showFragment(new SecondFragment(), R.id.container, true);
     }
 
     private void doSecondWay() {

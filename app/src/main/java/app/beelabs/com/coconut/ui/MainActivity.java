@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
-        showFragment(new MainFragment(), R.id.container);
+        showFragment(new MainFragment(), R.id.container, true);
     }
 
     private void callMultiApi() {

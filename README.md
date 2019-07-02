@@ -87,13 +87,19 @@ _Coconut framework library for android_
 
 **5. use custom loading for api call**
 ```aidl
-
+    [outline]
     showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
         @Override
         public void call() {
-            getSourceRX();
+            getSource();
         }
     }), "Updating...");
+    
+    [inline]
+    // messageLoading -> loading message and if use messageloaging will enable loading dialog with message
+    ...
+    new ResourceDao(this).getSourceRXDAO()
+       .subscribe(new RxObserver<ProfileResponseModel>(imv, messageLoading) { ... }
 ```
 
 
