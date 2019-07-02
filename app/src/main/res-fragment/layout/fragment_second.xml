@@ -5,10 +5,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fragment1Button"
+        android:id="@+id/fragment2Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fragment 1"
+        android:text="Fragment 2"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold"

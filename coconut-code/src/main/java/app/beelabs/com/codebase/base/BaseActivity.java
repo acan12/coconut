@@ -75,15 +75,28 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     @Override
     public void onBackPressed() {
         bManager.unregisterReceiver(broadcastReceiver);
-        super.onBackPressed();
+
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+
     }
 
     public void showFragment(Fragment fragment, int fragmentResourceID) {
+        showFragment(fragment, fragmentResourceID, false);
+    }
+
+    public void showFragment(Fragment fragment, int fragmentResourceID, boolean useFragmentBackStack) {
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(fragmentResourceID, fragment);
+            if (useFragmentBackStack)
+                fragmentTransaction.addToBackStack(fragment.getClass().getName());
             fragmentTransaction.detach(fragment);
             fragmentTransaction.attach(fragment);
             fragmentTransaction.commit();

@@ -22,25 +22,23 @@ import butterknife.OnClick;
  * Created by arysuryawan on 8/21/17.
  */
 
-public class MainFragment extends BaseFragment implements IMainFragmentView {
+public class SecondFragment extends BaseFragment implements IMainFragmentView {
 
     private View layout;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.fragment_main, container, false);
+        layout = inflater.inflate(R.layout.fragment_second, container, false);
         doSecondWay();
 
         ButterKnife.bind(this, layout);
-
         return layout;
     }
 
-    @OnClick(R.id.fragment1Button)
+    @OnClick(R.id.fragment2Button)
     public void onSwithFragment(View view){
-
-        ((BaseActivity) getActivity()).showFragment(new SecondFragment(), R.id.container);
+        ((BaseActivity) getActivity()).showFragment(new MainFragment(), R.id.container);
     }
 
     private void doSecondWay() {
@@ -68,6 +66,7 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
 
     @Override
     public void handleError(String message) {
+        Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
     }
 
 }

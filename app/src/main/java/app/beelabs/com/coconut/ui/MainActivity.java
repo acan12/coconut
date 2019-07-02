@@ -26,8 +26,8 @@ public class MainActivity extends BaseActivity implements IMainView {
     @BindView(R.id.demo_image)
     ImageView demoImage;
 
-    @BindView(R.id.content1)
-    TextView content1;
+//    @BindView(R.id.content1)
+//    TextView content1;
     @BindView(R.id.content2)
     TextView content2;
 
@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
+        showFragment(new MainFragment(), R.id.container);
     }
 
     private void callMultiApi() {
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     public void onLoadButton(View view) {
 //        callMultiApi();
 
-        showFragment(new MainFragment(), R.id.container);
+
     }
 
     @Override
