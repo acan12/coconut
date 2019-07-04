@@ -1,1 +1,1 @@
-include ':app', ':coconut-code'
+include ':sample', ':coconut-code'
