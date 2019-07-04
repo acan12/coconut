@@ -38,7 +38,7 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
 
     @OnClick(R.id.fragment2Button)
     public void onSwithFragment(View view){
-        ((BaseActivity) getActivity()).showFragment(new MainFragment(), R.id.container);
+        ((BaseActivity) getActivity()).showFragment(new MainFragment(), R.id.container, true);
     }
 
     private void doSecondWay() {
@@ -68,5 +68,7 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
     public void handleError(String message) {
         Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
     }
+
+
 
 }

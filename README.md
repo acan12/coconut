@@ -87,7 +87,7 @@ _Coconut framework library for android_
 
 **5. use custom loading for api call**
 ```aidl
-    [outline]
+    [basic style in ui]
     showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
         @Override
         public void call() {
@@ -95,13 +95,18 @@ _Coconut framework library for android_
         }
     }), "Updating...");
     
-    [inline]
+    [Rx - style in presenter]
     // messageLoading -> loading message and if use messageloaging will enable loading dialog with message
     ...
     new ResourceDao(this).getSourceRXDAO()
        .subscribe(new RxObserver<ProfileResponseModel>(imv, messageLoading) { ... }
 ```
 
+**6. support fragment back stack while back button pressed**
+```aidl
+
+    showFragment(<object of fragment>, <id layout of frame contain fragment>, <use fragment back stack or not>);
+```
 
 
 ## Installation guide :
@@ -124,6 +129,11 @@ dependencies {
 		implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 		implementation 'com.github.ybq:Android-SpinKit:1.2.0'
 		...
+		
+	    // recommended optional
+	    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        implementation 'io.reactivex.rxjava2:rxjava:2.x.x'
+        implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
         
 	}
 ```
@@ -333,6 +343,10 @@ dependencies {
     
     
 Version:
+- `2.0.13` :
+    * support fragment back stack history
+    * handle for memory leaks when activity changes  
+    
 - `2.0.10` :
     * Optimizing to avoid memory leaks 
     * Optimizing RxObserver when use to call Api
