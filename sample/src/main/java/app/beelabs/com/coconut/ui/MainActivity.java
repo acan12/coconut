@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
-//        callMultiApi();
+        callMultiApi();
 
 
     }

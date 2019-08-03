@@ -108,6 +108,33 @@ _Coconut framework library for android_
     showFragment(<object of fragment>, <id layout of frame contain fragment>, <use fragment back stack or not>);
 ```
 
+**7. Implementation RxTimer**
+```
+    RxTimer.doTimer(long delay, boolean repeat, RxTimer callback)
+```
+
+**8. Prevent from being Rooted, FakeGPS, shareApp**
+```
+    SecurityUtil.isPackageInstalled(new String[]{"com.xxxx.app"}, getPackageManager());
+    SecurityUtil.isRooted();
+    SecurityUtil.isMockLocationEnabled(this);
+```
+
+**9. Handle alert warning for Internet lost connection snackbar
+- `[Activity / Fragment]`
+```aidl
+    @Override
+    public View getContentView() {
+        return findViewById(R.id.root);
+    }
+    
+    // callback if internet lost connection, trigger from "Retry" action
+    @Override
+    public void handleRetryConnection() {
+        callMultiApi();
+    }
+```
+    
 
 ## Installation guide :
 
@@ -255,12 +282,8 @@ dependencies {
        }
     ```
     
-**6. Implementation RxTimer**
-```
-    RxTimer.doTimer(long delay, boolean repeat, RxTimer callback)
-```
 
-**7. Implementation loading message within Rx**
+**6. Implementation loading message within Rx**
 
 - `(Activity / Fragment)`
 ```aidl
@@ -318,29 +341,6 @@ dependencies {
         ...
     
 ```
-
-**8. Prevent from being Rooted, FakeGPS, shareApp**
-```
-    SecurityUtil.isPackageInstalled(new String[]{"com.xxxx.app"}, getPackageManager());
-    SecurityUtil.isRooted();
-    SecurityUtil.isMockLocationEnabled(this);
-```
-
-**9. Handle alert warning for Internet lost connection snackbar
-- `[Activity / Fragment]`
-```aidl
-    @Override
-    public View getContentView() {
-        return findViewById(R.id.root);
-    }
-    
-    // callback if internet lost connection, trigger from "Retry" action
-    @Override
-    public void handleRetryConnection() {
-        callMultiApi();
-    }
-```
-    
     
 Version:
 - `2.0.13` :
