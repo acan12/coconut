@@ -192,26 +192,25 @@ public class BaseManager {
         }
     }
 
-    KeyPairGenerator kpg;
-    KeyPair kp;
-    PublicKey publicKey;
-    PrivateKey privateKey;
-    byte[] encryptedBytes, decryptedBytes;
-    Cipher cipher, cipher1;
-    String encrypted, decrypted;
+//    KeyPairGenerator kpg;
+//    KeyPair kp;
+//    PublicKey publicKey;
+//    PrivateKey privateKey;
+//    byte[] encryptedBytes, decryptedBytes;
+//    Cipher cipher, cipher1;
+//    String encrypted, decrypted;
 
     public String encryptRSA(String plain) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        kpg = KeyPairGenerator.getInstance("RSA");
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
         kpg.initialize(1024);
-        kp = kpg.genKeyPair();
-        publicKey = kp.getPublic();
-        privateKey = kp.getPrivate();
+        KeyPair kp = kpg.genKeyPair();
+        PublicKey publicKey = kp.getPublic();
 
-        cipher = Cipher.getInstance("RSA");
+        Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        encryptedBytes = cipher.doFinal(plain.getBytes());
+        byte[] encryptedBytes = cipher.doFinal(plain.getBytes());
 
-        encrypted = bytesToString(encryptedBytes);
+        String encrypted = bytesToString(encryptedBytes);
         return encrypted;
     }
 

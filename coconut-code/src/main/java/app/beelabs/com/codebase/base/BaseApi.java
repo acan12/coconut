@@ -47,5 +47,10 @@ public class BaseApi {
         this.apiDomain = domain;
         return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout, enableLoggingHttp, false);
     }
+
+    public Object setupApiDomain(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp, boolean enableEncryptedRSA){
+        this.apiDomain = domain;
+        return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout, enableLoggingHttp, enableEncryptedRSA);
+    }
 }
 

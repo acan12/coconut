@@ -42,7 +42,7 @@ public class Api extends BaseApi {
                 .setupApiDomain(IConfig.API_BASE_URL, App.getAppComponent(),
                         ApiService.class,
                         true,
-                        app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG);
+                        app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG, true);
 
     }
 
