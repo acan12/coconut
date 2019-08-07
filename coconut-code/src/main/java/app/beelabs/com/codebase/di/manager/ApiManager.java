@@ -1,7 +1,5 @@
 package app.beelabs.com.codebase.di.manager;
 
-import java.io.InputStream;
-
 import app.beelabs.com.codebase.base.BaseManager;
 import app.beelabs.com.codebase.di.IApi;
 import app.beelabs.com.codebase.di.IApiService;
@@ -17,13 +15,18 @@ public class ApiManager extends BaseManager implements IApi {
     private String apiDomain = "";
 
     @Override
-    public Object getApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout) {
+    public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp) {
+        return initApiService(apiDomain, allowUntrusted, clazz, timeout, enableLoggingHttp, false);
+    }
+
+    @Override
+    public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp, boolean enableEncryptedRSA) {
 
         if (api == null || !this.apiDomain.equals(apiDomain)) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(apiDomain)
                     .addConverterFactory(JacksonConverterFactory.create())
-                    .client(getHttpClient(allowUntrusted, timeout))
+                    .client(getHttpClient(allowUntrusted, timeout, enableLoggingHttp, enableEncryptedRSA))
                     .build();
             api = retrofit.create(clazz);
             this.apiDomain = apiDomain;

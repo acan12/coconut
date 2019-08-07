@@ -29,12 +29,12 @@ public class BaseApi {
     }
 
     public Object setupApi(AppComponent appComponent, Class clazz) {
-        return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND);
+        return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND, true, false);
     }
 
-    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout) {
+    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp, boolean enableEncryptedRSA) {
         IApi api = appComponent.getApi();
-        return api.getApiService(getApiDomain(), allowUntrusted, clazz, timeout);
+        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout, enableLoggingHttp, enableEncryptedRSA);
     }
 }
 

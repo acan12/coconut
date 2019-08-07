@@ -1,6 +1,7 @@
 package app.beelabs.com.coconut.model.api;
 
 import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
+import app.beelabs.com.coconut.model.api.request.PhoneRequestModel;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
 import app.beelabs.com.coconut.model.api.response.LoginResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
@@ -39,6 +40,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("merchant/rest/sfa/historySummary")
     Call<BaseResponse> callApiTestFintech( @Field("phoneNumber") String phone);
+
+    @POST("merchant/rest/sfa/historySummary")
+    Call<BaseResponse> callApiTestFintech2( @Body PhoneRequestModel model);
 
 
 
