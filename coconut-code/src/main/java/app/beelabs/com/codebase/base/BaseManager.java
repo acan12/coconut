@@ -71,7 +71,7 @@ public class BaseManager {
                 SSLContext sc = SSLContext.getInstance("TLSv1.2");
                 sc.init(null, new TrustManager[] { trustManager }, null);
                 httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
-            } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            } catch (NoSuchAlgorithmException | KeyManagementException | IllegalStateException e) {
                 e.printStackTrace();
             } catch (KeyStoreException e) {
                 e.printStackTrace();
