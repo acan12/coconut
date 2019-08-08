@@ -27,8 +27,21 @@ public class Api extends BaseApi {
     synchronized private static ApiService initApiDomainSFA2(Context context) {
         getInstance().setApiDomain("https://sfa2.ottopay.id/v1/");
 
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, false, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, true, true);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, true, true);
     }
+
+    synchronized private static ApiService initApiDomain3(Context context) {
+        getInstance().setApiDomain("https://indoalliz-prod.apigee.net/ottosg/api/");
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, 120, true, true);
+    }
+
+
+
+    // CMS Check App Version
+    synchronized public static void checkAppVersion(Context context, Callback callback) {
+        initApiDomain3(context).checkAppVersion().enqueue((Callback<BaseResponse>) callback);
+    }
+
 
 
     // SFA2

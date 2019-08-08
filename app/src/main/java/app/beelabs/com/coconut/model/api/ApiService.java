@@ -20,6 +20,14 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
+    //CMS Check App Version
+    @Headers({
+            "Content-Type:" + "application/json"
+    })
+    @GET("v1/check/version")
+    Call<BaseResponse> checkAppVersion();
+
+
 
     @Headers({
             "Cache-Control: no-cache",

@@ -30,7 +30,8 @@ public class ResourceDao extends BaseDao {
     }
 
     public void postPhoneNumber2(PhoneRequestModel model, BaseActivity ac, Callback callback){
-        Api.doTestFin2(model, ac, callback);
+//        Api.doTestFin2(model, ac, callback);
+        Api.checkAppVersion(ac, callback);
     }
 
 

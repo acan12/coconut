@@ -11,6 +11,8 @@ import java.security.InvalidKeyException;
 import java.security.KeyManagementException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.cert.CertificateException;
@@ -25,6 +27,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Interceptor;
@@ -57,15 +60,22 @@ public class BaseManager {
 
         if (allowUntrustedSSL) {
             allowUntrustedSSL(httpClient);
-        }
-
-
-        try {
-            SSLContext sc = SSLContext.getInstance("TLSv1.2");
-            sc.init(null, null, null);
-            httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
-        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-            e.printStackTrace();
+            try {
+                TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                trustManagerFactory.init((KeyStore) null);
+                TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+                if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+                    throw new IllegalStateException("Unexpected default trust managers:" + java.util.Arrays.toString(trustManagers));
+                }
+                X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
+                SSLContext sc = SSLContext.getInstance("TLSv1.2");
+                sc.init(null, new TrustManager[] { trustManager }, null);
+                httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
+            } catch (NoSuchAlgorithmException | KeyManagementException e) {
+                e.printStackTrace();
+            } catch (KeyStoreException e) {
+                e.printStackTrace();
+            }
         }
 
 
