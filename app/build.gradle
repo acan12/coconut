@@ -8,6 +8,7 @@ android {
         checkReleaseBuilds false
         ignoreWarnings true       // false by default
         quiet true
+        disable 'RestrictedApi'
     }
     defaultConfig {
         applicationId "app.beelabs.com.coconut"
@@ -23,6 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {

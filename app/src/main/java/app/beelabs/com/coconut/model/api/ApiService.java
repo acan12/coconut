@@ -1,5 +1,6 @@
 package app.beelabs.com.coconut.model.api;
 
+import app.beelabs.com.coconut.model.api.request.Login2RequestModel;
 import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
 import app.beelabs.com.coconut.model.api.request.PhoneRequestModel;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
@@ -55,5 +56,5 @@ public interface ApiService {
 
 
     @POST("sfa/auth/login")
-    Call<LoginResponseModel> callApiLogin(@Body LoginRequestModel model);
+    Call<LoginResponseModel> callApiLogin(@Body Login2RequestModel model);
 }

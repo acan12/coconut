@@ -1,28 +1,28 @@
 package app.beelabs.com.codebase.base;
 
+import android.util.Base64;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.KeyFactory;
 import java.security.KeyManagementException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.security.spec.KeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
@@ -30,6 +30,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import app.beelabs.com.codebase.support.util.CryptoUtil;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -54,7 +55,7 @@ public class BaseManager {
     protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,
                                          int timeout,
                                          boolean enableLoggingHttp,
-                                         final boolean enableEncryptedRSA) {
+                                         final String publicKeyRSA) {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -69,7 +70,7 @@ public class BaseManager {
                 }
                 X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
                 SSLContext sc = SSLContext.getInstance("TLSv1.2");
-                sc.init(null, new TrustManager[] { trustManager }, null);
+                sc.init(null, new TrustManager[]{trustManager}, null);
                 httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
             } catch (NoSuchAlgorithmException | KeyManagementException | IllegalStateException e) {
                 e.printStackTrace();
@@ -96,26 +97,18 @@ public class BaseManager {
                         .method(original.method(), original.body())
                         .build();
 
-                Log.d("", "Method.POST= "+Method.POST);
-                if (enableEncryptedRSA) {
+                Log.d("", "Method.POST= " + Method.POST);
+                if (publicKeyRSA != null) {
                     if (Method.POST.toString().equals(request.method())) {
                         MediaType mediaType = MediaType.parse("text/plain; charset=utf-8");
                         RequestBody oldbody = request.body();
                         Buffer buffer = new Buffer();
                         oldbody.writeTo(buffer);
-                        String params = toJson(buffer.readUtf8());
+                        String json = toJson(buffer.readUtf8());
                         String strNewBody = null;
                         try {
-                            strNewBody = encryptRSA(params);
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchPaddingException e) {
-                            e.printStackTrace();
-                        } catch (InvalidKeyException e) {
-                            e.printStackTrace();
-                        } catch (IllegalBlockSizeException e) {
-                            e.printStackTrace();
-                        } catch (BadPaddingException e) {
+                            strNewBody = generateEncryptedParam(json, publicKeyRSA).toString();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -206,25 +199,42 @@ public class BaseManager {
     }
 
 
-    public String encryptRSA(String plain) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
-        kpg.initialize(1024);
-        KeyPair kp = kpg.genKeyPair();
-        PublicKey publicKey = kp.getPublic();
+    public static JSONObject generateEncryptedParam(String jsonBody, String publicKeyRSA) {
+        int maxChar = 50;
+        ArrayList<byte[]> bytePartials = new ArrayList<>();
+        JSONObject jsonParam = new JSONObject();
+        try {
+            byte[] bytesJSONBody = jsonBody.getBytes("UTF-8");
+            Log.d("bytesJSONBody length: ", "" + bytesJSONBody.length);
+            if (bytesJSONBody.length > maxChar) {
+                int counter = 0;
+                do {
+                    if (bytesJSONBody.length - counter > maxChar) {
+                        bytePartials.add(Arrays.copyOfRange(bytesJSONBody, counter, counter + maxChar));
+                    } else {
+                        bytePartials.add(Arrays.copyOfRange(bytesJSONBody, counter, bytesJSONBody.length));
+                    }
 
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        byte[] encryptedBytes = cipher.doFinal(plain.getBytes());
+                    counter = counter + maxChar;
+                } while (counter < bytesJSONBody.length);
+            } else {
+                bytePartials.add(bytesJSONBody);
+            }
 
-        String encrypted = bytesToString(encryptedBytes);
-        return encrypted;
+
+            JSONArray encArray = new JSONArray();
+            for (int i = 0; i < bytePartials.size(); i++) {
+                encArray.put(CryptoUtil.encryptRSA(bytePartials.get(i), publicKeyRSA));
+            }
+            jsonParam.put("Data", encArray);
+            jsonParam.put("Device", "Android");
+
+
+        } catch (Exception e) {
+        }
+
+        return jsonParam;
     }
 
-    public String bytesToString(byte[] b) {
-        byte[] b2 = new byte[b.length + 1];
-        b2[0] = 1;
-        System.arraycopy(b, 0, b2, 1, b.length);
-        return new BigInteger(b2).toString(36);
-    }
 
 }

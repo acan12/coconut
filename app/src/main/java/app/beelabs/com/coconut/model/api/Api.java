@@ -4,6 +4,7 @@ import android.content.Context;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
+import app.beelabs.com.coconut.model.api.request.Login2RequestModel;
 import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
 import app.beelabs.com.coconut.model.api.request.PhoneRequestModel;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
@@ -21,18 +22,19 @@ public class Api extends BaseApi {
 
     synchronized private static ApiService initApiDomain(Context context) {
         getInstance().setApiDomain(IConfig.API_BASE_URL);
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, true, false);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, true, null);
     }
 
     synchronized private static ApiService initApiDomainSFA2(Context context) {
         getInstance().setApiDomain("https://sfa2.ottopay.id/v1/");
 
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, true, true);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, true, IConfig.PUBLIC_KEY_RSA);
     }
 
     synchronized private static ApiService initApiDomain3(Context context) {
         getInstance().setApiDomain("https://indoalliz-prod.apigee.net/ottosg/api/");
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, 120, true, true);
+
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, 120, true, IConfig.PUBLIC_KEY_RSA);
     }
 
 
@@ -45,7 +47,7 @@ public class Api extends BaseApi {
 
 
     // SFA2
-    synchronized public static void onApiLogin(LoginRequestModel model, Context context,
+    synchronized public static void onApiLogin(Login2RequestModel model, Context context,
                                                Callback callback) {
 //        initApiDomainCA(context).callApiLogin(model)
         initApiDomainSFA2(context).callApiLogin(model)

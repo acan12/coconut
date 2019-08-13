@@ -7,6 +7,8 @@ import android.view.View;
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.R;
+import app.beelabs.com.coconut.model.api.request.Login2RequestModel;
+import app.beelabs.com.coconut.model.api.request.Login2RequestModel.DataRequestModel;
 import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
 import app.beelabs.com.coconut.model.api.request.PhoneRequestModel;
 import app.beelabs.com.coconut.model.api.response.LoginResponseModel;
@@ -38,7 +40,8 @@ public class MainActivity extends BaseActivity {
         showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
             @Override
             public void call() {
-                this.postPhoneNumber2(new PhoneRequestModel("081212341212"), MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
+                this.postPhoneNumber2(
+                        new PhoneRequestModel("081212341212"), MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
             }
         }, "Loading", false);
 
@@ -105,15 +108,22 @@ public class MainActivity extends BaseActivity {
         showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
             @Override
             public void call() {
-                LoginRequestModel model = new LoginRequestModel(
-                        "08568742365",
-                        "123123",
-                        "xxxxxx",
-                        "yyyyyyy");
+//                LoginRequestModel model = new LoginRequestModel(
+//                        "08568742365",
+//                        "123123",
+//                        "xxxxxx",
+//                        "yyyyyyy");
+
+                Login2RequestModel model = new Login2RequestModel("https://indoalliz-test.apigee.net/", "POST",
+                        new DataRequestModel("08568742365", "123123", "xxxxxx", "yyyyyyy"));
 
                 new ResourceDao(MainActivity.this)
                         .onLogin(model, MainActivity.this,
                                 ResourceDao.getInstance(MainActivity.this, 1).callback);
+
+//                new ResourceDao(MainActivity.this)
+//                        .onLogin(model, MainActivity.this,
+//                                ResourceDao.getInstance(MainActivity.this, 1).callback);
             }
         });
 
