@@ -226,8 +226,8 @@ public class BaseManager {
             for (int i = 0; i < bytePartials.size(); i++) {
                 encArray.put(CryptoUtil.encryptRSA(bytePartials.get(i), publicKeyRSA));
             }
-            jsonParam.put("Data", encArray);
-            jsonParam.put("Device", "Android");
+            jsonParam.put("data", encArray);
+            jsonParam.put("device", "Android");
 
 
         } catch (Exception e) {

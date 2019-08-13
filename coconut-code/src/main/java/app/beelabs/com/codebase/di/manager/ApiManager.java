@@ -15,11 +15,6 @@ public class ApiManager extends BaseManager implements IApi {
     private String apiDomain = "";
 
     @Override
-    public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp) {
-        return initApiService(apiDomain, allowUntrusted, clazz, timeout, enableLoggingHttp, null);
-    }
-
-    @Override
     public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp, String publicKeyRSA) {
 
         if (api == null || !this.apiDomain.equals(apiDomain)) {

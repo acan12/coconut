@@ -28,7 +28,7 @@ public class BaseApi {
         this.apiDomain = apiDomain;
     }
 
-    public Object setupApi(AppComponent appComponent, Class clazz) {
+    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp) {
         return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND, true, null);
     }
 
