@@ -32,9 +32,9 @@ public class BaseApi {
         return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND, true, null);
     }
 
-    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp, String publicKeyRSA) {
+    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp, String PedePublicKeyRSA) {
         IApi api = appComponent.getApi();
-        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout, enableLoggingHttp, publicKeyRSA);
+        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout, enableLoggingHttp, PedePublicKeyRSA);
     }
 }
 

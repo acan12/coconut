@@ -40,16 +40,16 @@ import okio.Buffer;
 
 public class BaseManager {
 
-    enum Method {
-        GET,
-        POST,
-        UPDATE
-    }
+//    enum Method {
+//        GET,
+//        POST,
+//        UPDATE
+//    }
 
     protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,
                                          int timeout,
                                          boolean enableLoggingHttp,
-                                         final String publicKeyRSA) {
+                                         final String PedePublicKeyRSA) {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -78,8 +78,6 @@ public class BaseManager {
         httpClient.readTimeout(timeout, TimeUnit.SECONDS);
         httpClient.writeTimeout(timeout, TimeUnit.SECONDS);
 
-//        httpClient.addInterceptor(logging);
-
         // interceptor RSA for body encryption
         httpClient.addInterceptor(new Interceptor() {
             @Override
@@ -91,24 +89,28 @@ public class BaseManager {
                         .method(original.method(), original.body())
                         .build();
 
-                Log.d("", "Method.POST= " + Method.POST);
-                if (publicKeyRSA != null) {
-                    if (Method.POST.toString().equals(request.method())) {
-                        MediaType mediaType = MediaType.parse("text/plain; charset=utf-8");
-                        RequestBody oldbody = request.body();
-                        Buffer buffer = new Buffer();
+                if (PedePublicKeyRSA != null) {
+                    MediaType mediaType = MediaType.parse("text/plain; charset=utf-8");
+                    RequestBody oldbody = request.body();
+                    Buffer buffer = new Buffer();
+                    String strNewBody = "";
+                    try {
+                        String endpoint = original.url().toString();
+
                         oldbody.writeTo(buffer);
                         String json = toJson(buffer.readUtf8());
-                        String strNewBody = null;
-                        try {
-                            strNewBody = generateEncryptedParam(json, publicKeyRSA).toString();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
-                        RequestBody body = RequestBody.create(mediaType, strNewBody);
-                        return chain.proceed(request.newBuilder().post(body).build());
+
+                        strNewBody = generateEncryptedParam(json, PedePublicKeyRSA,
+                                endpoint,
+                                original.method())
+                                .toString();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+
+                    RequestBody body = RequestBody.create(mediaType, strNewBody);
+                    return chain.proceed(request.newBuilder().post(body).build());
                 }
 
                 return chain.proceed(request);
@@ -193,7 +195,7 @@ public class BaseManager {
     }
 
 
-    public static JSONObject generateEncryptedParam(String jsonBody, String publicKeyRSA) {
+    public static JSONObject generateEncryptedParam(String jsonBody, String publicKeyRSA, String originalUrl, String methodType) {
         int maxChar = 50;
         ArrayList<byte[]> bytePartials = new ArrayList<>();
         JSONObject jsonParam = new JSONObject();
@@ -220,6 +222,8 @@ public class BaseManager {
             for (int i = 0; i < bytePartials.size(); i++) {
                 encArray.put(CryptoUtil.encryptRSA(bytePartials.get(i), publicKeyRSA));
             }
+            jsonParam.put("method", methodType);
+            jsonParam.put("url", originalUrl);
             jsonParam.put("data", encArray);
             jsonParam.put("device", "Android");
 

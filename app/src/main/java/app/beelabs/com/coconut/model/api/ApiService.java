@@ -52,9 +52,7 @@ public interface ApiService {
 
     @POST("merchant/rest/sfa/historySummary")
     Call<BaseResponse> callApiTestFintech2( @Body PhoneRequestModel model);
-
-
-
+    
     @POST("sfa/auth/login")
     Call<LoginResponseModel> callApiLogin(@Body Login2RequestModel model);
 }
