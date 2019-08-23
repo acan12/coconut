@@ -5,7 +5,6 @@ import android.content.Context;
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.model.api.request.Login2RequestModel;
-import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
 import app.beelabs.com.coconut.model.api.request.PhoneRequestModel;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
 import app.beelabs.com.coconut.model.api.response.LoginResponseModel;
@@ -38,12 +37,10 @@ public class Api extends BaseApi {
     }
 
 
-
     // CMS Check App Version
     synchronized public static void checkAppVersion(Context context, Callback callback) {
         initApiDomain3(context).checkAppVersion().enqueue((Callback<BaseResponse>) callback);
     }
-
 
 
     // SFA2
