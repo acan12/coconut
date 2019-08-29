@@ -25,6 +25,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import app.beelabs.com.codebase.support.util.CryptoUtil;
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -92,7 +93,20 @@ public class BaseManager {
                 if (PedePublicKeyRSA != null) {
                     MediaType mediaType = MediaType.parse("text/plain; charset=utf-8");
                     RequestBody oldbody = request.body();
+                    Headers headers = request.headers();
+                    JSONObject jsonHeader = new JSONObject();
+                    try {
+                        for (int i = 0; i < headers.size(); i++) {
+                            jsonHeader.put(headers.name(i), headers.value(i));
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
                     Buffer buffer = new Buffer();
+
                     String strNewBody = "";
                     try {
                         String endpoint = original.url().toString();
@@ -101,7 +115,7 @@ public class BaseManager {
                         String json = toJson(buffer.readUtf8());
 
 
-                        strNewBody = generateEncryptedParam(json, PedePublicKeyRSA,
+                        strNewBody = generateEncryptedParam(json, jsonHeader.toString(), PedePublicKeyRSA,
                                 endpoint,
                                 original.method())
                                 .toString();
@@ -195,7 +209,7 @@ public class BaseManager {
     }
 
 
-    public static JSONObject generateEncryptedParam(String jsonBody, String publicKeyRSA, String originalUrl, String methodType) {
+    public static JSONObject generateEncryptedParam(String jsonBody, String jsonHeader, String publicKeyRSA, String originalUrl, String methodType) {
         int maxChar = 50;
         ArrayList<byte[]> bytePartials = new ArrayList<>();
         JSONObject jsonParam = new JSONObject();
@@ -224,6 +238,7 @@ public class BaseManager {
             }
             jsonParam.put("method", methodType);
             jsonParam.put("url", originalUrl);
+            jsonParam.put("header", jsonHeader);
             jsonParam.put("data", encArray);
             jsonParam.put("device", "Android");
 
