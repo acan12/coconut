@@ -51,7 +51,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        ((IMainFragmentView) ifv).handleDataSummary((SummaryResponse) o);
+                        ifv.handleDataSummary((SummaryResponse) o);
                     }
                 });
 
@@ -65,13 +65,13 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                     @Override
                     public void onSubscribe(Disposable d) {
                         super.onSubscribe(d);
-                        ((IMainView) imv).handleProcessing();
+                        imv.handleProcessing();
                     }
 
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        ((IMainView) imv).handleProfileDone((ProfileResponseModel) o);
+                        imv.handleProfileDone((ProfileResponseModel) o);
                     }
 
                     @Override

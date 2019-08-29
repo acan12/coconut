@@ -6,5 +6,5 @@ package app.beelabs.com.codebase.di;
  */
 public interface IApiService {
 
-    public void callApiArticles();
+    void callApiArticles();
 }

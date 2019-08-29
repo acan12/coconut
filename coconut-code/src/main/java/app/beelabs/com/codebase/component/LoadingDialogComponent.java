@@ -30,7 +30,7 @@ public class LoadingDialogComponent extends BaseDialog {
         setWindowContentDialogLayout(R.layout.dialog_loading);
         dialog = this;
 
-        text = (TextView) findViewById(R.id.loading_text);
+        text = findViewById(R.id.loading_text);
         text.setText(message);
     }
 

@@ -22,11 +22,11 @@ public class RxCompositeDisposableManager {
 
 
     interface IRxCallback {
-        public void onNext();
+        void onNext();
 
-        public void onError();
+        void onError();
 
-        public void onComplete();
+        void onComplete();
     }
 
     public static void add(Disposable disposable) {

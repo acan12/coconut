@@ -63,7 +63,7 @@ public class SwitcherComponent {
         View.OnClickListener customSwitchListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (((Button) view) == buttons[0]) {
+                if (view == buttons[0]) {
                     buttons[0].setSelected(true);
                     buttons[1].setSelected(false);
                     checkedIndex = 0;

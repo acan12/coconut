@@ -12,7 +12,6 @@ import java.security.KeyManagementException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -84,7 +83,6 @@ public class BaseManager {
                         .method(original.method(), original.body())
                         .build();
 
-                Log.d("", "Method.POST= "+Method.POST);
                 if (enableEncryptedRSA) {
                     if (Method.POST.toString().equals(request.method())) {
                         MediaType mediaType = MediaType.parse("text/plain; charset=utf-8");
@@ -191,14 +189,6 @@ public class BaseManager {
             return jsonObject.toString();
         }
     }
-
-//    KeyPairGenerator kpg;
-//    KeyPair kp;
-//    PublicKey publicKey;
-//    PrivateKey privateKey;
-//    byte[] encryptedBytes, decryptedBytes;
-//    Cipher cipher, cipher1;
-//    String encrypted, decrypted;
 
     public String encryptRSA(String plain) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
