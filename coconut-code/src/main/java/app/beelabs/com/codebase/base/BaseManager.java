@@ -2,19 +2,12 @@ package app.beelabs.com.codebase.base;
 
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -24,29 +17,15 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import app.beelabs.com.codebase.support.util.CryptoUtil;
-import okhttp3.Headers;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
+import app.beelabs.com.codebase.base.request.RequestInterceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okio.Buffer;
 
 /**
  * Created by arysuryawan on 11/10/17.
  */
 
 public class BaseManager {
-
-//    enum Method {
-//        GET,
-//        POST,
-//        UPDATE
-//    }
-
     protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,
                                          int timeout,
                                          boolean enableLoggingHttp,
@@ -80,56 +59,7 @@ public class BaseManager {
         httpClient.writeTimeout(timeout, TimeUnit.SECONDS);
 
         // interceptor RSA for body encryption
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-                Request request = original.newBuilder()
-                        .header("User-Agent", "base")
-                        .header("Accept", "application/json")
-                        .method(original.method(), original.body())
-                        .build();
-
-                if (PedePublicKeyRSA != null) {
-                    MediaType mediaType = MediaType.parse("text/plain; charset=utf-8");
-                    RequestBody oldbody = request.body();
-                    Headers headers = request.headers();
-                    JSONObject jsonHeader = new JSONObject();
-                    try {
-                        for (int i = 0; i < headers.size(); i++) {
-                            jsonHeader.put(headers.name(i), headers.value(i));
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    Buffer buffer = new Buffer();
-
-                    String strNewBody = "";
-                    try {
-                        String endpoint = original.url().toString();
-
-                        oldbody.writeTo(buffer);
-                        String json = toJson(buffer.readUtf8());
-
-
-                        strNewBody = generateEncryptedParam(json, jsonHeader.toString(), PedePublicKeyRSA,
-                                endpoint,
-                                original.method())
-                                .toString();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    RequestBody body = RequestBody.create(mediaType, strNewBody);
-                    return chain.proceed(request.newBuilder().post(body).build());
-                }
-
-                return chain.proceed(request);
-            }
-        });
+        httpClient.addInterceptor(new RequestInterceptor(PedePublicKeyRSA));
 
         // interceptor logging HTTP request
         if (enableLoggingHttp) {
@@ -187,67 +117,4 @@ public class BaseManager {
         httpClient.hostnameVerifier(hostnameVerifier);
 
     }
-
-
-    private String toJson(String params) {
-        try {
-            new JSONObject(params);
-            return params;
-        } catch (JSONException e) {
-            JSONObject jsonObject = new JSONObject();
-            String[] maps = params.split("&");
-            for (String map : maps) {
-                String[] kv = map.split("=");
-                try {
-                    jsonObject.put(kv[0], kv.length == 2 ? kv[1] : "");
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-            }
-            return jsonObject.toString();
-        }
-    }
-
-
-    public static JSONObject generateEncryptedParam(String jsonBody, String jsonHeader, String publicKeyRSA, String originalUrl, String methodType) {
-        int maxChar = 50;
-        ArrayList<byte[]> bytePartials = new ArrayList<>();
-        JSONObject jsonParam = new JSONObject();
-        try {
-            byte[] bytesJSONBody = jsonBody.getBytes("UTF-8");
-            Log.d("bytesJSONBody length: ", "" + bytesJSONBody.length);
-            if (bytesJSONBody.length > maxChar) {
-                int counter = 0;
-                do {
-                    if (bytesJSONBody.length - counter > maxChar) {
-                        bytePartials.add(Arrays.copyOfRange(bytesJSONBody, counter, counter + maxChar));
-                    } else {
-                        bytePartials.add(Arrays.copyOfRange(bytesJSONBody, counter, bytesJSONBody.length));
-                    }
-
-                    counter = counter + maxChar;
-                } while (counter < bytesJSONBody.length);
-            } else {
-                bytePartials.add(bytesJSONBody);
-            }
-
-
-            JSONArray encArray = new JSONArray();
-            for (int i = 0; i < bytePartials.size(); i++) {
-                encArray.put(CryptoUtil.encryptRSA(bytePartials.get(i), publicKeyRSA));
-            }
-            jsonParam.put("method", methodType);
-            jsonParam.put("url", originalUrl);
-            jsonParam.put("header", jsonHeader);
-            jsonParam.put("data", encArray);
-            jsonParam.put("device", "Android");
-
-
-        } catch (Exception e) {
-        }
-
-        return jsonParam;
-    }
-
-
 }
