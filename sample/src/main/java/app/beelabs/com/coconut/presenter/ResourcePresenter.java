@@ -42,7 +42,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     @Override
     public void postPhoneNumber(String phone) {
         new ResourceDao(this).postPhoneNumber(phone)
-                .subscribe(new RxBasicObserver<SummaryResponse>(ifv, "Ambil Data Summary...", 10000) {
+                .subscribe(new RxObserver<SummaryResponse>(ifv, "Ambil Data Summary...", 10000) {
                     @Override
                     public void onSubscribe(Disposable d) {
                         super.onSubscribe(d);
@@ -61,7 +61,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     @Override
     public void getProfileRX() {
         new ResourceDao(this).getProfileRxDAO()
-                .subscribe(new RxBasicObserver<ProfileResponseModel>(imv, null, 500) {
+                .subscribe(new RxObserver<ProfileResponseModel>(imv, null, 500) {
 
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -99,7 +99,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     @Override
     public void getSourceRX(String messageLoading) {
         new ResourceDao(this).getSourceRXDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>(imv, messageLoading) {
+                .subscribe(new RxBasicObserver<ProfileResponseModel>(imv, messageLoading) {
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);

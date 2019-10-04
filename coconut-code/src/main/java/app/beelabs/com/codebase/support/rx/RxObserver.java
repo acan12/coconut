@@ -2,7 +2,6 @@ package app.beelabs.com.codebase.support.rx;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BaseDialog;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.LoadingDialogComponent;
@@ -33,7 +32,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onSubscribe(Disposable d) {
-        BaseDialog dialogLoading = null;
+        LoadingDialogComponent dialogLoading = null;
         BaseActivity activity = iv.getCurrentActivity();
         if (messageLoading != null)
             dialogLoading = LoadingDialogComponent.openLoadingDialog(activity, messageLoading, timeMilis);

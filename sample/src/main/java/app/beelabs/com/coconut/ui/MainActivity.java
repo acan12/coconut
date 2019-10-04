@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     @BindView(R.id.demo_image)
     ImageView demoImage;
 
-    //    @BindView(R.id.content1)
+//    @BindView(R.id.content1)
 //    TextView content1;
     @BindView(R.id.content2)
     TextView content2;
