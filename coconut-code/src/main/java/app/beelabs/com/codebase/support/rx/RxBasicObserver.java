@@ -1,31 +1,32 @@
 package app.beelabs.com.codebase.support.rx;
 
+import android.app.ProgressDialog;
+
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BaseDialog;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.SnackbarInternetConnection;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class RxObserver<P extends BaseResponse> implements Observer {
+public class RxBasicObserver<P extends BaseResponse> implements Observer {
     private IView iv;
     private String messageLoading;
     private long timeMilis;
 
-    public RxObserver(IView iv) {
+    public RxBasicObserver(IView iv) {
         this.iv = iv;
     }
 
-    public RxObserver(IView iv, String messageLoading) {
+    public RxBasicObserver(IView iv, String messageLoading) {
         this.iv = iv;
         this.messageLoading = messageLoading;
         this.timeMilis = 0;
     }
 
-    public RxObserver(IView iv, String messageLoading, long timeMilis) {
+    public RxBasicObserver(IView iv, String messageLoading, long timeMilis) {
         this.iv = iv;
         this.messageLoading = messageLoading;
         this.timeMilis = timeMilis;
@@ -33,22 +34,22 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onSubscribe(Disposable d) {
-        BaseDialog dialogLoading = null;
+        ProgressDialog dialogLoading = null;
         BaseActivity activity = iv.getCurrentActivity();
         if (messageLoading != null)
-            dialogLoading = LoadingDialogComponent.openLoadingDialog(activity, messageLoading, timeMilis);
+            dialogLoading = ProgressDialogComponent.showProgressDialog(activity, messageLoading, false);
         while (dialogLoading == null || dialogLoading.isShowing()) return;
     }
 
     @Override
     public void onNext(Object o) {
-        LoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
+        ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
 
     }
 
     @Override
     public void onError(Throwable e) {
-        LoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
+        ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
         SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 

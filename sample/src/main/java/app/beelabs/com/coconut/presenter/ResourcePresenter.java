@@ -13,6 +13,7 @@ import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.support.rx.RxBasicObserver;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import io.reactivex.disposables.Disposable;
 
@@ -41,7 +42,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     @Override
     public void postPhoneNumber(String phone) {
         new ResourceDao(this).postPhoneNumber(phone)
-                .subscribe(new RxObserver<SummaryResponse>(ifv, "Ambil Data Summary...", 10000) {
+                .subscribe(new RxBasicObserver<SummaryResponse>(ifv, "Ambil Data Summary...", 10000) {
                     @Override
                     public void onSubscribe(Disposable d) {
                         super.onSubscribe(d);
@@ -60,7 +61,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     @Override
     public void getProfileRX() {
         new ResourceDao(this).getProfileRxDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>(imv, null, 500) {
+                .subscribe(new RxBasicObserver<ProfileResponseModel>(imv, null, 500) {
 
                     @Override
                     public void onSubscribe(Disposable d) {

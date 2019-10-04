@@ -57,15 +57,13 @@ public class BaseManager {
 
         if (allowUntrustedSSL) {
             allowUntrustedSSL(httpClient);
-        }
-
-
-        try {
-            SSLContext sc = SSLContext.getInstance("TLSv1.2");
-            sc.init(null, null, null);
-            httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
-        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-            e.printStackTrace();
+            try {
+                SSLContext sc = SSLContext.getInstance("TLSv1.2");
+                sc.init(null, null, null);
+                httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
+            } catch (NoSuchAlgorithmException | KeyManagementException e) {
+                e.printStackTrace();
+            }
         }
 
         httpClient.connectTimeout(timeout, TimeUnit.SECONDS);
@@ -83,6 +81,7 @@ public class BaseManager {
                         .method(original.method(), original.body())
                         .build();
 
+//                Log.d("Protocol HTTP:", httpClient.protocols(A))
                 if (enableEncryptedRSA) {
                     if (Method.POST.toString().equals(request.method())) {
                         MediaType mediaType = MediaType.parse("text/plain; charset=utf-8");
