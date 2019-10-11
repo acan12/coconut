@@ -33,8 +33,6 @@ public class CryptoUtil {
             cipherText = cipher.doFinal(text);
             strEncryInfoData = new String(Base64.encode(cipherText, Base64.DEFAULT));
 
-
-
         } catch (Exception e) {
             String m = e.getMessage();
             Log.d("ERROR CRYPTO: ", m);
