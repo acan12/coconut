@@ -1,55 +1,67 @@
 package app.beelabs.com.codebase.base;
 
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
-import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
+import app.beelabs.com.codebase.R;
+import app.beelabs.com.codebase.component.LoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
-import retrofit2.Call;
-import retrofit2.Response;
 
 
 /**
  * Created by arysuryawan on 8/16/17.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements IView {
 
-    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao) {
-        showApiProgressDialog(appComponent, dao, null);
+    private BaseActivity currentActivity;
+
+    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
+        showApiProgressDialog(appComponent, presenter, null);
     }
 
-    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message) {
+    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(getActivity(), message, true);
-        dao.call();
+        presenter.call();
     }
 
-    protected void showApiProgressDialog(AppComponent appComponent, BaseDao dao, String message, boolean isCanceledOnTouch) {
+    protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(getActivity(), message, isCanceledOnTouch);
-        dao.call();
+        presenter.call();
     }
 
-    protected void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
+    protected void showLoadingDialog(AppComponent appComponent, BasePresenter presenter, String message) {
+        IProgress progress = appComponent.getProgressDialog();
+        progress.showLoadingDialog(new LoadingDialogComponent(message, 0, getActivity(), R.style.CoconutDialogFullScreen));
+        presenter.call();
     }
 
-    protected void onApiFailureCallback(String message) {
-        Log.e("Message:", message+ "");
+    @Override
+    public void handleError(String message) {
+
+    }
+
+    @Override
+    public void handleRetryConnection() {
+
+    }
+
+    public IView initActivityInFragment() {
+        if (this instanceof BaseFragment) {
+            setCurrentActivity((BaseActivity) getActivity());
+            return this;
+        }
+        return null;
     }
 
 
-    public static void onResponseCallback(Call<BaseResponse> call, Response response, BaseFragment fm, int responseCode) {
-        ProgressDialogComponent.dismissProgressDialog((BaseActivity) fm.getActivity());
-        fm.onApiResponseCallback((BaseResponse) response.body(), responseCode, response);
+    public BaseActivity getCurrentActivity() {
+        return currentActivity;
     }
 
-    public static void onFailureCallback(Throwable t, BaseFragment fm) {
-        ProgressDialogComponent.dismissProgressDialog((BaseActivity) fm.getActivity());
-        fm.onApiFailureCallback(t.getMessage());
+    private void setCurrentActivity(BaseActivity currentActivity) {
+        this.currentActivity = currentActivity;
     }
-
-
 }
