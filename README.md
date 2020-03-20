@@ -48,7 +48,7 @@ _Coconut framework library for android_
 
 `Extention feature:`
 
-**1. add snackbar if internet loss connection**
+**1. Add snackbar if internet loss connection**
 ```
     <string name="snackbar_internet_fail_message">Internet loss connection</string>
     <string name="snackbar_reply_action_label">Reply</string>
@@ -85,7 +85,7 @@ _Coconut framework library for android_
     
 ```
 
-**5. use custom loading for api call**
+**5. Use custom loading for api call**
 ```aidl
     [basic style in ui]
     showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
@@ -102,7 +102,7 @@ _Coconut framework library for android_
        .subscribe(new RxObserver<ProfileResponseModel>(imv, messageLoading) { ... }
 ```
 
-**6. support fragment back stack while back button pressed**
+**6. Support fragment back stack while back button pressed**
 ```aidl
 
     showFragment(<object of fragment>, <id layout of frame contain fragment>, <use fragment back stack or not>);
@@ -120,7 +120,7 @@ _Coconut framework library for android_
     SecurityUtil.isMockLocationEnabled(this);
 ```
 
-**9. Handle alert warning for Internet lost connection snackbar
+**9. Handle alert warning for Internet lost connection snackbar**
 - `[Activity / Fragment]`
 ```aidl
     @Override
@@ -207,7 +207,7 @@ dependencies {
 
 ```
 
-**5. Integrate code with Coconut Framework**
+**5. Integrate Base Code with Coconut Framework**
  - `BaseApi`
  
     ```aidl
