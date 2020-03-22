@@ -5,5 +5,5 @@ import android.content.Context;
 public interface IDaoPresenter {
     BasePresenter getPresenter();
 
-    Context getContext();
+//    Context getContext();
 }

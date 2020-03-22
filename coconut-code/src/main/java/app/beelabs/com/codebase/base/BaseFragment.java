@@ -38,6 +38,11 @@ public abstract class BaseFragment extends Fragment implements IView {
     }
 
     @Override
+    public BaseActivity getCurrentActivity() {
+        return (BaseActivity) getActivity();
+    }
+
+    @Override
     public void handleError(String message) {
 
     }

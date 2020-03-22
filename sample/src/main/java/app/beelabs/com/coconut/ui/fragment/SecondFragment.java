@@ -46,7 +46,7 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
     }
 
     @Override
-    public View getContentView() {
+    public View getRootView() {
         return layout;
     }
 
@@ -57,12 +57,6 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
         Toast.makeText(getActivity(), model.getAcquisitionData().size() + "", Toast.LENGTH_SHORT).show();
         Log.d("TEST", "testing handle data summary");
     }
-
-    @Override
-    public BaseActivity getCurrentActivity() {
-        return (BaseActivity) getActivity();
-    }
-
 
     @Override
     public void handleError(String message) {

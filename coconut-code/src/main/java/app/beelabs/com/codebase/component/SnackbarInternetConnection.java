@@ -11,7 +11,7 @@ public class SnackbarInternetConnection {
 
     public static void show(String message, final IView iview) {
         if (!SecurityUtil.isNetworkAvailable(iview.getCurrentActivity())) {
-            final Snackbar snackbar = Snackbar.make(iview.getContentView(), message, Snackbar.LENGTH_INDEFINITE);
+            final Snackbar snackbar = Snackbar.make(iview.getRootView(), message, Snackbar.LENGTH_INDEFINITE);
 
             snackbar.show();
             snackbar.setAction(iview.getCurrentActivity().getResources().getString(R.string.coconut_reply_action_label), new View.OnClickListener() {

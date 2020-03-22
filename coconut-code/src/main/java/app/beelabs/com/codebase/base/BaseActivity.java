@@ -31,7 +31,6 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     private BroadcastReceiver bReceiver;
 
     public void setupCoconutContentView(int rootIdLayout) {
-
         this.rootView = findViewById(rootIdLayout);
     }
 
@@ -40,7 +39,6 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         super.onStart();
         registerBroadCastReceiver();
     }
-
 
     @Override
     protected void onDestroy() {
@@ -120,20 +118,20 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(this, message, false);
+        progress.showProgressDialog(getCurrentActivity(), message, false);
         presenter.call();
     }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(this, message, isCanceledOnTouch);
+        progress.showProgressDialog(getCurrentActivity(), message, isCanceledOnTouch);
         presenter.call();
     }
 
 
     protected void showApiCustomProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showLoadingDialog(new LoadingDialogComponent(message, 0, this, R.style.CoconutDialogFullScreen));
+        progress.showLoadingDialog(new LoadingDialogComponent(message, 0, getCurrentActivity(), R.style.CoconutDialogFullScreen));
         presenter.call();
 
     }
@@ -146,7 +144,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
             }
         };
 
-        bManager = LocalBroadcastManager.getInstance(this);
+        bManager = LocalBroadcastManager.getInstance(getCurrentActivity());
         bManager.registerReceiver(bReceiver, new IntentFilter("CoconutAction"));
     }
 
@@ -163,8 +161,8 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
     @Override
-    public View getContentView() {
-        return null;
+    public View getRootView() {
+        return rootView;
     }
 
     @Override

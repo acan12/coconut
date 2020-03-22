@@ -5,7 +5,7 @@ import android.view.View;
 public interface IView {
     BaseActivity getCurrentActivity();
 
-    View getContentView();
+    View getRootView();
 
     void handleError(String message);
 

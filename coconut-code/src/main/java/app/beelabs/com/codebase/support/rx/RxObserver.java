@@ -5,6 +5,7 @@ import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.SnackbarInternetConnection;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -42,7 +43,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     @Override
     public void onNext(Object o) {
         LoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
-
+        ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
     }
 
     @Override
