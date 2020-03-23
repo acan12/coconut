@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
@@ -49,7 +50,12 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
     }
 
     private void doSecondWay() {
-        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).postPhoneNumber("081212341212");
+        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this){
+            @Override
+            public void call() {
+                postPhoneNumber("081212341212");
+            }
+        }, "Load From Fragment", false);
     }
 
     @Override
@@ -61,7 +67,7 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
     @Override
     public void handleDataSummary(SummaryResponse model) {
         if(getActivity() == null) return;
-        Toast.makeText(getActivity(), model.getAcquisitionData().size() + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), model.getAcquisitionData().size() + " From Fragment", Toast.LENGTH_SHORT).show();
         Log.d("TEST", "testing handle data summary");
     }
 
