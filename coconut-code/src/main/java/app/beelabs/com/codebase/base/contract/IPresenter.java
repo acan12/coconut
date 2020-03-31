@@ -1,4 +1,4 @@
-package app.beelabs.com.codebase.base;
+package app.beelabs.com.codebase.base.contract;
 
 public interface IPresenter {
     void call();

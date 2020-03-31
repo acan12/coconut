@@ -12,10 +12,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.util.List;
-
 import app.beelabs.com.codebase.R;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.base.contract.IView;
+import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -103,14 +102,6 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         }
     }
 
-    protected BaseFragment onBackFragment(BaseActivity activity) {
-        List fragments = activity.getSupportFragmentManager().getFragments();
-        BaseFragment currentFragment = (BaseFragment) fragments.get(fragments.size() - 1);
-
-        return currentFragment;
-    }
-
-
     // handle progress dialog
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
         showApiProgressDialog(appComponent, presenter, null);
@@ -129,11 +120,10 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
 
-    protected void showApiCustomProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
+    protected void showApiWithSpinKitDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showLoadingDialog(new LoadingDialogComponent(message, 0, getCurrentActivity(), R.style.CoconutDialogFullScreen));
+        progress.showSpinLoadingDialog(new SpinKitLoadingDialogComponent(message, 0, getCurrentActivity(), R.style.CoconutDialogFullScreen));
         presenter.call();
-
     }
 
     private void registerBroadCastReceiver() {

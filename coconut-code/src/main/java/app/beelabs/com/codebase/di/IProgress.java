@@ -2,8 +2,7 @@ package app.beelabs.com.codebase.di;
 
 import android.content.Context;
 
-import app.beelabs.com.codebase.component.IDialog;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
 
 /**
  * Created by ary on 5/28/17.
@@ -12,5 +11,5 @@ import app.beelabs.com.codebase.component.LoadingDialogComponent;
 public interface IProgress {
     void showProgressDialog(Context context, String message, boolean isCanceledOnTouch);
 
-    void showLoadingDialog(LoadingDialogComponent dialog);
+    void showSpinLoadingDialog(SpinKitLoadingDialogComponent dialog);
 }

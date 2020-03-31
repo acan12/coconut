@@ -2,8 +2,9 @@
 <resources>
     <color name="colorCoconut_background_dialog">#F2FFFFFF</color>
     <color name="colorCoconut_text_dialog">#000</color>
-    <color name="colorCoconut_iconloading_dialog">#4169E1</color>
+    <color name="colorCoconut_iconLoading_dialog">#4169E1</color>
 
     <color name="color_black_transparent80">#CC000000</color>
     <color name="color_white">#fff</color>
+    <color name="color_green">#66b266</color>
 </resources>

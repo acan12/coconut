@@ -2,8 +2,10 @@ package app.beelabs.com.codebase.base;
 
 import java.lang.reflect.InvocationTargetException;
 
+import app.beelabs.com.codebase.base.contract.IPresenter;
+import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 
 public class BasePresenter implements IPresenter {
@@ -46,7 +48,7 @@ public class BasePresenter implements IPresenter {
     @Override
     public void done() {
         ProgressDialogComponent.dismissProgressDialog(iview.getCurrentActivity());
-        LoadingDialogComponent.closeLoadingDialog(iview.getCurrentActivity(), 0);
+        SpinKitLoadingDialogComponent.closeLoadingDialog(iview.getCurrentActivity(), 0);
     }
 
     @Override

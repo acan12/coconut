@@ -2,9 +2,9 @@ package app.beelabs.com.codebase.support.rx;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.IView;
+import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.SnackbarInternetConnection;
 import io.reactivex.Observer;
@@ -33,22 +33,23 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onSubscribe(Disposable d) {
-        LoadingDialogComponent dialogLoading = null;
+        SpinKitLoadingDialogComponent dialogLoading = null;
         BaseActivity activity = iv.getCurrentActivity();
         if (messageLoading != null)
-            dialogLoading = LoadingDialogComponent.openLoadingDialog(activity, messageLoading, timeMilis);
+            dialogLoading = SpinKitLoadingDialogComponent.openLoadingDialog(activity, messageLoading, timeMilis);
         while (dialogLoading == null || dialogLoading.isShowing()) return;
     }
 
     @Override
     public void onNext(Object o) {
-        LoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
+        SpinKitLoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
+        SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 
     @Override
     public void onError(Throwable e) {
-        LoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
+        SpinKitLoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
         SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 

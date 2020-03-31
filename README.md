@@ -383,3 +383,8 @@ Version:
 - `1.0.0` :launch library on basic requirement
 
 
+Git command force pull branch command:
+git checkout seotweaks
+git merge -s ours master
+git checkout master
+git merge seotweaks

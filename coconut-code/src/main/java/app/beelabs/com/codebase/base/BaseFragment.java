@@ -3,7 +3,8 @@ package app.beelabs.com.codebase.base;
 import android.support.v4.app.Fragment;
 
 import app.beelabs.com.codebase.R;
-import app.beelabs.com.codebase.component.LoadingDialogComponent;
+import app.beelabs.com.codebase.base.contract.IView;
+import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
 
@@ -33,7 +34,7 @@ public abstract class BaseFragment extends Fragment implements IView {
 
     protected void showLoadingDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
-        progress.showLoadingDialog(new LoadingDialogComponent(message, 0, getActivity(), R.style.CoconutDialogFullScreen));
+        progress.showSpinLoadingDialog(new SpinKitLoadingDialogComponent(message, 0, getActivity(), R.style.CoconutDialogFullScreen));
         presenter.call();
     }
 

@@ -1,5 +1,6 @@
 package app.beelabs.com.codebase.base;
 
+import app.beelabs.com.codebase.base.contract.IDao;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import retrofit2.Callback;
 import retrofit2.Response;

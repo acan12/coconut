@@ -1,5 +1,6 @@
-package app.beelabs.com.codebase.base;
+package app.beelabs.com.codebase.base.contract;
 
+import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import retrofit2.Response;
 
