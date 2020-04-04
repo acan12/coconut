@@ -36,7 +36,7 @@ public class ResourceDao extends BaseDao {
 
         void getSource();
 
-        void getSourceRX(String messageLoading);
+        void getSourceRX(String messageLoading, int dialogType);
 
         void uploadFile(String noteVal,
                         String startTimeVal,

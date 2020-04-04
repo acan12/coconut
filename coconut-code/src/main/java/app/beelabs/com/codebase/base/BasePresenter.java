@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import app.beelabs.com.codebase.base.contract.IPresenter;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
+import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
+import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
 
 public class BasePresenter implements IPresenter {
     private static BasePresenter presenter;

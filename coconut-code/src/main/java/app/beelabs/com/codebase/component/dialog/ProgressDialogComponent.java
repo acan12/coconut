@@ -1,10 +1,11 @@
-package app.beelabs.com.codebase.component;
+package app.beelabs.com.codebase.component.dialog;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 
 import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.base.BaseActivity;
+import app.beelabs.com.codebase.base.BaseDialog;
 
 
 /**
@@ -14,7 +15,7 @@ import app.beelabs.com.codebase.base.BaseActivity;
 public class ProgressDialogComponent {
     private static ProgressDialog dialog;
 
-    synchronized public static ProgressDialog showProgressDialog(Context context, String message, boolean isCanceledOnTouch) {
+    synchronized public static void showProgressDialog(Context context, String message, boolean isCanceledOnTouch) {
         if (dialog == null) {
             message = message != null ? message : IConfig.DEFAULT_LOADING;
 
@@ -23,8 +24,6 @@ public class ProgressDialogComponent {
             dialog.setCanceledOnTouchOutside(isCanceledOnTouch);
             dialog.show();
         }
-
-        return dialog;
     }
 
     public static void dismissProgressDialog(BaseActivity ac) {

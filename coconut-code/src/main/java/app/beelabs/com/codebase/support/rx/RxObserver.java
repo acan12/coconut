@@ -1,12 +1,11 @@
 package app.beelabs.com.codebase.support.rx;
 
 import app.beelabs.com.codebase.R;
-import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.SnackbarInternetConnection;
+import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
+import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -14,6 +13,12 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     private IView iv;
     private String messageLoading;
     private long timeMilis;
+    private int dialogType;
+
+    public interface DialogTypeEnum {
+        int DEFAULT = 0;
+        int SPINKIT = 1;
+    }
 
     public RxObserver(IView iv) {
         this.iv = iv;
@@ -31,13 +36,24 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         this.timeMilis = timeMilis;
     }
 
+    public RxObserver setDialogType(int dialogType) {
+        this.dialogType = dialogType;
+        return this;
+    }
+
     @Override
     public void onSubscribe(Disposable d) {
-        SpinKitLoadingDialogComponent dialogLoading = null;
-        BaseActivity activity = iv.getCurrentActivity();
-        if (messageLoading != null)
-            dialogLoading = SpinKitLoadingDialogComponent.openLoadingDialog(activity, messageLoading, timeMilis);
-        while (dialogLoading == null || dialogLoading.isShowing()) return;
+        if (messageLoading != null) {
+            switch (dialogType) {
+                case DialogTypeEnum.DEFAULT:
+                    ProgressDialogComponent.showProgressDialog(iv.getCurrentActivity(),messageLoading, false);
+                    break;
+
+                case DialogTypeEnum.SPINKIT:
+                    SpinKitLoadingDialogComponent.showProgressDialog(iv.getCurrentActivity(),messageLoading, timeMilis);
+                    break;
+            }
+        }
     }
 
     @Override

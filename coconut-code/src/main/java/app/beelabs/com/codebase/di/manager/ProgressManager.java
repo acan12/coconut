@@ -3,8 +3,8 @@ package app.beelabs.com.codebase.di.manager;
 
 import android.content.Context;
 
-import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
-import app.beelabs.com.codebase.component.ProgressDialogComponent;
+import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
+import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 
 /**

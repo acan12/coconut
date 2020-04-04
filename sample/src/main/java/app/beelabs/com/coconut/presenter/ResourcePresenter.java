@@ -51,7 +51,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                         if (iView instanceof IMainFragmentView)
                             ((IMainFragmentView) iView).handleDataSummary((SummaryResponse) o);
                     }
-                });
+                }.setDialogType(RxObserver.DialogTypeEnum.SPINKIT));
 
     }
 
@@ -78,7 +78,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                         iView.handleError(e.getMessage());
                     }
 
-                });
+                }.setDialogType(RxObserver.DialogTypeEnum.SPINKIT));
 
     }
 
@@ -94,7 +94,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     }
 
     @Override
-    public void getSourceRX(String messageLoading) {
+    public void getSourceRX(String messageLoading, int dialogType) {
         new ResourceDao(this).getSourceRXDAO()
                 .subscribe(new RxObserver<ProfileResponseModel>(iView, messageLoading) {
                     @Override
@@ -105,7 +105,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                         else if (iView instanceof ISecondView)
                             ((ISecondView) iView).handleDataSource((SourceResponse) o);
                     }
-                });
+                }.setDialogType(dialogType));
     }
 
     @Override

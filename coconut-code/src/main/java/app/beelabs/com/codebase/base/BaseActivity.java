@@ -14,7 +14,7 @@ import android.view.View;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
-import app.beelabs.com.codebase.component.SpinKitLoadingDialogComponent;
+import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;

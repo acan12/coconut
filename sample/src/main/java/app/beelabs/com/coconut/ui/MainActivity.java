@@ -16,6 +16,7 @@ import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.support.rx.RxObserver;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,20 +38,14 @@ public class MainActivity extends BaseActivity implements IMainView {
         showFragment(new MainFragment(), R.id.container, true);
     }
 
-    private void callMultiApi() {
+    private void callSources() {
         ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class))
-                .getSourceRX("Ambil Data");
-//        doGetProfile();
-
-    }
-
-    private void doGetProfile() {
-        ((ResourcePresenter) BasePresenter.getInstance(MainActivity.this, ResourcePresenter.class)).getProfileRX();
+                .getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.DEFAULT);
     }
 
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
-        callMultiApi();
+        callSources();
     }
 
     // handle response method
@@ -87,6 +82,11 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void handleRetryConnection() {
-        callMultiApi();
+        callSources();
+    }
+
+    @Override
+    public void handleError(String message) {
+        Toast.makeText(this, "Error Api Failed!!", Toast.LENGTH_SHORT).show();
     }
 }

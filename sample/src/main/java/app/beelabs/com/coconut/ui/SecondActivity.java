@@ -10,7 +10,7 @@ import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BasePresenter;
+import app.beelabs.com.codebase.support.rx.RxObserver;
 import app.beelabs.com.codebase.support.rx.RxTimer;
 
 public class SecondActivity extends BaseActivity implements ISecondView {
@@ -20,20 +20,20 @@ public class SecondActivity extends BaseActivity implements ISecondView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        RxTimer.doTimer(3000, false, new RxTimer(){
+        RxTimer.doTimer(3000, false, new RxTimer() {
             @Override
             public void onCallback(Long along) {
-                callMultiApi();
+                callSources();
             }
         });
 
     }
 
-    private void callMultiApi() {
-        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this){
+    private void callSources() {
+        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this) {
             @Override
             public void call() {
-                getSourceRX("Ambil Data");
+                getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.SPINKIT);
             }
         }, "lg nngambil data");
     }
