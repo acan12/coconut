@@ -1,5 +1,6 @@
 package app.beelabs.com.codebase.di;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;

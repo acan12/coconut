@@ -30,12 +30,7 @@ public class SecondActivity extends BaseActivity implements ISecondView {
     }
 
     private void callSources() {
-        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this) {
-            @Override
-            public void call() {
-                getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.SPINKIT);
-            }
-        }, "lg nngambil data");
+        new ResourcePresenter(this).getSourceRX("Lg ngambil Data", RxObserver.DialogTypeEnum.DEFAULT);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.content.Context;
 
 import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BaseDialog;
 
 
 /**
@@ -32,5 +31,9 @@ public class ProgressDialogComponent {
             dialog.dismiss();
             dialog = null;
         }
+    }
+
+    public static ProgressDialog getDialog() {
+        return dialog;
     }
 }

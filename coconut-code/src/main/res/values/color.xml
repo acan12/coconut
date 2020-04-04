@@ -7,4 +7,5 @@
     <color name="color_black_transparent80">#CC000000</color>
     <color name="color_white">#fff</color>
     <color name="color_green">#66b266</color>
+    <color name="color_red">#e50000</color>
 </resources>

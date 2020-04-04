@@ -14,8 +14,8 @@ import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
-import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.dialog.AlertNetworkNoConnectionDialog;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,13 +39,14 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     private void callSources() {
-        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class))
-                .getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.DEFAULT);
+        new ResourcePresenter(this).getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.SPINKIT);
     }
 
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
-        callSources();
+//        callSources();
+        AlertNetworkNoConnectionDialog dialog = new AlertNetworkNoConnectionDialog(this, R.style.CoconutDialogFullScreen);
+        dialog.show();
     }
 
     // handle response method

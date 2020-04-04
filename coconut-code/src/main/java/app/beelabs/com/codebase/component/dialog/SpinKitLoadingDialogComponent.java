@@ -55,7 +55,7 @@ public class SpinKitLoadingDialogComponent extends BaseDialog {
         return dialog;
     }
 
-    public static void closeLoadingDialog(BaseActivity ac, long timerMilis) {
+    public static void dismissProgressDialog(BaseActivity ac, long timerMilis) {
         if (dialog == null) return;
         if (ac == null || !ac.isFinishing()) {
             RxTimer.doTimer(timerMilis, false, null);

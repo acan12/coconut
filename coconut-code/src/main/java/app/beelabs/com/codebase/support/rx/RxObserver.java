@@ -43,6 +43,8 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onSubscribe(Disposable d) {
+        ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
+        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
         if (messageLoading != null) {
             switch (dialogType) {
                 case DialogTypeEnum.DEFAULT:
@@ -58,14 +60,15 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onNext(Object o) {
-        SpinKitLoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
+        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
         SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 
     @Override
     public void onError(Throwable e) {
-        SpinKitLoadingDialogComponent.closeLoadingDialog(iv.getCurrentActivity(), timeMilis);
+        ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
+        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
         SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 

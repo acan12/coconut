@@ -108,22 +108,28 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
-        IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(getCurrentActivity(), message, false);
-        presenter.call();
+        if(message != null) {
+            IProgress progress = appComponent.getProgressDialog();
+            progress.showProgressDialog(getCurrentActivity(), message, false);
+            presenter.call();
+        }
     }
 
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
-        IProgress progress = appComponent.getProgressDialog();
-        progress.showProgressDialog(getCurrentActivity(), message, isCanceledOnTouch);
-        presenter.call();
+        if(message != null) {
+            IProgress progress = appComponent.getProgressDialog();
+            progress.showProgressDialog(getCurrentActivity(), message, isCanceledOnTouch);
+            presenter.call();
+        }
     }
 
 
     protected void showApiWithSpinKitDialog(AppComponent appComponent, BasePresenter presenter, String message) {
-        IProgress progress = appComponent.getProgressDialog();
-        progress.showSpinLoadingDialog(new SpinKitLoadingDialogComponent(message, 0, getCurrentActivity(), R.style.CoconutDialogFullScreen));
-        presenter.call();
+        if(message != null) {
+            IProgress progress = appComponent.getProgressDialog();
+            progress.showSpinLoadingDialog(new SpinKitLoadingDialogComponent(message, 0, getCurrentActivity(), R.style.CoconutDialogFullScreen));
+            presenter.call();
+        }
     }
 
     private void registerBroadCastReceiver() {
