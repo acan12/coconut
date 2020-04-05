@@ -95,6 +95,11 @@ _Coconut framework library for android_
     }), "Updating...");
     
     [Rx - style in presenter]
+    
+    // RXObserver use specific type of view layoutk
+    // 1. DEFAULT
+    // 2. SPINKIT
+   
     // messageLoading -> loading message and if use messageloaging will enable loading dialog with message
     ...
     new ResourceDao(this).getSourceRXDAO()
