@@ -100,6 +100,42 @@ _Coconut framework library for android_
     new ResourceDao(this).getSourceRXDAO()
        .subscribe(new RxObserver<ProfileResponseModel>(imv, messageLoading) { ... }
        .setDialogType(RxObserver.DialogTypeEnum.SPINKIT)
+       
+    ...
+    
+    //You can override this layout by use layout resource id R.layout.dialog_coconut_spinkit_loading.xml
+    
+    [Layout Default]
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+    
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    
+            <app.beelabs.com.codebase.component.spinkit.CoconutSpinKitView
+                style="@style/SpinKitView.WanderingCubes"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true" />
+    
+            <TextView
+                android:id="@+id/coconut_spinkit_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="Loading..."
+                android:textColor="@color/colorCoconut_text_dialog" />
+        </LinearLayout>
+    
+    </LinearLayout>
+    
 ```
 
 **6. Support fragment back stack while back button pressed**
