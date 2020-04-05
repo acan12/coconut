@@ -48,7 +48,7 @@ _Coconut framework library for android_
 
 `Extention feature:`
 
-**1. show load internet lost popup vuew if internet loss connection**
+**1. run AlertInternetConnection Dialog , if internet lost connection**
 ```
    just override layout id [R.layout.dialog_alert_network_noconnection]
 ```
@@ -62,6 +62,9 @@ _Coconut framework library for android_
             <!-- Custom Attr-->
             <item name="fontPath">fonts/custom_font.ttf</item>
         </style>
+        
+     in TextView : 
+        android:textAppearance="@style/CustomFontType"
 ```
 
 **3. Custom timeout http request**
@@ -72,11 +75,8 @@ _Coconut framework library for android_
 
 ```
 
-**4. Loading dialog layout**
+**4. Style Loading dialog layout**
 ```aidl
-    // ths loading will auto load when calling with RXObserver with specific type
-    // 1. DEFAULT
-    // 2. SPINKIT
     // custom style color background , update color hex in color.xml
     <color name="colorCoconut_background_dialog">#CCFFFFFF</color> 
     <color name="colorCoconut_text_dialog">#fff</color>
@@ -84,7 +84,7 @@ _Coconut framework library for android_
     
 ```
 
-**5. Use custom loading for api call**
+**5. Use custom Api Loading**
 ```aidl
     [basic style in ui] (Deprecated)
     showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
