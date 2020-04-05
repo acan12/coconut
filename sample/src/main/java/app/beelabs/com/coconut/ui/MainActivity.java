@@ -44,9 +44,10 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
-//        callSources();
-        AlertNetworkNoConnectionDialog dialog = new AlertNetworkNoConnectionDialog(this, R.style.CoconutDialogFullScreen);
-        dialog.show();
+        callSources();
+//        AlertNetworkNoConnectionDialog dialog = new AlertNetworkNoConnectionDialog(this, R.style.CoconutDialogFullScreen);
+//        dialog.setCanceledOnTouchOutside(true);
+//        dialog.show();
     }
 
     // handle response method

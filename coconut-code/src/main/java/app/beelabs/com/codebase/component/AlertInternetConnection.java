@@ -9,11 +9,15 @@ import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.component.dialog.AlertNetworkNoConnectionDialog;
 import app.beelabs.com.codebase.support.util.SecurityUtil;
 
-public class SnackbarInternetConnection {
+public class AlertInternetConnection {
 
     public static void show(String message, final IView iview) {
         boolean isConnected = SecurityUtil.isNetworkAvailable(iview.getCurrentActivity());
         if (!isConnected) {
+            AlertNetworkNoConnectionDialog dialog = new AlertNetworkNoConnectionDialog(iview.getCurrentActivity(), R.style.CoconutDialogFullScreen);
+
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
 //            BaseDialog dialog = (new AlertNetworkNoConnectionDialog(message, iview.getCurrentActivity(), R.style.CoconutDialogFullScreen));
 //            dialog.show();
 //            View viewLayout = iview.getCurrentActivity().getWindow().getDecorView().getRootView();

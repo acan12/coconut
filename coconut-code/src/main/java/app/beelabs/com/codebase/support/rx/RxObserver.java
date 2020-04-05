@@ -3,7 +3,7 @@ package app.beelabs.com.codebase.support.rx;
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.SnackbarInternetConnection;
+import app.beelabs.com.codebase.component.AlertInternetConnection;
 import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import io.reactivex.Observer;
@@ -62,14 +62,14 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     public void onNext(Object o) {
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
-        SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
+        AlertInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 
     @Override
     public void onError(Throwable e) {
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
-        SnackbarInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
+        AlertInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 
     @Override
