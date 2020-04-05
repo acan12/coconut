@@ -130,7 +130,17 @@ _Coconut framework library for android_
         reloadApiProcess()
     }
 ```
-    
+
+**10. Support custom OkHTTPClient interceptor**
+```aidl
+    Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(apiDomain)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(getHttpClient(allowUntrusted, timeout, true, new Interceptor[]{
+                        new RSAInterceptor()}))
+                .build();
+```
 
 ## Installation guide :
 

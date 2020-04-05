@@ -3,8 +3,10 @@ package app.beelabs.com.codebase.di.manager;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import app.beelabs.com.codebase.base.BaseManager;
+import app.beelabs.com.codebase.component.interceptor.RSAInterceptor;
 import app.beelabs.com.codebase.di.IApi;
 import app.beelabs.com.codebase.di.IApiService;
+import okhttp3.Interceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -27,7 +29,8 @@ public class ApiManager extends BaseManager implements IApi {
                 .baseUrl(apiDomain)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(getHttpClient(allowUntrusted, timeout, enableLoggingHttp, enableEncryptedRSA))
+                .client(getHttpClient(allowUntrusted, timeout, true, new Interceptor[]{
+                        new RSAInterceptor()}))
                 .build();
         api = retrofit.create(clazz);
 
