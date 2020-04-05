@@ -242,6 +242,14 @@ dependencies {
            ...
        }
     ```
+
+- `BasePresenter`
+  ```aidl
+    
+       public class ResourcePresenter extends BasePresenter {
+           ...
+       }
+    ```
     
 - `BaseDialog` 
     ```aidl
@@ -347,7 +355,7 @@ dependencies {
 ```
     
 Version:
-- `2.0.13` :
+- `2.1.0` :
     * support fragment back stack history
     * handle for memory leaks when activity changes
     * remove setup RootView
