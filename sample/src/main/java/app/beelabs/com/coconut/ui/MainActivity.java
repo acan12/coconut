@@ -15,7 +15,6 @@ import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.dialog.AlertNetworkNoConnectionDialog;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import butterknife.BindView;
 import butterknife.ButterKnife;

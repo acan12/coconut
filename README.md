@@ -48,10 +48,9 @@ _Coconut framework library for android_
 
 `Extention feature:`
 
-**1. Add snackbar if internet loss connection**
+**1. show load internet lost popup vuew if internet loss connection**
 ```
-    <string name="snackbar_internet_fail_message">Internet loss connection</string>
-    <string name="snackbar_reply_action_label">Reply</string>
+   just override layout id [R.layout.dialog_alert_network_noconnection]
 ```
 **2. Using custom font**
 ```aidl
@@ -75,9 +74,9 @@ _Coconut framework library for android_
 
 **4. Loading dialog layout**
 ```aidl
-    LoadingDialogComponent dialog = new LoadingDialogComponent(this, R.style.CoconutDialogFullScreen);
-    dialog.show();
-    
+    // ths loading will auto load when calling with RXObserver with specific type
+    // 1. DEFAULT
+    // 2. SPINKIT
     // custom style color background , update color hex in color.xml
     <color name="colorCoconut_background_dialog">#CCFFFFFF</color> 
     <color name="colorCoconut_text_dialog">#fff</color>
@@ -87,7 +86,7 @@ _Coconut framework library for android_
 
 **5. Use custom loading for api call**
 ```aidl
-    [basic style in ui]
+    [basic style in ui] (Deprecated)
     showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
         @Override
         public void call() {
@@ -100,6 +99,7 @@ _Coconut framework library for android_
     ...
     new ResourceDao(this).getSourceRXDAO()
        .subscribe(new RxObserver<ProfileResponseModel>(imv, messageLoading) { ... }
+       .setDialogType(RxObserver.DialogTypeEnum.SPINKIT)
 ```
 
 **6. Support fragment back stack while back button pressed**
@@ -123,15 +123,11 @@ _Coconut framework library for android_
 **9. Handle alert warning for Internet lost connection snackbar**
 - `[Activity / Fragment]`
 ```aidl
-    @Override
-    public View getContentView() {
-        return findViewById(R.id.root);
-    }
     
     // callback if internet lost connection, trigger from "Retry" action
     @Override
     public void handleRetryConnection() {
-        callMultiApi();
+        reloadApiProcess()
     }
 ```
     
@@ -191,9 +187,7 @@ dependencies {
     }
 
 ```
-
 **4. Add Application class into `AndroidManifest.java`**
-
 ```
    ...
    <application
@@ -253,7 +247,7 @@ dependencies {
                   
     ```
     
- - `BaseDao`
+ - `BaseDao / Interactor`
     ```
         public class ResourceDao extends BaseDao {
         
@@ -345,7 +339,10 @@ dependencies {
 Version:
 - `2.0.13` :
     * support fragment back stack history
-    * handle for memory leaks when activity changes  
+    * handle for memory leaks when activity changes
+    * remove setup RootView
+    * remove setup CurrentActivity
+    * custom interceptor of OkHttpRequest in Retrofit
     
 - `2.0.10` :
     * Optimizing to avoid memory leaks 

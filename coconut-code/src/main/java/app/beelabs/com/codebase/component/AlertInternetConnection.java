@@ -1,12 +1,8 @@
 package app.beelabs.com.codebase.component;
 
-import android.support.design.widget.Snackbar;
-import android.view.View;
-
 import app.beelabs.com.codebase.R;
-import app.beelabs.com.codebase.base.BaseDialog;
 import app.beelabs.com.codebase.base.contract.IView;
-import app.beelabs.com.codebase.component.dialog.AlertNetworkNoConnectionDialog;
+import app.beelabs.com.codebase.component.dialog.CoconutAlertNetworkNoConnectionDialog;
 import app.beelabs.com.codebase.support.util.SecurityUtil;
 
 public class AlertInternetConnection {
@@ -14,7 +10,7 @@ public class AlertInternetConnection {
     public static void show(String message, final IView iview) {
         boolean isConnected = SecurityUtil.isNetworkAvailable(iview.getCurrentActivity());
         if (!isConnected) {
-            AlertNetworkNoConnectionDialog dialog = new AlertNetworkNoConnectionDialog(iview.getCurrentActivity(), R.style.CoconutDialogFullScreen);
+            CoconutAlertNetworkNoConnectionDialog dialog = new CoconutAlertNetworkNoConnectionDialog(iview.getCurrentActivity(), R.style.CoconutDialogFullScreen);
 
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
