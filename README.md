@@ -264,11 +264,11 @@ dependencies {
 ```
     
 Change Log Version:
-- `[2.1.0]` :
+- `[2.3.0]` :
     * support fragment back stack history
     * handle for memory leaks when activity changes
     * remove setup RootView
-    * remove setup CurrentActivity
+    * remove setup CurrentActiv
     * custom interceptor for Retrofit
     
 - `2.0.10` :
