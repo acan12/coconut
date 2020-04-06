@@ -264,7 +264,7 @@ dependencies {
 ```
     
 Change Log Version:
-- `2.1.0` :
+- `[2.1.0]` :
     * support fragment back stack history
     * handle for memory leaks when activity changes
     * remove setup RootView
