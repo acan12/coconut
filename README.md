@@ -9,8 +9,12 @@ _Coconut framework library for android_
 
 **Recomended Directory structure**
  - `Project directory`
- 
+
+
+     > assets directory path: `src/main/assets/fonts/...`
+
      ```aidl
+        
      < your namespace application >
         |
         |-- App.java
@@ -45,143 +49,6 @@ _Coconut framework library for android_
           
      ```
 
-
-`Extention feature:`
-
-**1. run AlertInternetConnection Dialog , if internet lost connection**
-```
-   just override layout id [R.layout.dialog_alert_network_noconnection]
-```
-**2. Using custom font**
-```aidl
-    App.java:
-        setupDefaultFont("fonts/SF-Pro-Display-Black.otf");
-    
-    styles.xml:
-        <style name="CustomFontType" parent="android:TextAppearance">
-            <!-- Custom Attr-->
-            <item name="fontPath">fonts/custom_font.ttf</item>
-        </style>
-        
-     in TextView : 
-        android:textAppearance="@style/CustomFontType"
-```
-
-**3. Custom timeout http request**
-```aidl
-    // TIMEOUT_SHORT_INSECOND (default)= 15 Seconds
-    // TIMEOUT_LONG_INSECOND = 120 Seconds
-    getInstance().setupApi(App.getAppComponent(), ApiService.class, false, app.beelabs.com.codebase.IConfig.TIMEOUT_LONG_INSECOND);
-
-```
-
-**4. Style Loading dialog layout**
-```aidl
-    // custom style color background , update color hex in color.xml
-    <color name="colorCoconut_background_dialog">#CCFFFFFF</color> 
-    <color name="colorCoconut_text_dialog">#fff</color>
-    <color name="colorCoconut_iconloading_dialog">#ababab</color>
-    
-```
-
-**5. Use custom Api Loading**
-```aidl
-    [basic style in ui] (Deprecated)
-    showApiCustomProgressDialog(App.getAppComponent(), BasePresenter.getInstance(this, new ResourcePresenter(this) {
-        @Override
-        public void call() {
-            getSource();
-        }
-    }), "Updating...");
-    
-    [Rx - style in presenter]
-    
-    // RXObserver use specific type of view layoutk
-    // 1. DEFAULT
-    // 2. SPINKIT
-   
-    // messageLoading -> loading message and if use messageloaging will enable loading dialog with message
-    ...
-    new ResourceDao(this).getSourceRXDAO()
-       .subscribe(new RxObserver<ProfileResponseModel>(imv, messageLoading) { ... }
-       .setDialogType(RxObserver.DialogTypeEnum.SPINKIT)
-       
-    ...
-    
-    //You can override this layout by use layout resource id R.layout.dialog_coconut_spinkit_loading.xml
-    
-    [Layout Default]
-    <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-    
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-    
-            <app.beelabs.com.codebase.component.spinkit.CoconutSpinKitView
-                style="@style/SpinKitView.WanderingCubes"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true" />
-    
-            <TextView
-                android:id="@+id/coconut_spinkit_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:text="Loading..."
-                android:textColor="@color/colorCoconut_text_dialog" />
-        </LinearLayout>
-    
-    </LinearLayout>
-    
-```
-
-**6. Support fragment back stack while back button pressed**
-```aidl
-
-    showFragment(<object of fragment>, <id layout of frame contain fragment>, <use fragment back stack or not>);
-```
-
-**7. Implementation RxTimer**
-```
-    RxTimer.doTimer(long delay, boolean repeat, RxTimer callback)
-```
-
-**8. Prevent from being Rooted, FakeGPS, shareApp**
-```
-    SecurityUtil.isPackageInstalled(new String[]{"com.xxxx.app"}, getPackageManager());
-    SecurityUtil.isRooted();
-    SecurityUtil.isMockLocationEnabled(this);
-```
-
-**9. Handle alert warning for Internet lost connection snackbar**
-- `[Activity / Fragment]`
-```aidl
-    
-    // callback if internet lost connection, trigger from "Retry" action
-    @Override
-    public void handleRetryConnection() {
-        reloadApiProcess()
-    }
-```
-
-**10. Support custom OkHTTPClient interceptor**
-```aidl
-    Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(apiDomain)
-                .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(getHttpClient(allowUntrusted, timeout, true, new Interceptor[]{
-                        new RSAInterceptor()}))
-                .build();
-```
 
 ## Installation guide :
 

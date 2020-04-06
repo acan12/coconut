@@ -14,7 +14,9 @@ import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.codebase.base.BaseApi;
+import app.beelabs.com.codebase.component.interceptor.RSAInterceptor;
 import io.reactivex.Observable;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -42,7 +44,9 @@ public class Api extends BaseApi {
                 .setupApiDomain(IConfig.API_BASE_URL, App.getAppComponent(),
                         ApiService.class,
                         true,
-                        app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG, true);
+                        app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG,
+                        new Interceptor[]{
+                                new RSAInterceptor()});
 
     }
 
