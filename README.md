@@ -15,7 +15,7 @@ _Coconut framework library for android_
 
      ```aidl
         
-     < your namespace application >
+     < YOUR_NAMESPACE_APPLICATION >
         |
         |-- App.java
         |-- IConfig.java
