@@ -54,12 +54,12 @@ _Coconut framework library for android_
 
 **1. Add the JitPack repository to your build file**
 ```allprojects
-  {
-   		repositories {
-   			...
-   			maven { url 'https://jitpack.io' }
-   		}
-   }
+{
+    repositories {
+      ...
+   	  maven { url 'https://jitpack.io' }
+    }
+}
 ```
 
 **2. Add the dependency**
@@ -263,7 +263,7 @@ dependencies {
     
 ```
     
-Version:
+Change Log Version:
 - `2.1.0` :
     * support fragment back stack history
     * handle for memory leaks when activity changes
