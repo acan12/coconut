@@ -53,12 +53,13 @@ _Coconut framework library for android_
 ## Installation guide :
 
 **1. Add the JitPack repository to your build file**
-```allprojects {
+```allprojects
+  {
    		repositories {
    			...
    			maven { url 'https://jitpack.io' }
    		}
-   	}
+   }
 ```
 
 **2. Add the dependency**
@@ -80,7 +81,7 @@ dependencies {
 ```
 
 **3. Add Application project class extend BaseApp**
-```
+```java
     public class App extends BaseApp {
         private static Context context;
     
@@ -103,10 +104,10 @@ dependencies {
     
         ...
     }
+```
 
-```
 **4. Add Application class into `AndroidManifest.java`**
-```
+```java
    ...
    <application
            android:name=".<AppClassName>"
@@ -122,7 +123,7 @@ dependencies {
 **5. Integrate Base Code with Coconut Framework**
  - `BaseApi`
  
-    ```aidl
+    ```java
         public class Api extends BaseApi {
         
             synchronized private static ApiService initApiDomain() {
@@ -137,14 +138,14 @@ dependencies {
     
     ```
  - `BaseActivity`
-    ```aidl
+    ```java
        public class MainActivity extends BaseActivity {
            ...
        }
     
     ```
  - `BaseFragment` ,_if use fragment_
-    ```aidl
+    ```java
     
        public class MainFragment extends BaseFragment {
            ...
@@ -152,7 +153,7 @@ dependencies {
     ```
 
 - `BasePresenter`
-  ```aidl
+  ```java
     
        public class ResourcePresenter extends BasePresenter {
            ...
@@ -160,7 +161,7 @@ dependencies {
     ```
     
 - `BaseDialog` 
-    ```aidl
+    ```java
        public class MainDialog extends BaseDialog {
           ...  
         
@@ -174,7 +175,7 @@ dependencies {
     ```
     
  - `BaseDao / Interactor`
-    ```
+    ```java
         public class ResourceDao extends BaseDao {
         
         
@@ -196,7 +197,7 @@ dependencies {
     ```
     
  - `BaseResponse`
-    ```aidl
+    ```java
        public class ArticleResponse extends BaseResponse {
            ...
        }
@@ -268,7 +269,7 @@ Version:
     * handle for memory leaks when activity changes
     * remove setup RootView
     * remove setup CurrentActivity
-    * custom interceptor of OkHttpRequest in Retrofit
+    * custom interceptor for Retrofit
     
 - `2.0.10` :
     * Optimizing to avoid memory leaks 
