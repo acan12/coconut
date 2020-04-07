@@ -29,10 +29,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     }
 
 
-    @Override
-    public BasePresenter getPresenter() {
-        return this;
-    }
+
 
 
     @Override

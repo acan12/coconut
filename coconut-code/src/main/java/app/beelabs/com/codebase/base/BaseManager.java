@@ -62,10 +62,12 @@ public class BaseManager {
         }
 
 
-        for (Interceptor interceptor : customInterceptors) {
-            httpClient.addInterceptor(interceptor);
+        if (customInterceptors != null) {
+            for (Interceptor interceptor : customInterceptors) {
+                httpClient.addInterceptor(interceptor);
+            }
         }
-        return  httpClient.build();
+        return httpClient.build();
     }
 
     protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,

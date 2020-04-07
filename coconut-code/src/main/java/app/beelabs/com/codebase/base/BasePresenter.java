@@ -2,13 +2,14 @@ package app.beelabs.com.codebase.base;
 
 import java.lang.reflect.InvocationTargetException;
 
+import app.beelabs.com.codebase.base.contract.IDaoPresenter;
 import app.beelabs.com.codebase.base.contract.IPresenter;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
 
-public class BasePresenter implements IPresenter {
+public class BasePresenter implements IPresenter, IDaoPresenter {
     private static BasePresenter presenter;
     private static IView iview;
 
@@ -55,6 +56,11 @@ public class BasePresenter implements IPresenter {
     public void fail(String message) {
         done();
         iview.handleError(message);
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return presenter;
     }
 
     public static class OnPresenterResponseCallback {
