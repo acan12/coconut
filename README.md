@@ -139,24 +139,26 @@ dependencies {
     ```
  - `BaseActivity`
     ```java
-       // ... public interface IMainView extends IView
+       // ... interface ICustomView extends IView
     
-       public class MainActivity extends BaseActivity implements IMainView {
+       public class MainActivity extends BaseActivity implements ICustomView {
            ...
        }
     
     ```
  - `BaseFragment` ,_if use fragment_
     ```java
-       // ... public interface IMainView extends IView
-       public class MainFragment extends BaseFragment implements IMainView {
+       // ... interface ICustomView extends IView
+ 
+       public class MainFragment extends BaseFragment implements ICustomView {
            ...
        }
     ```
 
 - `BasePresenter`
   ```java
-       // ... public interface IResourceDao extends IDaoPresenter
+       // ... interface IResourceDao extends IDaoPresenter
+   
        public class ResourcePresenter implements IResourceDao{
            ...
        }
