@@ -139,23 +139,25 @@ dependencies {
     ```
  - `BaseActivity`
     ```java
-       public class MainActivity extends BaseActivity {
+       // ... public interface IMainView extends IView
+    
+       public class MainActivity extends BaseActivity implements IMainView {
            ...
        }
     
     ```
  - `BaseFragment` ,_if use fragment_
     ```java
-    
-       public class MainFragment extends BaseFragment {
+       // ... public interface IMainView extends IView
+       public class MainFragment extends BaseFragment implements IMainView {
            ...
        }
     ```
 
 - `BasePresenter`
   ```java
-    
-       public class ResourcePresenter extends BasePresenter {
+       // ... public interface IResourceDao extends IDaoPresenter
+       public class ResourcePresenter implements IResourceDao{
            ...
        }
     ```
@@ -264,7 +266,7 @@ dependencies {
 ```
     
 Change Log Version:
-- `[2.3.0]` :
+- `[2.3.0-rc.2]` :
     * support fragment back stack history
     * handle for memory leaks when activity changes
     * remove setup RootView
