@@ -7,7 +7,9 @@ import app.beelabs.com.codebase.di.component.AppComponent;
 import app.beelabs.com.codebase.di.component.DaggerAppComponent;
 import app.beelabs.com.codebase.di.module.ApiServiceModule;
 import app.beelabs.com.codebase.di.module.AppModule;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 
 /**
  * Created by arysuryawan on 11/15/17.
@@ -27,9 +29,12 @@ public class BaseApp extends Application {
     }
 
     protected static void setupDefaultFont(String defaultPath){
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(defaultPath)
-                .setFontAttrId(R.attr.fontPath)
+        ViewPump.init(new ViewPump.Builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath(defaultPath)
+                                .setFontAttrId(R.attr.fontPath)
+                        .build()))
                 .build()
         );
     }

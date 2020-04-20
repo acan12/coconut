@@ -14,7 +14,7 @@ public class App extends BaseApp {
     public void onCreate() {
         super.onCreate();
         setupBuilder(DaggerAppComponent.builder(), this);
-        setupDefaultFont("fonts/SF-Pro-Display-Black.otf");
+        setupDefaultFont("fonts/GelPen.ttf");
     }
 
     public static AppComponent getAppComponent() {
