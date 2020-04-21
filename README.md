@@ -268,12 +268,14 @@ dependencies {
 ```
     
 Change Log Version:
-- `[2.3.0-rc.2]` :
+- `[2.3.0-rc.3]` :
     * support fragment back stack history
     * handle for memory leaks when activity changes
     * remove setup RootView
     * remove setup CurrentActiv
     * custom interceptor for Retrofit
+    * support callygraphy version 3
+
     
 - `2.0.10` :
     * Optimizing to avoid memory leaks 
