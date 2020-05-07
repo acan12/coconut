@@ -25,13 +25,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class BaseActivity extends AppCompatActivity implements IView, ComponentCallbacks2 {
     private BroadcastReceiver broadcastReceiver;
-    private View rootView;
     private LocalBroadcastManager bManager;
     private BroadcastReceiver bReceiver;
-
-    public void setupCoconutContentView(int rootIdLayout) {
-        this.rootView = findViewById(rootIdLayout);
-    }
 
     @Override
     protected void onStart() {
@@ -148,17 +143,11 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     @Override
     public void handleError(String message) {
-
     }
 
     @Override
     public BaseActivity getCurrentActivity() {
         return this;
-    }
-
-    @Override
-    public View getRootView() {
-        return rootView;
     }
 
     @Override

@@ -31,7 +31,6 @@ public class MainActivity extends BaseActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupCoconutContentView(R.id.root);
         ButterKnife.bind(this);
 
         showFragment(new MainFragment(), R.id.container, true);

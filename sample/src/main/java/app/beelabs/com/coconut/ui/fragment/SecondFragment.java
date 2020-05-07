@@ -46,12 +46,6 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
     }
 
     @Override
-    public View getRootView() {
-        return layout;
-    }
-
-
-    @Override
     public void handleDataSummary(SummaryResponse model) {
         if(getActivity() == null) return;
         Toast.makeText(getActivity(), model.getAcquisitionData().size() + "", Toast.LENGTH_SHORT).show();
