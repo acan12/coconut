@@ -18,6 +18,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import app.beelabs.com.codebase.base.request.RequestInterceptor;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -26,6 +27,47 @@ import okhttp3.logging.HttpLoggingInterceptor;
  */
 
 public class BaseManager {
+    protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,
+                                         int timeout,
+                                         boolean enableLoggingHttp,
+                                         Interceptor[] customInterceptors) {
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+        if (allowUntrustedSSL) {
+            allowUntrustedSSL(httpClient);
+        }
+
+
+        try {
+            SSLContext sc = SSLContext.getInstance("TLSv1.2");
+            sc.init(null, null, null);
+            httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            e.printStackTrace();
+        }
+
+        httpClient.connectTimeout(timeout, TimeUnit.SECONDS)
+                .readTimeout(timeout, TimeUnit.SECONDS)
+                .writeTimeout(timeout, TimeUnit.SECONDS)
+                .followRedirects(false)
+                .followSslRedirects(false);
+
+        // interceptor logging HTTP request
+        if (enableLoggingHttp) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            httpClient.addInterceptor(logging);
+        }
+
+
+        if (customInterceptors != null) {
+            for (Interceptor interceptor : customInterceptors) {
+                httpClient.addInterceptor(interceptor);
+            }
+        }
+        return httpClient.build();
+    }
+
     protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,
                                          int timeout,
                                          boolean enableLoggingHttp,
