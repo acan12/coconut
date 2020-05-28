@@ -26,7 +26,7 @@ import retrofit2.Callback;
 /**
  * Created by arysuryawan on 8/18/17.
  */
-public class Api extends BaseApi {
+public class Api extends  BaseApi {
 
     private static Map<String, String> initHeader() {
         Map<String, String> map = new HashMap<>();
