@@ -144,7 +144,6 @@ dependencies {
        public class MainActivity extends BaseActivity implements ICustomView {
            ...
        }
-    
     ```
  - `BaseFragment` ,_if use fragment_
     ```java

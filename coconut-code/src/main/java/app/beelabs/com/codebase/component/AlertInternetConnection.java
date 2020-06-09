@@ -10,7 +10,9 @@ public class AlertInternetConnection {
     public static void show(String message, final IView iview) {
         boolean isConnected = SecurityUtil.isNetworkAvailable(iview.getCurrentActivity());
         if (!isConnected) {
-            CoconutAlertInternetNoConnectionDialog dialog = new CoconutAlertInternetNoConnectionDialog(iview.getCurrentActivity(), R.style.CoconutDialogFullScreen);
+            CoconutAlertInternetNoConnectionDialog dialog =
+                    new CoconutAlertInternetNoConnectionDialog(message, iview.getCurrentActivity(),
+                            R.style.CoconutDialogFullScreen);
             dialog.show();
         }
     }
