@@ -66,7 +66,7 @@ public class SecurityUtil {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 AppOpsManager opsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
                 isMockLocation = (opsManager.checkOp(AppOpsManager.OPSTR_MOCK_LOCATION, android.os.Process.myUid(),
-                        BuildConfig.APPLICATION_ID) == AppOpsManager.MODE_ALLOWED);
+                        context.getPackageName()) == AppOpsManager.MODE_ALLOWED);
 
             } else {
                 isMockLocation = !android.provider.Settings.Secure.getString(context.getContentResolver(),
@@ -75,7 +75,7 @@ public class SecurityUtil {
 
         } catch (Exception e) {
             Log.e("", e.getMessage());
-            return isMockLocation;
+            return false;
         }
 
         return isMockLocation;
