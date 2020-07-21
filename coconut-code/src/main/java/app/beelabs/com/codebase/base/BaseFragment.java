@@ -16,22 +16,26 @@ import app.beelabs.com.codebase.di.component.AppComponent;
 public abstract class BaseFragment extends Fragment implements IView {
 
 
+    @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
         showApiProgressDialog(appComponent, presenter, null);
     }
 
+    @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(getActivity(), message, true);
         presenter.call();
     }
 
+    @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showProgressDialog(getActivity(), message, isCanceledOnTouch);
         presenter.call();
     }
 
+    @Deprecated
     protected void showLoadingDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         IProgress progress = appComponent.getProgressDialog();
         progress.showSpinLoadingDialog(new SpinKitLoadingDialogComponent(message, 0, getActivity(), R.style.CoconutDialogFullScreen));

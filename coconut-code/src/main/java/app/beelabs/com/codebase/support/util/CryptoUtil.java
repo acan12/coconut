@@ -1,5 +1,7 @@
 package app.beelabs.com.codebase.support.util;
 
+import android.annotation.SuppressLint;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Random;
@@ -13,6 +15,7 @@ public class CryptoUtil {
         return key;
     }
 
+    @SuppressLint("NewApi")
     public static String sha256(String base) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

@@ -98,10 +98,12 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
     // handle progress dialog
+    @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
         showApiProgressDialog(appComponent, presenter, null);
     }
 
+    @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         if(message != null) {
             IProgress progress = appComponent.getProgressDialog();
@@ -110,6 +112,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         }
     }
 
+    @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
         if(message != null) {
             IProgress progress = appComponent.getProgressDialog();
@@ -118,7 +121,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
         }
     }
 
-
+    @Deprecated
     protected void showApiWithSpinKitDialog(AppComponent appComponent, BasePresenter presenter, String message) {
         if(message != null) {
             IProgress progress = appComponent.getProgressDialog();

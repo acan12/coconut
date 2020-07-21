@@ -1,5 +1,7 @@
 package app.beelabs.com.coconut.presenter;
 
+import android.widget.Toast;
+
 import java.io.File;
 
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
@@ -29,9 +31,6 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
     }
 
 
-
-
-
     @Override
     public void postPhoneNumber(String phone) {
         new ResourceDao(this).postPhoneNumber(phone)
@@ -48,14 +47,20 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                         if (iView instanceof IMainFragmentView)
                             ((IMainFragmentView) iView).handleDataSummary((SummaryResponse) o);
                     }
-                }.setDialogType(RxObserver.DialogTypeEnum.SPINKIT));
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Toast.makeText(iView.getCurrentActivity(), "testing override error api", Toast.LENGTH_SHORT).show();
+                    }
+                }.setDialogType(RxObserver.DialogTypeEnum.SPINKIT).setEnableCoconutAlertConnection(true));
 
     }
 
     @Override
     public void getProfileRX() {
         new ResourceDao(this).getProfileRxDAO()
-                .subscribe(new RxObserver<ProfileResponseModel>(iView, null, 500) {
+                .subscribe(new RxObserver<ProfileResponseModel>(iView, null, 10000) {
 
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -102,7 +107,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                         else if (iView instanceof ISecondView)
                             ((ISecondView) iView).handleDataSource((SourceResponse) o);
                     }
-                }.setDialogType(dialogType));
+                }.setDialogType(dialogType).setEnableCoconutAlertConnection(true));
     }
 
     @Override

@@ -50,12 +50,13 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
     }
 
     private void doSecondWay() {
-        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this){
-            @Override
-            public void call() {
-                postPhoneNumber("081212341212");
-            }
-        }, "Load From Fragment", false);
+        new ResourcePresenter(this).postPhoneNumber("081212341212");
+//        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this){
+//            @Override
+//            public void call() {
+//                postPhoneNumber("081212341212");
+//            }
+//        }, "Load From Fragment", false);
     }
 
     @Override

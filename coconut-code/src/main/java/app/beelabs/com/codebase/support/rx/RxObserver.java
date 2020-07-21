@@ -1,9 +1,13 @@
 package app.beelabs.com.codebase.support.rx;
 
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.AlertInternetConnection;
+import app.beelabs.com.codebase.component.CoconutAlertInternetConnection;
 import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import io.reactivex.Observer;
@@ -42,7 +46,12 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         return this;
     }
 
-    public void enablePopupInternetLostConnection(boolean isEnable) {
+    public RxObserver setEnableCoconutAlertConnection(boolean isEnable) {
+        this.isEnable = isEnable;
+        return this;
+    }
+
+    public void enableAlertInternetLostConnection(boolean isEnable) {
         this.isEnable = isEnable;
     }
 
@@ -67,16 +76,17 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     public void onNext(Object o) {
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
-        if (isEnable)
-            AlertInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
     }
 
     @Override
     public void onError(Throwable e) {
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
-        if (isEnable)
-            AlertInternetConnection.show(iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
+
+        if ((e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof IOException) && isEnable) {
+            CoconutAlertInternetConnection.show(
+                    iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
+        }
     }
 
     @Override

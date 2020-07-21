@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+//        callSources();
         showFragment(new MainFragment(), R.id.container, true);
     }
 
@@ -43,9 +43,6 @@ public class MainActivity extends BaseActivity implements IMainView {
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
         callSources();
-//        AlertNetworkNoConnectionDialog dialog = new AlertNetworkNoConnectionDialog(this, R.style.CoconutDialogFullScreen);
-//        dialog.setCanceledOnTouchOutside(true);
-//        dialog.show();
     }
 
     // handle response method
