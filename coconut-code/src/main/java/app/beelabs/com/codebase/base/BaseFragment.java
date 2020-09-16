@@ -1,6 +1,6 @@
 package app.beelabs.com.codebase.base;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;

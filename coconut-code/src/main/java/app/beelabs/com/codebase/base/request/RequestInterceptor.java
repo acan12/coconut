@@ -1,6 +1,6 @@
 package app.beelabs.com.codebase.base.request;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

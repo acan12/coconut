@@ -1,17 +1,14 @@
 package app.beelabs.com.coconut.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
-import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.dao.ResourceDao;
-import app.beelabs.com.coconut.ui.MainActivity;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.BaseFragment;
