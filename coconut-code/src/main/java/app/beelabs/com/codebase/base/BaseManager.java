@@ -3,15 +3,19 @@ package app.beelabs.com.codebase.base;
 import android.util.Log;
 
 import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import app.beelabs.com.codebase.component.interceptor.RSAInterceptor;
@@ -43,10 +47,23 @@ public class BaseManager {
 
 
         try {
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(
+                    TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init((KeyStore) null);
+            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+            if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+                throw new IllegalStateException("Unexpected default trust managers:"
+                        + Arrays.toString(trustManagers));
+            }
+
+            X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
+
             SSLContext sc = SSLContext.getInstance("TLSv1.2");
             sc.init(null, null, null);
-            httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
+            httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()), trustManager);
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
             e.printStackTrace();
         }
 
