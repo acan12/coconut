@@ -5,6 +5,7 @@ import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -61,7 +62,14 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+        //Implement this for api 28 and below
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+            super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+        }
+        //Or implement this for api 29 and above
+        else {
+            super.attachBaseContext(newBase);
+        }
     }
 
     @Override

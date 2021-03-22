@@ -267,6 +267,14 @@ dependencies {
 ```
     
 Change Log Version:
+- `[2.3.0-rc.5]` :
+    * support multiple interceptor include network interceptor
+    * support for OkHttp version 4.9.0
+    * remove setup RootView
+    * remove setup CurrentActiv
+    * custom interceptor for Retrofit
+    * support callygraphy version 3
+    
 - `[2.3.0-rc.4]` :
     * support fragment back stack history
     * handle for memory leaks when activity changes

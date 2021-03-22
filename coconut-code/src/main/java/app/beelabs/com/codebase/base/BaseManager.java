@@ -38,7 +38,8 @@ public class BaseManager {
     protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,
                                          int timeout,
                                          boolean enableLoggingHttp,
-                                         Interceptor[] customInterceptors) {
+                                         Interceptor[] customInterceptors,
+                                         Interceptor[] customNetworkInterceptors) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         if (allowUntrustedSSL) {
@@ -82,6 +83,12 @@ public class BaseManager {
         if (customInterceptors != null) {
             for (Interceptor interceptor : customInterceptors) {
                 httpClient.addInterceptor(interceptor);
+            }
+        }
+
+        if (customNetworkInterceptors != null) {
+            for (Interceptor interceptor : customNetworkInterceptors) {
+                httpClient.addNetworkInterceptor(interceptor);
             }
         }
         return httpClient.build();

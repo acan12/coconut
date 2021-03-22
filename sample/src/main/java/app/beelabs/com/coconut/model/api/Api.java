@@ -46,6 +46,8 @@ public class Api extends BaseApi {
                         true,
                         app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG,
                         new Interceptor[]{
+                                new RSAInterceptor()},
+                        new Interceptor[]{
                                 new RSAInterceptor()});
 
     }
