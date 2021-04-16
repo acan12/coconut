@@ -20,7 +20,7 @@
             app:SpinKit_Color="@color/color_green"/>
 
         <TextView
-            android:id="@+id/coconut_spinkit_message"
+            android:id="@+id/coconut_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

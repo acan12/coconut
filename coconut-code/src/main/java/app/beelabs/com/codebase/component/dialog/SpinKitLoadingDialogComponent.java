@@ -36,7 +36,7 @@ public class SpinKitLoadingDialogComponent extends BaseDialog {
 
     private void showMessageLoadingInUI(String message) {
         try {
-            text = findViewById(R.id.coconut_spinkit_message);
+            text = findViewById(R.id.coconut_message);
             text.setText(message);
         } catch (Exception e) {
             Log.e("LOADING MESSAGE:", e.getMessage());

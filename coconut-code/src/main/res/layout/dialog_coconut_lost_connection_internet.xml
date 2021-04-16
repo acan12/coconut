@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="100dp"
-
         android:paddingRight="50dp"
         android:paddingLeft="50dp"
         android:orientation="vertical"
@@ -25,7 +24,7 @@
             android:layout_centerHorizontal="true" />
 
         <TextView
-            android:id="@+id/coconut_spinkit_message"
+            android:id="@+id/coconut_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -34,7 +33,7 @@
             android:textColor="@color/color_red" />
 
         <Button
-            android:id="@+id/close_dialog"
+            android:id="@+id/coconut_btn_retry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reconnect Again"
