@@ -30,7 +30,7 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_second, container, false);
-        doSecondWay();
+//        doSecondWay();
 
         ButterKnife.bind(this, layout);
         return layout;
@@ -41,9 +41,9 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
         ((BaseActivity) getActivity()).showFragment(new MainFragment(), R.id.container, true);
     }
 
-    private void doSecondWay() {
-        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).postPhoneNumber("081212341212");
-    }
+//    private void doSecondWay() {
+//        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).postPhoneNumber("081212341212");
+//    }
 
     @Override
     public void handleDataSummary(SummaryResponse model) {

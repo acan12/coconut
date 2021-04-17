@@ -43,14 +43,14 @@ public class MainFragment extends BaseFragment implements IMainFragmentView {
         return layout;
     }
 
-    @OnClick(R.id.fragment1Button)
-    public void onSwithFragment(View view){
-        fragment1Button.setText("Replace fragment text");
-        ((BaseActivity) getActivity()).showFragment(new SecondFragment(), R.id.container, true);
-    }
+//    @OnClick(R.id.fragment1Button)
+//    public void onSwithFragment(View view){
+//        fragment1Button.setText("Replace fragment text");
+//        ((BaseActivity) getActivity()).showFragment(new SecondFragment(), R.id.container, true);
+//    }
 
     private void doSecondWay() {
-        new ResourcePresenter(this).postPhoneNumber("081212341212");
+//        new ResourcePresenter(this).postPhoneNumber("081212341212");
 //        showApiProgressDialog(App.getAppComponent(), new ResourcePresenter(this){
 //            @Override
 //            public void call() {

@@ -2,6 +2,7 @@ package app.beelabs.com.coconut.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,8 @@ public class MainActivity extends BaseActivity implements IMainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 //        callSources();
+
+        setupStatusBarStyle(Color.GREEN,true, this);
         showFragment(new MainFragment(), R.id.container, true);
     }
 

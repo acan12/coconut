@@ -1,5 +1,6 @@
 package app.beelabs.com.codebase.base;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks2;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
@@ -19,6 +21,8 @@ import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 
 /**
  * Created by arysuryawan on 8/16/17.
@@ -28,6 +32,15 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     private BroadcastReceiver broadcastReceiver;
     private LocalBroadcastManager bManager;
     private BroadcastReceiver bReceiver;
+
+    protected void setupStatusBarStyle(int statusBarColor, boolean lightOn, Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (lightOn) {
+                activity.getWindow().getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+            if(statusBarColor != 0) activity.getWindow().setStatusBarColor(statusBarColor);
+        }
+    }
 
     @Override
     protected void onStart() {
@@ -63,7 +76,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     @Override
     protected void attachBaseContext(Context newBase) {
         //Implement this for api 28 and below
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
         }
         //Or implement this for api 29 and above
@@ -113,7 +126,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message) {
-        if(message != null) {
+        if (message != null) {
             IProgress progress = appComponent.getProgressDialog();
             progress.showProgressDialog(getCurrentActivity(), message, false);
             presenter.call();
@@ -122,7 +135,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter, String message, boolean isCanceledOnTouch) {
-        if(message != null) {
+        if (message != null) {
             IProgress progress = appComponent.getProgressDialog();
             progress.showProgressDialog(getCurrentActivity(), message, isCanceledOnTouch);
             presenter.call();
@@ -131,7 +144,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     @Deprecated
     protected void showApiWithSpinKitDialog(AppComponent appComponent, BasePresenter presenter, String message) {
-        if(message != null) {
+        if (message != null) {
             IProgress progress = appComponent.getProgressDialog();
             progress.showSpinLoadingDialog(new SpinKitLoadingDialogComponent(message, 0, getCurrentActivity(), R.style.CoconutDialogFullScreen));
             presenter.call();
