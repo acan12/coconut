@@ -27,6 +27,9 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
+    @GET("banner-popup?get_from=app")
+    Observable<BaseResponse> callApiBannerBogasari(@HeaderMap Map<String, String> headers);
+
     @GET("auth/profile")
     Observable<ProfileResponseModel> callApiRXProfile(@HeaderMap Map<String, String> headers);
 

@@ -74,6 +74,11 @@ public class ResourceDao extends BaseDao {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<BaseResponse> getBannerBogasari() {
+        return Api.doApiBannerBogasari().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 //    public void getArticleDAO(Context context, Callback callback) {
 //        Database db = Database.initDatabase(context);

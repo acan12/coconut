@@ -43,9 +43,14 @@ public class MainActivity extends BaseActivity implements IMainView {
         new ResourcePresenter(this).getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.SPINKIT);
     }
 
+    private void callGetBannerBogasari() {
+        new ResourcePresenter(this).getBannerBogasari("Ambil Data Bogasari");
+    }
+
     @OnClick(R.id.loadButton)
     public void onLoadButton(View view) {
-        callSources();
+//        callSources();
+        callGetBannerBogasari();
     }
 
     // handle response method

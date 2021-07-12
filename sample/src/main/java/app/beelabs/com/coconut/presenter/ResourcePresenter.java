@@ -110,6 +110,16 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                 }.setDialogType(dialogType).setEnableCoconutAlertConnection(true));
     }
 
+    public void getBannerBogasari(String messageLoading) {
+        new ResourceDao(this).getBannerBogasari()
+                .subscribe(new RxObserver<BaseResponse>(iView, messageLoading) {
+                    @Override
+                    public void onNext(Object o) {
+                        super.onNext(o);
+                    }
+                }.setDialogType(RxObserver.DialogTypeEnum.DEFAULT));
+    }
+
     @Override
     public void uploadFile(String noteVal, String startTimeVal, String endTimeVal,
                            String startDateVal, String endDateVal,

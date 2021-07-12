@@ -14,6 +14,7 @@ import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.codebase.base.BaseApi;
+import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.interceptor.RSAInterceptor;
 import io.reactivex.Observable;
 import okhttp3.Interceptor;
@@ -38,23 +39,35 @@ public class Api extends BaseApi {
         return map;
     }
 
+    private static Map<String, String> initHeaderBogasari() {
+        Map<String, String> map = new HashMap<>();
+//        map.put("Token", "eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjoxLCJlbWFpbCI6InJhbmlhQGNsYXBwaW5nYXBlLmNvbSIsInBsYXRmb3JtIjoid2Vic2l0ZSIsImtleSI6IjdYdk0xYmJuc3I3V0VjbU9ubFNjTnpvcElnMm5MQStjbld5SDc0Z1oiLCJ0aW1lc3RhbXAiOiIyMDE4LTExLTA2IDExOjI0OjQwICswNzAwIn0.wSPAcZJV8VBUSG8DAp_laovF7dFDhLxVJGQZmmDs3PsEz6SBn7FE2qF7k1UoY5Qq30wqjTDZAho1a55Yy2Fctg");
+//        map.put("Platform", "website");
+        map.put("Cache-Control", "no-store");
+        map.put("Content-Type", "application/json");
+
+        return map;
+    }
+
 
     synchronized private static ApiService initApiDomain() {
         return (ApiService) getInstance()
-                .setupApiDomain(IConfig.API_BASE_URL, App.getAppComponent(),
+                .setupApiDomain(IConfig.API_BOGASARI, App.getAppComponent(),
                         ApiService.class,
                         true,
                         app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG,
-                        new Interceptor[]{
-                                new RSAInterceptor()},
-                        new Interceptor[]{
-                                new RSAInterceptor()});
+//                        new Interceptor[]{
+//                                new RSAInterceptor()},
+                        null,null
+//                        new Interceptor[]{
+//                                new RSAInterceptor()}
+                                );
 
     }
 
     synchronized private static ApiService initApiDomain2() {
         getInstance().setApiDomain(IConfig.API_BASE_URL2);
-        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, true, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG);
+        return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class, false, app.beelabs.com.codebase.IConfig.TIMEOUT_SHORT_INSECOND, BuildConfig.IS_DEBUG);
     }
 
     synchronized private static ApiService initApiDomain3() {
@@ -79,6 +92,10 @@ public class Api extends BaseApi {
 
     synchronized public static Observable<SourceResponse> doApiRXSources() {
         return initApiDomain2().callApiRXSources("en");
+    }
+
+    synchronized public static Observable<BaseResponse> doApiBannerBogasari() {
+        return initApiDomain().callApiBannerBogasari(initHeaderBogasari());
     }
 
 
