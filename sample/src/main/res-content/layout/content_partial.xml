@@ -12,7 +12,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:text="VolteRounded Font X"
-        android:textAppearance="@style/GelPenFontStyle"
+        android:textAppearance="@style/VolteRoundedFontStyle"
         android:textColor="@color/color_white" />
 
     <TextView

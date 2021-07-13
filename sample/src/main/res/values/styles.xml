@@ -6,16 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/gelpen</item>
     </style>
 
     <style name="GelPenFontStyle" parent="android:TextAppearance">
         <!-- Custom Attr-->
-        <item name="fontPath">fonts/GelPen.ttf</item>
+        <item name="android:fontFamily">@font/gelpen</item>
     </style>
 
     <style name="VolteRoundedFontStyle" parent="android:TextAppearance">
         <!-- Custom Attr-->
-        <item name="fontPath">fonts/VolteRounded-Bold.otf</item>
+        <item name="android:fontFamily">@font/volte_rounded_bold</item>
     </style>
 
 </resources>
