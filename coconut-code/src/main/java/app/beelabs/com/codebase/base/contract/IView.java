@@ -7,10 +7,8 @@ public interface IView {
     BaseActivity getCurrentActivity();
 
     void handleSuccess(BaseResponse response);
-    void handleErrorResponse(BaseResponse response);
-
-    void handleError(String message);
-
     void handleReconnection();
+    void handleErrorResponse(BaseResponse response);
+    void handleError(String message);
 
 }

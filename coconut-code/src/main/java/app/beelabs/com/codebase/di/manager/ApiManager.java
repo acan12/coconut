@@ -17,10 +17,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class ApiManager extends BaseManager implements IApi {
     private Object api;
 
-    @Override
-    public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp) {
-        return initApiService(apiDomain, allowUntrusted, clazz, timeout, enableLoggingHttp, null, null);
-    }
+//    @Override
+//    public Object initApiService(String apiDomain, boolean allowUntrusted, Class<IApiService> clazz, int timeout, boolean enableLoggingHttp) {
+//        return initApiService(apiDomain, allowUntrusted, clazz, timeout, enableLoggingHttp, null, null);
+//    }
 
     @Override
     public Object initApiService(String apiDomain,

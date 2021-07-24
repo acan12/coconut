@@ -6,17 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import java.io.IOException;
-import java.security.cert.CertificateException;
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import app.beelabs.com.codebase.base.exception.NoConnectivityException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -83,7 +74,7 @@ public class BaseManager {
         @Override
         public Response intercept(Chain chain) throws IOException {
             if (!isConnected()) {
-                throw new NoConnectivityException();
+//                throw new NoConnectivityException();
                 // Throwing our custom exception 'NoConnectivityException'
             }
 
@@ -92,7 +83,7 @@ public class BaseManager {
         }
 
         @SuppressLint("MissingPermission")
-        public boolean isConnected(){
+        public boolean isConnected() {
             ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
             return (netInfo != null && netInfo.isConnected());

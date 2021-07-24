@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
+import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
@@ -147,9 +148,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
 
     //--- end ----
 
-    @Override
-    public void handleError(String message) {
-    }
+
 
     @Override
     public BaseActivity getCurrentActivity() {
@@ -157,7 +156,14 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
     @Override
-    public void handleRetryConnection() {
+    public void handleSuccess(BaseResponse response) { }
 
-    }
+    @Override
+    public void handleReconnection() { }
+
+    @Override
+    public void handleErrorResponse(BaseResponse response) { }
+
+    @Override
+    public void handleError(String message) { }
 }

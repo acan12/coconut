@@ -1,10 +1,7 @@
 package app.beelabs.com.codebase.support.rx;
 
-import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
-import app.beelabs.com.codebase.base.exception.NoConnectivityException;
 import app.beelabs.com.codebase.base.response.BaseResponse;
-import app.beelabs.com.codebase.component.CoconutAlertInternetConnection;
 import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import io.reactivex.Observer;
@@ -15,7 +12,6 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     private String messageLoading;
     private long timeMilis;
     private int dialogType;
-    private boolean isEnable;
 
     public interface DialogTypeEnum {
         int DEFAULT = 0;
@@ -41,15 +37,6 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     public RxObserver setDialogType(int dialogType) {
         this.dialogType = dialogType;
         return this;
-    }
-
-    public RxObserver setEnableCoconutAlertConnection(boolean isEnable) {
-        this.isEnable = isEnable;
-        return this;
-    }
-
-    public void enableAlertInternetLostConnection(boolean isEnable) {
-        this.isEnable = isEnable;
     }
 
     @Override
@@ -81,11 +68,9 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
 
 //        if ((e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof IOException) && isEnable) {
-        if (e instanceof NoConnectivityException){
-
-        }
-
-
+//            CoconutAlertInternetConnection.show(
+//                    iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
+//        }
     }
 
     @Override

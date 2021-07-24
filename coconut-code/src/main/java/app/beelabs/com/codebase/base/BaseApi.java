@@ -24,34 +24,49 @@ public class BaseApi {
         return baseApi;
     }
 
-    public String getApiDomain() {
-        return apiDomain;
-    }
+//    public String getApiDomain() {
+//        return apiDomain;
+//    }
+//
+//    public void setApiDomain(String apiDomain) {
+//        this.apiDomain = apiDomain;
+//    }
 
-    public void setApiDomain(String apiDomain) {
-        this.apiDomain = apiDomain;
-    }
-
-    public Object setupApi(AppComponent appComponent, Class clazz, boolean enableLoggingHttp) {
-        return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND, enableLoggingHttp);
-    }
-
-
-    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp) {
-        IApi api = appComponent.getApi();
-
-        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout, enableLoggingHttp);
-    }
+//    public Object setupApi(AppComponent appComponent, Class clazz, boolean enableLoggingHttp) {
+//        return setupApi(appComponent, clazz, false, IConfig.TIMEOUT_SHORT_INSECOND, enableLoggingHttp);
+//    }
 
 
-    public Object setupApiDomain(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp) {
+//    public Object setupApi(AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp) {
+//        IApi api = appComponent.getApi();
+//
+//        return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout, enableLoggingHttp);
+//    }
+
+
+//    public Object setupApiDomain(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp) {
+//        this.apiDomain = domain;
+//        return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout, enableLoggingHttp);
+//    }
+
+    public Object setupApiDomain(
+            String domain,
+            AppComponent appComponent,
+            Class clazz,
+            boolean allowUntrusted,
+            int timeout,
+            boolean enableLoggingHttp,
+            Interceptor[] customInterceptor,
+            Interceptor[] networkInterceptors) {
         this.apiDomain = domain;
-        return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout, enableLoggingHttp);
-    }
-
-    public Object setupApiDomain(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp, Interceptor[] interceptors, Interceptor[] networkInterceptors) {
-        this.apiDomain = domain;
-        return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout, enableLoggingHttp, interceptors, networkInterceptors);
+        return appComponent.getApi().initApiService(
+                domain,
+                allowUntrusted,
+                clazz,
+                timeout,
+                enableLoggingHttp,
+                customInterceptor,
+                networkInterceptors);
     }
 }
 

@@ -1,5 +1,1 @@
-<manifest package="app.beelabs.com.codebase" >
-
-    <uses-permission name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission name="android.permission.ACCESS_NETWORK_STATE" />
-</manifest>
+<manifest package="app.beelabs.com.codebase" />
