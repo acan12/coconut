@@ -53,7 +53,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                         super.onError(e);
                         Toast.makeText(iView.getCurrentActivity(), "testing override error api", Toast.LENGTH_SHORT).show();
                     }
-                }.setDialogType(RxObserver.DialogTypeEnum.SPINKIT).setEnableCoconutAlertConnection(true));
+                }.setDialogType(RxObserver.DialogTypeEnum.SPINKIT));
 
     }
 
@@ -107,7 +107,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                         else if (iView instanceof ISecondView)
                             ((ISecondView) iView).handleDataSource((SourceResponse) o);
                     }
-                }.setDialogType(dialogType).setEnableCoconutAlertConnection(true));
+                }.setDialogType(dialogType));
     }
 
     public void getBannerBogasari(String messageLoading) {

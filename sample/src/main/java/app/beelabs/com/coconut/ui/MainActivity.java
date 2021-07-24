@@ -33,10 +33,10 @@ public class MainActivity extends BaseActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        callSources();
+        callSources();
 
         setupStatusBarStyle(Color.GREEN,true, this);
-        showFragment(new MainFragment(), R.id.container, true);
+//        showFragment(new MainFragment(), R.id.container, true);
     }
 
     private void callSources() {

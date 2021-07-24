@@ -66,9 +66,8 @@ _Coconut framework library for android_
 ```
 dependencies {
 		implementation 'com.github.acan12:coconut:v1.0.11'
-		implementation 'com.google.dagger:dagger:2.4'        
-		annotationProcessor "com.google.dagger:dagger-compiler:2.4"
-		implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+		implementation 'com.google.dagger:dagger:2.37'        
+		annotationProcessor "com.google.dagger:dagger-compiler:2.37"
 		implementation 'com.github.ybq:Android-SpinKit:1.2.0'
 		...
 		
@@ -90,11 +89,6 @@ dependencies {
             super.onCreate();
             context = getApplicationContext();
             setupBuilder(DaggerAppComponent.builder(), this);
-            
-            // optional setup custom font path,
-            // make sure put font file under main/assets/fonts/
-            setupDefaultFont("fonts/SF-Pro-Display-Black.otf");  
-            
         }
     
         public static AppComponent getAppComponent() {
