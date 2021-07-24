@@ -267,11 +267,18 @@ dependencies {
 ```
     
 Change Log Version:
+- `[2.3.0-rc.8]` :
+    * support listOf custom interceptor and network interceptor with Retrofit 2
+    * remove dependencies with callygraphy
+    * upgrade dagger 2.37 version
+    * improve setup no internet exception handler include default UI
+    * add handleSsuccess inside IView interface as base interface UI
+    
 - `[2.3.0-rc.5]` :
     * support multiple interceptor include network interceptor
     * support for OkHttp version 4.9.0
     * remove setup RootView
-    * remove setup CurrentActiv
+    * remove setup CurrentActivity
     * custom interceptor for Retrofit
     * support callygraphy version 3
     

@@ -1,11 +1,8 @@
 package app.beelabs.com.codebase.support.rx;
 
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
+import app.beelabs.com.codebase.base.exception.NoConnectivityException;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutAlertInternetConnection;
 import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
@@ -83,10 +80,12 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
 
-        if ((e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof IOException) && isEnable) {
-            CoconutAlertInternetConnection.show(
-                    iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
+//        if ((e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof IOException) && isEnable) {
+        if (e instanceof NoConnectivityException){
+
         }
+
+
     }
 
     @Override

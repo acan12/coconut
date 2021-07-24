@@ -12,15 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.WindowManager;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 
@@ -38,7 +35,7 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
             if (lightOn) {
                 activity.getWindow().getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
-            if(statusBarColor != 0) activity.getWindow().setStatusBarColor(statusBarColor);
+            if (statusBarColor != 0) activity.getWindow().setStatusBarColor(statusBarColor);
         }
     }
 
@@ -74,30 +71,15 @@ public class BaseActivity extends AppCompatActivity implements IView, ComponentC
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        //Implement this for api 28 and below
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
-        }
-        //Or implement this for api 29 and above
-        else {
-            super.attachBaseContext(newBase);
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         bManager.unregisterReceiver(broadcastReceiver);
 
         FragmentManager fm = getSupportFragmentManager();
         int backStackCount = fm.getBackStackEntryCount();
-        if (backStackCount > 1) {
-            fm.popBackStack();
-        } else {
-            fm.popBackStack();
+        fm.popBackStack();
+        if (backStackCount <= 1) {
             super.onBackPressed();
         }
-
     }
 
     public void showFragment(Fragment fragment, int fragmentResourceID) {
