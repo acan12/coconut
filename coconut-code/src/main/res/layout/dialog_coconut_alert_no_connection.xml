@@ -2,24 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/color_white">
 
     <ImageView
         android:id="@+id/coconut_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/coconut_message"
         android:src="@drawable/no_wifi_image" />
 
     <TextView
         android:id="@+id/coconut_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/coconut_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
+        android:layout_centerInParent="true"
         android:text="@string/coconut_internet_fail_message"
         android:textColor="@color/color_black"
         android:textSize="16sp"

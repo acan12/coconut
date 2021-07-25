@@ -1,21 +1,16 @@
 package app.beelabs.com.coconut.presenter;
 
-import android.widget.Toast;
-
 import java.io.File;
 
 import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
-import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.model.dao.ResourceDao;
 import app.beelabs.com.coconut.ui.IMainView;
 import app.beelabs.com.coconut.ui.ISecondView;
-import app.beelabs.com.coconut.ui.fragment.IMainFragmentView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.support.rx.RxObserver;
-import io.reactivex.disposables.Disposable;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
 
@@ -36,6 +31,12 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                             ((IMainView) iView).handleSuccess((SourceResponse) o);
                         else if (iView instanceof ISecondView)
                             ((ISecondView) iView).handleDataSource((SourceResponse) o);
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
                     }
                 }.setDialogType(dialogType));
     }

@@ -1,16 +1,12 @@
 package app.beelabs.com.codebase.base;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import app.beelabs.com.codebase.base.exception.NoConnectivityException;
+import app.beelabs.com.codebase.base.service.WifiConnectionService;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -47,6 +43,9 @@ public class BaseManager {
             httpClient.addInterceptor(logging);
         }
 
+        // default interceptor
+        httpClient.addInterceptor(new ConnectivityInterceptor());
+
         // Pre-Interceptor
         if (customInterceptors != null) {
             for (Interceptor interceptor : customInterceptors) {
@@ -63,31 +62,18 @@ public class BaseManager {
         return httpClient.build();
     }
 
-    public class NetworkConnectionInterceptor implements Interceptor {
 
-        private Context mContext;
-
-        public NetworkConnectionInterceptor(Context context) {
-            mContext = context;
-        }
+    public class ConnectivityInterceptor implements Interceptor {
 
         @Override
-        public Response intercept(Chain chain) throws IOException {
-            if (!isConnected()) {
-//                throw new NoConnectivityException();
-                // Throwing our custom exception 'NoConnectivityException'
+        public Response intercept(Interceptor.Chain chain) throws IOException {
+            if (!WifiConnectionService.getInstance().isConnected()) {
+                throw new NoConnectivityException();
+            } else {
+                Response response = chain.proceed(chain.request());
+                return response;
             }
-
-            Request.Builder builder = chain.request().newBuilder();
-            return chain.proceed(builder.build());
         }
-
-        @SuppressLint("MissingPermission")
-        public boolean isConnected() {
-            ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-            return (netInfo != null && netInfo.isConnected());
-        }
-
     }
+
 }

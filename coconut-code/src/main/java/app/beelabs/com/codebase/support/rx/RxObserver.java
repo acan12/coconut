@@ -1,7 +1,10 @@
 package app.beelabs.com.codebase.support.rx;
 
+import app.beelabs.com.codebase.base.BaseDialog;
 import app.beelabs.com.codebase.base.contract.IView;
+import app.beelabs.com.codebase.base.exception.NoConnectivityException;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.component.dialog.CoconutAlertNoConnectionDialog;
 import app.beelabs.com.codebase.component.dialog.ProgressDialogComponent;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import io.reactivex.Observer;
@@ -67,6 +70,10 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         ProgressDialogComponent.dismissProgressDialog(iv.getCurrentActivity());
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
 
+        if (e instanceof NoConnectivityException) {
+            BaseDialog dialog = new CoconutAlertNoConnectionDialog(iv);
+            dialog.show();
+        }
 //        if ((e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof IOException) && isEnable) {
 //            CoconutAlertInternetConnection.show(
 //                    iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);

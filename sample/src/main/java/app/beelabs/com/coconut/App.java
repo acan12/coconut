@@ -1,5 +1,7 @@
 package app.beelabs.com.coconut;
 
+import android.content.Context;
+
 import app.beelabs.com.codebase.base.BaseApp;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import app.beelabs.com.codebase.di.component.DaggerAppComponent;

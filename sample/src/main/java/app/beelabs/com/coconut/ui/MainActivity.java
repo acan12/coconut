@@ -2,17 +2,17 @@ package app.beelabs.com.coconut.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.beelabs.com.coconut.R;
+import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class MainActivity extends BaseActivity implements IMainView {
@@ -33,17 +33,19 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     private void callSources() {
-        new ResourcePresenter(this).getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.SPINKIT);
+        new ResourcePresenter(this).getSourceRX("Ambil Data", RxObserver.DialogTypeEnum.DEFAULT);
     }
 
-    @OnClick(R.id.loadButton)
-    public void onLoadButton(View view) {
-//        callSources();
-    }
+//    @OnClick(R.id.loadButton)
+//    public void onLoadButton(View view) {
+////        callSources();
+//    }
 
     @Override
     public void handleSuccess(BaseResponse response) {
-
+        SourceResponse model = (SourceResponse) response;
+        word.setText("Source Data :" + model.getSources().size());
+        Toast.makeText(this, "Source Data :" + model.getSources().size(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
