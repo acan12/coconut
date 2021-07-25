@@ -36,10 +36,10 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
         return layout;
     }
 
-    @OnClick(R.id.fragment2Button)
-    public void onSwithFragment(View view){
-        ((BaseActivity) getActivity()).showFragment(new MainFragment(), R.id.container, true);
-    }
+//    @OnClick(R.id.fragment2Button)
+//    public void onSwithFragment(View view){
+//        ((BaseActivity) getActivity()).showFragment(new MainFragment(), R.id.container, true);
+//    }
 
 //    private void doSecondWay() {
 //        ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).postPhoneNumber("081212341212");
@@ -56,7 +56,5 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
     public void handleError(String message) {
         Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
     }
-
-
 
 }

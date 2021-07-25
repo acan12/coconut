@@ -2,6 +2,7 @@ package app.beelabs.com.codebase.base;
 
 import android.app.Application;
 
+import app.beelabs.com.codebase.base.service.WifiConnectionService;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import app.beelabs.com.codebase.di.component.DaggerAppComponent;
 import app.beelabs.com.codebase.di.module.ApiServiceModule;
@@ -22,5 +23,9 @@ public class BaseApp extends Application {
         component = builder.appModule(new AppModule(app))
                 .apiServiceModule(new ApiServiceModule(app))
                 .build();
+
+        WifiConnectionService.getInstance().initializeConnection(app.getApplicationContext());
     }
+
+
 }

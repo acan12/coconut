@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import app.beelabs.com.codebase.R;
 import app.beelabs.com.codebase.base.contract.IView;
+import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.dialog.SpinKitLoadingDialogComponent;
 import app.beelabs.com.codebase.di.IProgress;
 import app.beelabs.com.codebase.di.component.AppComponent;
@@ -14,7 +15,6 @@ import app.beelabs.com.codebase.di.component.AppComponent;
  */
 
 public abstract class BaseFragment extends Fragment implements IView {
-
 
     @Deprecated
     protected void showApiProgressDialog(AppComponent appComponent, BasePresenter presenter) {
@@ -48,11 +48,14 @@ public abstract class BaseFragment extends Fragment implements IView {
     }
 
     @Override
-    public void handleError(String message) {
-    }
+    public void handleSuccess(BaseResponse response) { }
 
     @Override
-    public void handleRetryConnection() {
+    public void handleReconnection() { }
 
-    }
+    @Override
+    public void handleErrorResponse(BaseResponse response) { }
+
+    @Override
+    public void handleError(String message) { }
 }

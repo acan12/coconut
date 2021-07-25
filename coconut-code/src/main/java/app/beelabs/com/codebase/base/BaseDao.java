@@ -23,7 +23,6 @@ public class BaseDao implements IDao {
 
     public BaseDao(IDao dao) {
         this.dao = dao;
-
     }
 
     private BaseDao(IDao dao, BasePresenter bp, int keyCallback) {
@@ -55,26 +54,15 @@ public class BaseDao implements IDao {
     }
 
     @Override
-    public void onApiResponseCallback(BaseResponse br, int responseCode, Response response) {
-
+    public void onApiResponseCallback(
+            BaseResponse br,
+            int responseCode,
+            Response response) {
     }
 
     @Override
     public void onApiFailureCallback(String message) {
-        // --- default callback if not defined on child class --
-//        try {
-//            Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show();
-//            Log.e("Message:", message);
-//
-//
-//            if (((BaseActivity) iView).getContentView() != null)
-//                showSnackbar(((BaseActivity) iView).getContentView(), getResources().getString(R.string.coconut_internet_fail_message), Snackbar.LENGTH_INDEFINITE).show();
-//        } catch (Exception e) {
-//            Log.e("", e.getMessage());
-//        }
-
     }
-
 
     public void onResponseCallback(Response response, IDao dao, int responseCode) {
         bp.done();

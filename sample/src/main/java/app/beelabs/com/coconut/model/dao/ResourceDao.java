@@ -3,7 +3,6 @@ package app.beelabs.com.coconut.model.dao;
 import java.io.File;
 
 import app.beelabs.com.coconut.model.api.Api;
-import app.beelabs.com.coconut.model.api.response.ProfileResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
@@ -30,12 +29,6 @@ public class ResourceDao extends BaseDao {
     // definition usecase
     public interface IResourceDao extends IDaoPresenter {
 
-        void postPhoneNumber(String phone);
-
-        void getProfileRX();
-
-        void getSource();
-
         void getSourceRX(String messageLoading, int dialogType);
 
         void uploadFile(String noteVal,
@@ -45,7 +38,6 @@ public class ResourceDao extends BaseDao {
                         String endDateVal,
                         String employeeIdVal,
                         File file);
-
 
     }
 
@@ -58,32 +50,10 @@ public class ResourceDao extends BaseDao {
         this.onPresenterResponseCallback = onPresenterResponseCallback;
     }
 
-
-    public Observable<ProfileResponseModel> getProfileRxDAO() {
-        return Api.doApiProfile().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
-
-    public void getSourceDAO() {
-        Api.doApiSources(BaseDao.getInstance(this, rdao.getPresenter(), KEY_CALLER_API_SOURCE).callback);
-    }
-
     public Observable<SourceResponse> getSourceRXDAO() {
         return Api.doApiRXSources().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
-    public Observable<BaseResponse> getBannerBogasari() {
-        return Api.doApiBannerBogasari().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
-
-//    public void getArticleDAO(Context context, Callback callback) {
-//        Database db = Database.initDatabase(context);
-//        db.saveToRealm()
-//    }
 
     public Observable<SummaryResponse> postPhoneNumber(String phone) {
         return Api.doRXTestFin(phone).subscribeOn(Schedulers.io())
