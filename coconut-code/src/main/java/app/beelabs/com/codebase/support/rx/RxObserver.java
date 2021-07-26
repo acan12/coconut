@@ -71,7 +71,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
 
         if (e instanceof NoConnectivityException) {
-            BaseDialog dialog = new CoconutAlertNoConnectionDialog(iv);
+            BaseDialog dialog = new CoconutAlertNoConnectionDialog(iv.getCurrentActivity());
             dialog.show();
         }
 //        if ((e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof IOException) && isEnable) {
