@@ -73,6 +73,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         if (e instanceof NoConnectivityException) {
             BaseDialog dialog = new CoconutAlertNoConnectionDialog(iv.getCurrentActivity());
             dialog.show();
+            return;
         }
     }
 
