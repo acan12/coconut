@@ -74,10 +74,6 @@ public class RxObserver<P extends BaseResponse> implements Observer {
             BaseDialog dialog = new CoconutAlertNoConnectionDialog(iv.getCurrentActivity());
             dialog.show();
         }
-//        if ((e instanceof ConnectException || e instanceof SocketTimeoutException || e instanceof IOException) && isEnable) {
-//            CoconutAlertInternetConnection.show(
-//                    iv.getCurrentActivity().getResources().getString(R.string.coconut_internet_fail_message), iv);
-//        }
     }
 
     @Override
