@@ -15,6 +15,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     private String messageLoading;
     private long timeMilis;
     private int dialogType;
+    private static BaseDialog dialogNoconnection;
 
     public interface DialogTypeEnum {
         int DEFAULT = 0;
@@ -71,8 +72,10 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
 
         if (e instanceof NoConnectivityException) {
-            BaseDialog dialog = new CoconutAlertNoConnectionDialog(iv.getCurrentActivity());
-            dialog.show();
+            if(dialogNoconnection.isShowing()) dialogNoconnection.dismiss();
+
+            dialogNoconnection = new CoconutAlertNoConnectionDialog(iv.getCurrentActivity());
+            dialogNoconnection.show();
             return;
         }
     }
