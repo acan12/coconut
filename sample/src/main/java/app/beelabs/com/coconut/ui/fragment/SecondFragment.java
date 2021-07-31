@@ -1,7 +1,7 @@
 package app.beelabs.com.coconut.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +10,7 @@ import android.widget.Toast;
 
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.SummaryResponse;
-import app.beelabs.com.coconut.presenter.ResourcePresenter;
-import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseFragment;
-import app.beelabs.com.codebase.base.BasePresenter;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 
 /**
  * Created by arysuryawan on 8/21/17.
@@ -32,7 +26,6 @@ public class SecondFragment extends BaseFragment implements IMainFragmentView {
         layout = inflater.inflate(R.layout.fragment_second, container, false);
 //        doSecondWay();
 
-        ButterKnife.bind(this, layout);
         return layout;
     }
 

@@ -11,21 +11,16 @@ import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.support.rx.RxObserver;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class MainActivity extends BaseActivity implements IMainView {
 
-    @BindView(R.id.word)
-    TextView word;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         callSources();
 
         setupStatusBarStyle(Color.GREEN, true, this);
@@ -44,7 +39,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     @Override
     public void handleSuccess(BaseResponse response) {
         SourceResponse model = (SourceResponse) response;
-        word.setText("Source Data :" + model.getSources().size());
+        ((TextView)findViewById(R.id.word)).setText("Source Data :" + model.getSources().size());
         Toast.makeText(this, "Source Data :" + model.getSources().size(), Toast.LENGTH_SHORT).show();
     }
 

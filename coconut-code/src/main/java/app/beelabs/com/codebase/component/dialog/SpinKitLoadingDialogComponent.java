@@ -2,7 +2,7 @@ package app.beelabs.com.codebase.component.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.TextView;
 
