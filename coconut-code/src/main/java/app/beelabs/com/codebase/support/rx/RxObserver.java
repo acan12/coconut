@@ -1,10 +1,6 @@
 package app.beelabs.com.codebase.support.rx;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
 
 import app.beelabs.com.codebase.base.BaseDialog;
 import app.beelabs.com.codebase.base.contract.IView;
@@ -90,11 +86,11 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     }
 
-    public Object tryParsingErrorResponse(Throwable e) {
+    public Object tryParsingError(Throwable e) {
         try {
             HttpException error = (HttpException) e;
             String message = "Error network connection";
-            if (!error.message().isEmpty()) message = error.message();
+            if (error.message() != null) message = error.message();
             String jsonResponse =
                     "{\"meta\":{\"status\":false,\"code\":${error.code()},\"message\":\"${message}\"},\"data\":null}";
             ObjectMapper objMapper = new ObjectMapper();

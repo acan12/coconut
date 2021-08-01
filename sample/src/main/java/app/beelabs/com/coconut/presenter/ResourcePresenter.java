@@ -38,7 +38,7 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        ErrorResponse eResponse = (ErrorResponse) tryParsingErrorResponse(e);
+                        ErrorResponse eResponse = (ErrorResponse) tryParsingError(e);
 
                     }
                 }.setDialogType(dialogType));

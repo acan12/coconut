@@ -263,7 +263,6 @@ dependencies {
 Change Log Version:
 - `[2.3.0-rc.13]` :
     * support sharePreference security provided by androidX
-    * ErrorResponse from throwable object
     * Convertor Json to String and String to Json 
     
 - `[2.3.0-rc.8]` :
