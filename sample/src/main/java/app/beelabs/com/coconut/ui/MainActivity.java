@@ -5,26 +5,28 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.ResourcePresenter;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.support.rx.RxObserver;
+import app.beelabs.com.codebase.support.util.CacheUtil;
 
 
 public class MainActivity extends BaseActivity implements IMainView {
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        callSources();
-
         setupStatusBarStyle(Color.GREEN, true, this);
 //        showFragment(new MainFragment(), R.id.container, true);
+
+        CacheUtil.putPreferenceString(IConfig.KEY_CACHE, "Testing cache security", this);
+        callSources();
     }
 
     private void callSources() {
@@ -39,8 +41,9 @@ public class MainActivity extends BaseActivity implements IMainView {
     @Override
     public void handleSuccess(BaseResponse response) {
         SourceResponse model = (SourceResponse) response;
-        ((TextView)findViewById(R.id.word)).setText("Source Data :" + model.getSources().size());
-        Toast.makeText(this, "Source Data :" + model.getSources().size(), Toast.LENGTH_SHORT).show();
+        ((TextView) findViewById(R.id.word)).setText("Source Data :" + model.getSources().size());
+//        Toast.makeText(this, "Source Data :" + model.getSources().size(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Cache : " + CacheUtil.getPreferenceString(IConfig.KEY_CACHE, this), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -10,6 +10,7 @@ import app.beelabs.com.coconut.ui.ISecondView;
 import app.beelabs.com.codebase.base.BasePresenter;
 import app.beelabs.com.codebase.base.contract.IView;
 import app.beelabs.com.codebase.base.response.BaseResponse;
+import app.beelabs.com.codebase.base.response.ErrorResponse;
 import app.beelabs.com.codebase.support.rx.RxObserver;
 
 public class ResourcePresenter extends BasePresenter implements ResourceDao.IResourceDao {
@@ -37,6 +38,8 @@ public class ResourcePresenter extends BasePresenter implements ResourceDao.IRes
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        ErrorResponse eResponse = (ErrorResponse) tryParsingErrorResponse(e);
+
                     }
                 }.setDialogType(dialogType));
     }

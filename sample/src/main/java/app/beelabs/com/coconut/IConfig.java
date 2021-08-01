@@ -23,4 +23,5 @@ public interface IConfig {
     int REQUEST_CODE_CAMERA_RESULT = 1;
 
     int KEY_CALLER_API_SUMMARY = 10;
+    String KEY_CACHE = "cache";
 }
